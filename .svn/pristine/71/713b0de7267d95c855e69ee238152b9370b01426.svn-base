@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="test">
+	<select id="select_use_yn">
+		select
+		    parkinfo_seq
+		from
+		    parkinfo
+		where
+		    parkinfo_use_yn='y'
+	</select>
+
+	<select id="select">
+		select 
+			parkinfo_seq, 
+			parkinfo_ticket_yn, 
+			parkinfo_book_yn,
+			parkinfo_use_yn
+		from 
+			parkinfo
+		where 
+			parkinfo_seq =:1
+	</select>
+	
+	<select id="select_list">
+		select 
+			parkinfo_seq, 
+			parkinfo_ticket_yn, 
+			parkinfo_book_yn,
+			parkinfo_use_yn
+		from 
+			parkinfo
+		where 
+			parkinfo_ticket_yn ='y'
+	</select>
+	
+	<update id="update">
+		update 
+			parkinfo 
+		set 
+			parkinfo_ticket_yn			=:1, 
+			parkinfo_book_yn			=:2, 
+			parkinfo_use_yn				=:3 
+		where 
+			parkinfo_seq =:4
+	</update>
+	
+	<update id="update_refund">
+		update 
+			parkinfo 
+		set 
+			parkinfo_ticket_yn			='n', 
+			parkinfo_use_yn				='n' 
+		where 
+			parkinfo_seq =:1
+	</update>
+</mapper>

@@ -1,0 +1,82 @@
+{% extends 'layout_ticket.html' %}
+<meta charset="UTF-8">
+
+{% block content %}
+<script type="text/javascript">
+		$(document).ready(function(){
+			
+		});
+
+		function pay(){
+			alert(frm)
+			document.frm.submit();
+		}
+
+</script>
+
+
+<style>
+	button {
+		width: 300px;
+		height: 500px;
+		font-size: 30px; 
+		border-radius:50px;
+		box-shadow: 5px 5px 5px 5px #dae2e3 ;
+	}
+	#btn_one{
+		background-color:#cffc03;
+	}
+	#btn_tre{
+		background-color:#3277a8;
+	}
+	#btn_six{
+		background-color:#fc036f;
+	}
+</style>
+  
+<!-- Main -->
+<section id="main">
+	<div class="container">
+		<!-- Content -->
+			<article class="box post">
+				<header>
+					<h2>정기권 구매</h2>
+				</header>
+					<div>
+						<table>
+							<tr>
+								<td>
+									<form name="frm" action="k_buy_api" method="post"  enctype="multipart/form-data">
+										<input type="hidden" name="prod_code" value="{{list[0].prod_code}}">
+										<input type="hidden" name="prod_price" value="{{list[0].prod_price}}">
+										<input type="hidden" name="prod_name" value="{{list[0].prod_name}}">
+										<button id='btn_one' onclick="pay()" ><p>{{list[0].prod_name}}</p><br>구매<br><br><br><p>{{list[0].prod_price}}원</p></button>
+									</from>
+								</td>
+								<td>
+									<form name="frm" action="k_buy_api" method="post"  enctype="multipart/form-data">
+										<input type="hidden" name="prod_code" value="{{list[1].prod_code}}">
+										<input type="hidden" name="prod_price" value="{{list[1].prod_name}}">
+										<input type="hidden" name="prod_name" value="{{list[1].prod_name}}">
+										<button id='btn_tre' onclick="pay()"><p>{{list[1].prod_name}}</p><br>구매<br><br><br><p>{{list[1].prod_price}}원</p></button>
+									</from>
+								</td>
+								<td>
+									<form name="frm" action="k_buy_api" method="post"  enctype="multipart/form-data">
+										<input type="hidden" name="prod_code" value="{{list[2].prod_code}}">
+										<input type="hidden" name="prod_price" value="{{list[2].prod_price}}">
+										<input type="hidden" name="prod_name" value="{{list[2].prod_name}}">
+										<button id='btn_six' onclick="pay()"><p>{{list[2].prod_name}}</p><br>구매<br><br><br><p>{{list[2].prod_price}}원</p></button>
+									</from>
+								</td>
+							</tr>
+						
+						</table>
+					</div>
+			</article>
+	</div>
+</section>
+
+
+
+{% endblock %}

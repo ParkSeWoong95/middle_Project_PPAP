@@ -1,0 +1,374 @@
+{% extends 'layout_notice.html' %}
+<meta charset="UTF-8">
+{% block content %}
+<html>
+
+<style type="text/css">
+
+.notice_table{
+	margin-top : 0px;
+	border-bottom : 1px solid;
+}
+
+.notice_th{
+	border-bottom : 1px solid;
+	text-align: center;
+	font-weight: bold;
+	font-size: 28px;
+}
+
+.notice_td{
+	border-bottom : 1px solid;
+	text-align: center;
+}
+
+pre {
+	text-align: center;
+	overflow: auto;
+	white-space: pre-wrap;
+	padding : 60px 0 10px 0;
+}
+
+input[type="button"] {
+	background: black; 
+	font-size : 14px;
+}
+
+.button_box {
+	position: absolute;
+	left: 76%;
+	transform: translateX(-50%);
+}
+
+.button_box_right {
+	position: absolute;
+	left: 76%;
+	transform: translateX(-70%);
+}
+
+.comment {
+	border : 0px;
+	text-align: left;
+}
+
+.comment_td {
+	text-align: left;
+	border : 0px;
+}
+
+textarea {
+	font-size : 12px;
+	resize : none;
+	width : 98%;
+	height : 100px;
+}
+
+.notice_td:nth-child(1) {
+	width : 25%;
+}
+
+.notice_td:nth-child(2) {
+	width : 25%;
+}
+
+.notice_td:nth-child(3) {
+	width : 25%;
+}
+
+.notice_td:nth-child(4) {
+	width : 25%;
+}
+
+.detail_link, .detail_link:link, .detail_link:visited {
+	color: black;
+	text-decoration: none;
+}
+
+</style>
+
+<!-- Main -->
+<section id="main">
+	<div class="container">
+		<!-- Content -->
+		<article class="box post">
+			<header>
+				<br><br>
+				<h2 style='text-align:center; font-size:50px;'><a class="detail_link" href="b_free">자유게시판</a></h2>
+				<div>
+					<div class="button_box">
+					</div>
+				</div>
+			</header>
+			<br>
+			<section>
+			<table class="notice_table">
+				<tr>
+					<td class="notice_td">
+							
+						<input type="button" onclick="fn_free_list()" value="목록" style="float: left;">
+					</td>
+					<td class="notice_td" colspan="3">
+						<div class="button_box_right">
+						{% if free.mem_carnum==session.mem_carnum %}
+							<input type="button" value = "수정" onclick = "fn_free_mod('{{free.bfree_seq}}')">
+							<input type="button" value = "삭제" onclick = "fn_free_del('{{free.bfree_seq}}')">
+						{% endif %}
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td class="notice_th" colspan="4">{{free.bfree_title}}</td>
+				</tr>
+				<tr>
+					<td class="notice_td">No.{{free.bfree_seq}}</td>
+					<td class="notice_td">작성일 : {{free.in_date}}</td>
+					<td class="notice_td">작성자 : {{free.mem_carnum}}</td>
+					<td class="notice_td">조회수 : {{free.bfree_hit}}</td>
+				</tr>
+				<tr>
+					<td colspan="4">
+						<pre>
+{{free.bfree_content}}
+{% if free.bfree_filepath %}
+<img src="download?filename={{free.bfree_filename}}&filepath={{free.bfree_filepath}}" width = "800px">
+{% endif %}
+						</pre>
+					</td>
+				</tr>
+				
+				<tr">
+					<th style="text-align: center;">
+					첨부파일
+					</th>
+					<td colspan="3" style="text-align: left;">
+					{% if free.bfree_filename %}
+					<a href = 'download?filename={{free.bfree_filename}}&filepath={{free.bfree_filepath}}'>{{free.bfree_filename}}</a>
+					{% else %}
+					첨부파일없음	
+					{% endif %}
+					</td>
+								
+				</table>
+							
+				<table class="notice_table">
+					<tr>
+						<td colspan="2">
+							<textarea id = "cmt" rows="4" style="width:100"></textarea><br>
+							<input type="button" value="댓글등록" onclick = "fn_reply()">
+						</td>
+					</tr>
+				<!-- 댓글 한세트 시작-->
+				<tbody id = "tbody_reply"></tbody>
+				<!-- 댓글 한세트 끝-->
+				
+			</table>
+			</section>
+		</article>
+	</div>
+</section>
+
+<script>
+
+window.onload = function() {
+	showReply();
+}
+
+function fn_free_list() {
+	location.href = "b_free"				
+}
+
+function fn_free_del(n) {
+	if(!confirm("정말 게시글을 삭제하시겠습니까?")){
+		return
+	}
+	location.href = "b_free_del?bfree_seq="+n				
+}
+
+function fn_free_mod(n) {
+	location.href = "b_free_mod?bfree_seq="+n					
+}
+
+function showReply(){
+	var bfree_seq = "{{free.bfree_seq}}";
+	var cmt = $('#cmt').val("");
+	var param = "dummy=" + Math.random();
+	param += "&bfree_seq="+bfree_seq;
+	$.ajax({
+		url : 'reply_list.ajax',
+		data : param,
+		dataType : "json",
+		type : "post",
+		async: false,
+		statusCode : {
+			404 : function() {
+				alert("네트워크가 불안정합니다. 다시 시도부탁드립니다.");
+			}
+		},
+		success : function(data) {
+				var user_id = "{{session.mem_carnum}}";
+				var list = data.list
+				var txt = "";
+				for(var i = 0; i<list.length; i++){
+					txt +="<tr>"+"\n";
+					txt +=	"<td>"+"\n";
+					txt +=		""+list[i].cmt+"\n";
+					txt +=	"</td>"+"\n";
+					txt +=	"<td style='text-align:right; padding-right:5%;'>"+"\n";
+					txt +=		""+list[i].in_user_name+"\n";
+					txt +=		"<img src='img?file=V:/good.PNG' onclick='fn_reply_good("+list[i].r_seq+")'><span>"+list[i].good+"</span>"+"\n";
+					txt +=		"<img src='img?file=V:/bad.PNG' onclick='fn_reply_bad("+list[i].r_seq+")'><span>"+list[i].bad+"</span>"+"\n";
+					txt +=	"</td>"+"\n";
+					txt +=	"</tr>"+"\n";
+					
+					if (user_id == list[i].in_user_id){
+						txt +="<tr style='border-bottom : 1px solid;'>"+"\n";
+						txt +=	"<td>"+"\n";
+						txt +=		""+list[i].in_date+"\n";
+						
+						txt +=	"</td>"+"\n";
+						txt +=	"<td style='text-align:right; padding-right:5%;'>"+"\n";
+						txt +=		"<input type='button' value = '삭제' onclick = 'fn_reply_del("+list[i].r_seq+")'>"+"\n";
+						txt +=	"</td>"+"\n";
+						txt +="</tr>"+"\n";
+					} else {
+						txt +="<tr style='border-bottom : 1px solid;'>"+"\n";
+						txt +=	"<td colspan='2'>"+"\n";
+						txt +=		""+list[i].in_date+"\n";
+						
+						txt +=	"</td>"+"\n";
+						txt +="</tr>"+"\n";
+					}
+				}
+				$("#tbody_reply").html(txt);
+		}
+	});
+}
+
+function fn_reply(){
+	var bfree_seq = "{{free.bfree_seq}}";
+	var cmt = $('#cmt').val();
+	
+	if(cmt == "") {
+		alert("댓글을 입력해주세요.")
+		return;
+	}
+	
+	var param = "dummy=" + Math.random();
+	param += "&bfree_seq="+bfree_seq;
+	param += "&cmt="+cmt;
+	$.ajax({
+		url : 'reply_add.ajax',
+		data : param,
+		dataType : "json",
+		type : "post",
+		async: false,
+		statusCode : {
+			404 : function() {
+				alert("네트워크가 불안정합니다. 다시 시도부탁드립니다.");
+			}
+		},
+		success : function(data) {
+			if (data.msg=="ok") {
+				showReply();
+			} else if(data.msg=="ng") {
+				alert("추가 실패")
+			}
+		}
+	});
+}
+
+function fn_reply_del(n){
+	var flag_ok = confirm("삭제하시겠습니까?")
+	
+	if(!flag_ok) {
+		return;
+	}
+	
+	var bfree_seq = "{{free.bfree_seq}}";
+	var r_seq = n;
+	
+	var param = "dummy=" + Math.random();
+	param += "&bfree_seq="+bfree_seq;
+	param += "&r_seq="+r_seq;
+	$.ajax({
+		url : 'reply_del.ajax',
+		data : param,
+		dataType : "json",
+		type : "post",
+		async: false,
+		statusCode : {
+			404 : function() {
+				alert("네트워크가 불안정합니다. 다시 시도부탁드립니다.");
+			}
+		},
+		success : function(data) {
+			if (data.msg=="ok") {
+				alert("삭제되었습니다.")
+				showReply();
+			} else if(data.msg=="ng") {
+				alert("추가 실패")
+			}
+		}
+	});
+}
+
+function fn_reply_good(n){
+	var bfree_seq = "{{free.bfree_seq}}";
+	var r_seq = n;
+	alert
+	var param = "dummy=" + Math.random();
+	param += "&bfree_seq="+bfree_seq;
+	param += "&r_seq="+r_seq;
+	$.ajax({
+		url : 'reply_good.ajax',
+		data : param,
+		dataType : "json",
+		type : "post",
+		async: false,
+		statusCode : {
+			404 : function() {
+				alert("네트워크가 불안정합니다. 다시 시도부탁드립니다.");
+			}
+		},
+		success : function(data) {
+			if (data.msg=="ok") {
+				flag = true
+				showReply();
+			} else if(data.msg=="ng") {
+				alert("good 실패")
+			}
+		}
+	});
+}
+
+function fn_reply_bad(n){
+	var bfree_seq = "{{free.bfree_seq}}";
+	var r_seq = n;
+	var param = "dummy=" + Math.random();
+	param += "&bfree_seq="+bfree_seq;
+	param += "&r_seq="+r_seq;
+	$.ajax({
+		url : 'reply_bad.ajax',
+		data : param,
+		dataType : "json",
+		type : "post",
+		async: false,
+		statusCode : {
+			404 : function() {
+				alert("네트워크가 불안정합니다. 다시 시도부탁드립니다.");
+			}
+		},
+		success : function(data) {
+			if (data.msg=="ok") {
+				flag = true
+				showReply();
+			} else if(data.msg=="ng") {
+				alert("bad 실패")
+			}
+		}
+	});
+}
+</script>
+
+</html>
+{% endblock %}

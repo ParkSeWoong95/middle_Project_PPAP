@@ -1,0 +1,20 @@
+{% extends 'layout_notice.html' %}
+<meta charset="UTF-8">
+{% block content %}
+
+<script type="text/javascript">
+
+var cnt = '{{ cnt }}'
+
+if (cnt == '1') {
+	alert("정상적으로 게시되었습니다.");
+	location.href = "b_notice"
+} else {
+	alert("게시도중 오류가 생겼습니다.")
+	history.back();
+} 
+location.href = "b_notice"
+
+</script>
+
+{% endblock %}

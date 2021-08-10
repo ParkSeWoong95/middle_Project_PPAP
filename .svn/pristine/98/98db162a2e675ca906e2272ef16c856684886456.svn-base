@@ -1,0 +1,252 @@
+{% extends 'layout_book.html' %}
+<meta charset="UTF-8">
+
+{% block content %}
+
+<style>
+#parki {
+	display: inline-block;
+	width: 70%;
+	height: 70%;
+	padding-left: 100px;
+}
+
+#parki>table>tbody>tr>td {
+	border-spacing: 0px;
+	border-style: none;
+	padding: 0px;
+	margin: 0px;
+	height: 24px;
+	border-collapse: collapse;
+}
+</style>
+<script type="text/javascript">
+
+var flag = true
+
+window.onload = function() {
+	document.getElementById('date').value = new Date().toISOString().substring(0, 10);
+	fn_getBook();
+	showParkinfo();
+}
+
+function fn_book(n){
+	var a = document.getElementById(n).getAttribute('src');
+	
+	if(!flag) {
+		return;
+	}
+	
+	if(a == "images/LINE.png" ){
+		document.getElementById(n).src = "images/2.png";
+	} else if (a == "images/2.png") {
+		document.getElementById(n).src = "images/LINE.png";
+	} else {
+		alert("이미 예약되었습니다.")
+	}
+}
+
+function t_one(){
+	var cnt = 0;
+	var parkinfo_seq = 0;
+	var date = document.getElementById('date').value;
+	for(var i=1;i<21;i++){
+		a = document.getElementById(""+i).getAttribute('src');
+		if(a=="images/2.png"){
+			parkinfo_seq = i;
+			cnt++;
+		} 
+	}
+	if(cnt==1){
+		location.href="k_buy_api_book?parkinfo_seq="+parkinfo_seq+"&date="+date;
+	} else {
+		alert("예약은 한자리만 구매가능합니다.")
+	}
+}
+
+function fn_getBook(){
+	flag = true;
+	
+	var book_date = document.getElementById('date').value;
+	var param = "dummy=" + Math.random();
+	param += "&book_date="+book_date;
+	$.ajax({
+		url : 'u_book.ajax',
+		data : param,
+		dataType : "json",
+		type : "post",
+		async: false,
+		statusCode : {
+			404 : function() {
+				alert("네트워크가 불안정합니다. 다시 시도부탁드립니다.");
+			}
+		},
+		success : function(data) {
+			var list = data.list
+			var lists = data.lists
+			
+			var temp = []
+			var temps = []
+			
+			for(var i = 0; i < lists.length; i++){
+				temps.push(lists[i].parkinfo_seq)
+			}
+			
+			for(var i = 0; i < list.length; i++){
+				if(list[i].mem_carnum=='{{session.mem_carnum}}'){
+					flag = false;
+					alert("해당날짜에 이미 본인의 예약이 있습니다.")
+				}
+				temp.push(list[i].parkinfo_seq)
+			}
+			render();
+			showParkinfo(temp,temps);
+		}
+	});
+}
+
+function render(){
+	for(var i=1;i<21;i++){
+		document.getElementById(""+i).src = "images/LINE.png";
+	}
+}
+
+function showParkinfo(list,lists){
+	var today = new Date().toISOString().substring(0, 10);
+	var valueble = document.getElementById('date').value
+	if(today==valueble){
+		for(var i=0;i<list.length;i++){
+			var rnd = Math.floor(Math.random() * 9) + 4;
+			var a = document.getElementById(list[i]).getAttribute('src');
+			document.getElementById(list[i]).src = "images/"+rnd+".png";
+		}
+		for(var i=0;i<lists.length;i++){
+			var rnd = Math.floor(Math.random() * 9) + 4;
+			var a = document.getElementById(lists[i]).getAttribute('src');
+			document.getElementById(lists[i]).src = "images/"+rnd+".png";
+		}
+	} else {
+		for(var i=0;i<list.length;i++){
+			var rnd = Math.floor(Math.random() * 9) + 4;
+			var a = document.getElementById(list[i]).getAttribute('src');
+			document.getElementById(list[i]).src = "images/"+rnd+".png";
+		}
+	}
+}
+</script>
+
+<section id="main">
+	<div class="container">
+		<!-- Content -->
+		<article class="box post">
+			<br> <br>
+			<h2 style='text-align: center; font-size: 70px;'>1일 예약하기</h2>
+			<br> <br>
+
+			<div class='row'>
+				<div class='col-6'>
+					<div style="display: inline-block; width: 100px;" id="parki">
+						<table class='park' style="border: 3px black solid;">
+							<tr>
+								<td><img src="images/GIBON.png">  </td>
+								<td><img src="images/GIBON.png">  </td>
+								<td><img src="images/LINE.png" id = '1' onclick="fn_book(1)">  </td>
+								<td><img src="images/LINE.png" id = '2' onclick="fn_book(2)">  </td>
+								<td><img src="images/GIBON.png"></td>
+								<td><img src="images/1f.png"></td>
+							</tr>
+							<tr>
+								<td><img src="images/GIBON.png"></td>
+								<td><img src="images/GIBON.png"></td>
+								<td><img src="images/GIBON.png"></td>
+								<td><img src="images/GIBON.png"></td>
+								<td><img src="images/GIBON.png"></td>
+								<td><img src="images/GIBON.png"></td>
+							</tr>
+							<tr>
+								<td><img src="images/LINE.png" id='3' onclick="fn_book(3)">
+								</td>
+								<td><img src="images/GIBON.png"></td>
+								<td><img src="images/LINE.png" id='4' onclick="fn_book(4)">
+								</td>
+								<td><img src="images/LINE.png" id='5' onclick="fn_book(5)">
+								</td>
+								<td><img src="images/GIBON.png"></td>
+								<td><img src="images/LINE.png" id='6' onclick="fn_book(6)">
+								</td>
+							</tr>
+							<tr>
+								<td><img src="images/LINE.png" id='7' onclick="fn_book(7)">
+								</td>
+								<td><img src="images/GIBON.png"></td>
+								<td><img src="images/LINE.png" id='8' onclick="fn_book(8)">
+								</td>
+								<td><img src="images/LINE.png" id='9' onclick="fn_book(9)">
+								</td>
+								<td><img src="images/GIBON.png"></td>
+								<td><img src="images/LINE.png" id='10'
+									onclick="fn_book(10)"></td>
+							</tr>
+							<tr>
+								<td><img src="images/LINE.png" id='11'
+									onclick="fn_book(11)"></td>
+								<td><img src="images/GIBON.png"></td>
+								<td><img src="images/LINE.png" id='12' onclick="fn_book(12)">
+								</td>
+								<td><img src="images/LINE.png" id='13' onclick="fn_book(13)">
+								</td>
+								<td><img src="images/GIBON.png"></td>
+								<td><img src="images/LINE.png" id='14'
+									onclick="fn_book(14)"></td>
+							</tr>
+							<tr>
+								<td><img src="images/LINE.png" id='15'
+									onclick="fn_book(15)"></td>
+								<td><img src="images/GIBON.png"></td>
+								<td><img src="images/LINE.png" id='16'
+									onclick="fn_book(16)"></td>
+								<td><img src="images/LINE.png" id='17' onclick="fn_book(17)">
+								</td>
+								<td><img src="images/GIBON.png"></td>
+								<td><img src="images/LINE.png" id='18'
+									onclick="fn_book(18)"></td>
+							</tr>
+							<tr>
+								<td><img src="images/GIBON.png"></td>
+								<td><img src="images/GIBON.png"></td>
+								<td><img src="images/LINE.png" id='19'
+									onclick="fn_book(19)"></td>
+								<td><img src="images/LINE.png" id='20'
+									onclick="fn_book(20)"></td>
+								<td><img src="images/GIBON.png"></td>
+								<td><img src="images/GIBON.png"></td>
+							</tr>
+							<tr>
+								<td><img src="images/GIBON.png"></td>
+								<td><img src="images/GIBON.png"></td>
+								<td><img src="images/GIBON.png"></td>
+								<td><img src="images/GIBON.png"></td>
+								<td><img src="images/GIBON.png"></td>
+								<td><img src="images/GIBON.png"></td>
+							</tr>
+						</table>
+						
+					</div>
+				</div>
+				<div class='col-6'> 
+					<div style="float: right; margin-right: 200px; margin-top: 10px;">
+						<form>
+							<img src="../images/2.png"> : 자차 <hr>
+							<label>날짜 : </label><input id = "date" type="date" onchange="fn_getBook()"> <hr>
+							<input type="button" value="결제하기" onclick="t_one()">
+						</form>
+					</div>
+				</div>
+			</div>
+		</article>
+		<h4>* 예약은 1일권 밖에 사용할 수 없습니다.</h4>
+		<h4>* 예약일 당일 00시부터 23:59분까지 사용가능.</h4>
+	</div>
+</section>
+
+{% endblock %}

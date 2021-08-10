@@ -1,0 +1,91 @@
+{% extends 'layout_login.html' %}
+<meta charset="UTF-8">
+
+{% block content %}
+
+<style>
+
+</style>
+  
+<!-- Main -->
+<section id="main">
+	<div class="container">
+
+		<!-- Content -->
+			<article class="box post">
+				<a href="#" class="image featured">
+				</a>
+				<header>
+					<h2>로그인</h2>
+				</header>
+					<div>
+						ID: <input type="text"> PW: <input type="text">
+						<input type="button" value="로그인하기" onclick="fn_login_button()">
+					</div>
+					
+					<div>
+					
+					</div>
+					
+					<br>
+					<input type="submit" id="" value="뒤로" onclick = "page_back()">
+			</article>
+	</div>
+</section>
+
+<!-- The Modal -->
+<div class="modal" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">warning</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+           <div class="modal-body">
+			삭제하시겠습니까?        
+			 <form class="user" method="post" enctype="multipart/form-data" name="register">
+                            <div class="form-group row">
+                                <div>
+                                    
+                                </div>
+                            </div>
+                            <a href="ad_black" class="btn btn-primary btn-user btn-block" onclick="fn_clicked()">
+                                삭제
+                            </a>
+                        </form>
+                        
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+<!-- 모달 -->
+
+<script type="text/javascript">
+
+function page_back(){
+	history.back();
+	// window.opener();
+}
+
+function fn_clicked(){
+	alert("삭제됨!")
+}
+
+function fn_login_button(){
+	console.log("로그인됨!")
+	window.location = "book"
+}
+
+</script>
+
+{% endblock %}

@@ -1,0 +1,68 @@
+{% extends 'layout_ticket.html' %}
+<meta charset="UTF-8">
+
+{% block content %}
+  
+<!-- Main -->
+<section id="main">
+	<div class="container">
+
+		<!-- Content -->
+			<article class="box post">
+				<a href="#" class="image featured">
+					<img src="" alt="" />
+				</a>
+				<header>
+					<h2>정기권 관리</h2>
+				</header>
+					<div>
+						<table border="3">
+							<tr>
+								<td>No.</td>
+								<td>구매일</td>
+								<td>종류</td>
+								<td>이용기간</td>
+								<td>결제금액</td>
+								<td>상태</td>
+								<td>연장</td>
+							</tr>
+							<tr>
+								<td>1</td>
+								<td>2021년 1월 3일</td>
+								<td>일일권</td>
+								<td>2021.1.4 ~ 2021.1.5</td>
+								<td>10,000 원</td>
+								<td>만료</td>
+								<td>불가</td>
+							</tr>
+							<tr>
+								<td>2</td>
+								<td>2021년 3월 1일</td>
+								<td>한달권</td>
+								<td>2021.3.4 ~ 2021.4.3</td>
+								<td>100,000 원</td>
+								<td>만료</td>
+								<td>불가</td>
+							</tr>
+							<tr>
+								<td>3</td>
+								<td>2021년 4월 5일</td>
+								<td>한달권</td>
+								<td>2021.4.6 ~ 2021.5.5</td>
+								<td>10,000 원</td>
+								<td>이용중</td>
+								<td><input type="button" value="환불"></td>
+							</tr>
+						</table>
+						<h4>* 정기권은 회원만 이용가능 합니다.</h4>
+					</div>
+			</article>
+
+	</div>
+</section>
+
+<script type="text/javascript">
+
+</script>
+
+{% endblock %}

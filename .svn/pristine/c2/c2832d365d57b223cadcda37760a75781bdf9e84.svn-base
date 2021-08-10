@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Test">
+	<select id="select_list">
+		select 
+			ticket_seq, 
+			ticket_sdate, 
+			ticket_edate, 
+			mem_carnum, 
+			prod_code
+		from 
+			ticket
+	</select>
+	
+
+	
+	<select id="select">
+		select 
+			ticket_seq, 
+			ticket_sdate, 
+			ticket_edate, 
+			mem_carnum, 
+			prod_code,
+			refund_yn,
+			(select prod_name from prod p where p.prod_code = t.prod_code) prod_name,
+			(select prod_price from prod p where p.prod_code = t.prod_code) prod_price,
+			parkinfo_seq
+		from 
+			ticket t
+		where
+			mem_carnum =:1
+		
+		
+	</select>
+	
+	<select id="select_date">
+		select 
+			ticket_seq, 
+			ticket_sdate, 
+			ticket_edate, 
+			mem_carnum, 
+			prod_code,
+			refund_yn,
+			(select prod_name from prod p where p.prod_code = t.prod_code) prod_name,
+			(select prod_price from prod p where p.prod_code = t.prod_code) prod_price,
+			parkinfo_seq
+		from 
+			ticket t
+		where
+			mem_carnum =:1
+		and 
+			replace(ticket_sdate, '-', '') like '%'||:2||'%'
+		
+	</select>
+
+	
+	
+	<select id="select_refund">
+		select 
+			ticket_seq, 
+			ticket_sdate, 
+			ticket_edate, 
+			mem_carnum, 
+			prod_code,
+			tid,
+			(select prod_name from prod p where p.prod_code = t.prod_code) prod_name,
+			(select prod_price from prod p where p.prod_code = t.prod_code) prod_price,
+			parkinfo_seq
+		from 
+			ticket t
+		where
+			ticket_seq =:1
+	</select>
+	
+	<update id="insert">
+		insert into 
+		ticket
+		(
+			ticket_seq, 
+			ticket_sdate, 
+			ticket_edate, 
+			mem_carnum, 
+			prod_code,
+			tid,
+			refund_yn,
+			parkinfo_seq
+		) 
+		values
+		(
+			(select nvl(max(to_number(ticket_seq))+1,1) from ticket), 
+			to_char(sysdate, 'YYYYMMDD'), 
+			to_char(sysdate+:1, 'YYYYMMDD'), 
+			:2, 
+			:3,
+			:4,
+			'n',
+			:5
+		)
+	</update>
+	
+	<update id="update">
+		update 
+			ticket 
+		set 
+			refund_yn='y'
+		where 
+			tid=:1
+	</update>
+	
+<!-- 	<select id="select_date">
+		select 
+			ticket_seq, 
+			ticket_sdate, 
+			ticket_edate, 
+			mem_carnum, 
+			prod_code,
+			refund_yn,
+			(select prod_name from prod p where p.prod_code = t.prod_code) prod_name,
+			(select prod_price from prod p where p.prod_code = t.prod_code) prod_price,
+			parkinfo_seq
+		from 
+			ticket t
+		where
+			mem_carnum =:1
+		and TICKET_SDATE BETWEEN REPLACE(NVL(:2,TO_CHAR(SYSDATE-10000,'YYYYMMDD')),'-','') AND REPLACE(NVL(:3,TO_CHAR(SYSDATE,'YYYYMMDD')),'-','')
+		
+	</select> -->
+</mapper>

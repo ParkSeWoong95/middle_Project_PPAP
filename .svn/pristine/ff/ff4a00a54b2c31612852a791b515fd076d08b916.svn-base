@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Test">
+	<select id="select_book">
+		select  
+			c.mem_yn,
+	        sum((select sum(b.prod_price) from dual where substr(a.book_buydate, 6, 2) = '01')),
+	        sum((select sum(b.prod_price) from dual where substr(a.book_buydate, 6, 2) = '02')),
+	        sum((select sum(b.prod_price) from dual where substr(a.book_buydate, 6, 2) = '03')),
+	        sum((select sum(b.prod_price) from dual where substr(a.book_buydate, 6, 2) = '04')),
+	        sum((select sum(b.prod_price) from dual where substr(a.book_buydate, 6, 2) = '05')),
+	        sum((select sum(b.prod_price) from dual where substr(a.book_buydate, 6, 2) = '06')),
+	        sum((select sum(b.prod_price) from dual where substr(a.book_buydate, 6, 2) = '07')),
+	        sum((select sum(b.prod_price) from dual where substr(a.book_buydate, 6, 2) = '08')),
+	        sum((select sum(b.prod_price) from dual where substr(a.book_buydate, 6, 2) = '09')),
+	        sum((select sum(b.prod_price) from dual where substr(a.book_buydate, 6, 2) = '10')),
+	        sum((select sum(b.prod_price) from dual where substr(a.book_buydate, 6, 2) = '11')),
+	        sum((select sum(b.prod_price) from dual where substr(a.book_buydate, 6, 2) = '12'))
+		from book a, prod b, members c
+		where (book_cel_yn='n' or book_cel_yn='e')
+			and a.prod_code=b.prod_code
+			and a.mem_carnum=c.mem_carnum
+			and substr(a.book_buydate, 1, 4) LIKE '20'||:1
+		group by mem_yn
+	</select>
+	
+	<select id="select_ticket">
+		select  c.mem_yn,
+	        sum((select sum(b.prod_price) from dual where substr(a.ticket_sdate, 5, 2) = '01')),
+	        sum((select sum(b.prod_price) from dual where substr(a.ticket_sdate, 5, 2) = '02')),
+	        sum((select sum(b.prod_price) from dual where substr(a.ticket_sdate, 5, 2) = '03')),
+	        sum((select sum(b.prod_price) from dual where substr(a.ticket_sdate, 5, 2) = '04')),
+	        sum((select sum(b.prod_price) from dual where substr(a.ticket_sdate, 5, 2) = '05')),
+	        sum((select sum(b.prod_price) from dual where substr(a.ticket_sdate, 5, 2) = '06')),
+	        sum((select sum(b.prod_price) from dual where substr(a.ticket_sdate, 5, 2) = '07')),
+	        sum((select sum(b.prod_price) from dual where substr(a.ticket_sdate, 5, 2) = '08')),
+	        sum((select sum(b.prod_price) from dual where substr(a.ticket_sdate, 5, 2) = '09')),
+	        sum((select sum(b.prod_price) from dual where substr(a.ticket_sdate, 5, 2) = '10')),
+	        sum((select sum(b.prod_price) from dual where substr(a.ticket_sdate, 5, 2) = '11')),
+	        sum((select sum(b.prod_price) from dual where substr(a.ticket_sdate, 5, 2) = '12'))
+		from ticket a, prod b, members c
+			where (refund_yn='n' or refund_yn='e')
+			and a.prod_code=b.prod_code
+			and a.mem_carnum=c.mem_carnum
+			and substr(a.ticket_sdate, 1, 4) LIKE '20'||:1
+		group by mem_yn
+		
+		
+	</select>
+	
+	<select id="select_book_circle">
+		select  b.prod_name,
+	        count(b.prod_price),
+	        sum(b.prod_price)
+			from book a, prod b
+		where (book_cel_yn='n' or book_cel_yn='e') 
+			and a.prod_code=b.prod_code
+			and substr(a.book_buydate, 1, 4) like '20'||:1
+		group by b.prod_name
+		
+	</select>
+
+	
+	<select id="select_ticket_circle">
+		select b.prod_name,
+			sum(b.prod_price),
+			count(b.prod_price)
+			from ticket a, prod b
+		where (a.refund_yn='n' or a.refund_yn='e')
+			and a.prod_code=b.prod_code
+			and substr(a.ticket_sdate, 1, 4) like '20'||:1
+		group by b.prod_name
+				
+	</select>
+	
+</mapper>

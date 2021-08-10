@@ -1,0 +1,143 @@
+{% extends 'layout_notice.html' %}
+<meta charset="UTF-8">
+{% block content %}
+<html>
+<style type="text/css">
+	.notice_table{
+		margin-top : 0px;
+		border-bottom : 1px solid;
+	}
+	
+	.notice_th{
+		border-bottom : 1px solid;
+		text-align: center;
+		font-weight: bold;
+	}
+	
+	.notice_td{
+		border-bottom : 1px solid;
+		text-align: center;
+	}
+	
+	.notice_th:nth-child(1) {
+		width : 15%;
+	}
+	
+	.notice_th:nth-child(2) {
+		width : 30%;
+	}
+	
+	.notice_th:nth-child(3) {
+		width : 15%;
+	}
+	
+	.notice_th:nth-child(4) {
+		width : 12%;
+	}
+	
+	.notice_th:nth-child(5) {
+		width : 15%;
+	}
+	
+	.notice_th:nth-child(6) {
+		width : 20%;
+		text-align: right;
+	}
+	
+	.detail_link, .detail_link:link, .detail_link:visited {
+		color: black;
+		text-decoration: none;
+	}
+	
+	input[type="button"] {
+		background: black; 
+		font-size : 14px;
+	}
+	
+	.button_box {
+		position: absolute;
+		left: 76%;
+		transform: translateX(-50%);
+	}
+</style>
+
+<!-- Main -->
+<section id="main">
+	<div class="container">
+
+		<!-- Content -->
+		<article class="box post">
+			<header>
+				<br><br>
+				<h2 style='text-align:center; font-size:50px;'><a class="detail_link" href="b_notice">공지사항</a></h2>
+				<br>
+				<div>
+					<input type="text" id="search" value="{{search}}" onKeypress="fn_keypress(event)">
+					<input type="button" onclick="fn_search()" value="검색">
+				</div>
+				<div>
+					<div class="button_box">
+						<input type="button" onclick="fn_notice_add()" value="글쓰기">
+					</div>
+				</div>
+			</header>
+			<br>
+			<section>
+			
+			<table class="notice_table">
+				<tr>
+					<td class="notice_th">No.</td>
+					<td class="notice_th">제목</td>
+					<td class="notice_th">등록일</td>
+					<td class="notice_th">작성자</td>
+					<td class="notice_th">조회수</td>
+					<td class="notice_th">첨부파일</td>
+				</tr>
+				{% for n in list %}
+				<tr>
+					<td class="notice_td">{{n.bnotice_seq}}</td>
+					<td class="notice_td"><a href="javascript:fn_detail({{n.bnotice_seq}})">{{n.bnotice_title}}</a></td>
+					<td class="notice_td">{{n.up_date}}</td>
+					<td class="notice_td">{{n.in_user_id}}</td>
+					<td class="notice_td">{{n.bnotice_hit}}</td>
+					<td class="notice_td">
+					{% if n.bnotice_filename %}
+					O
+					{% else %}
+					X
+					{% endif %}
+					</td>
+					<td>{{n.display_yn}}</td>
+				</tr>
+				{% endfor %}
+			</table>
+			</section>
+		</article>
+	</div>
+</section>
+
+<script>
+	function fn_detail(bnotice_seq){
+		location.href="b_notice_detail?bnotice_seq"+bnotice_seq
+	}
+	
+	function fn_notice_add() {
+		location.href = "b_notice_add"				
+	}
+	
+	function fn_search(){
+		var search = $('#search').val();
+		$('#search').focus()
+		location.href="b_notice?search="+search;
+	}
+	
+	function fn_keypress(e){
+		console.log(e)
+		if(e.keyCode==13){
+			fn_search()
+		}
+	}
+</script>
+
+</html>
+{% endblock %}

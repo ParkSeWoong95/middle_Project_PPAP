@@ -1,0 +1,140 @@
+{% extends 'layout_notice.html' %}
+<meta charset="UTF-8">
+{% block content %}
+<html>
+<style type="text/css">
+		
+.notice_table{
+	margin-top : 0px;
+}
+
+.notice_th{
+	border-bottom : 1px solid;
+	text-align: center;
+	font-weight: bold;
+	font-size: 28px;
+}
+
+.notice_td{
+	border-bottom : 0px solid;
+	text-align: center;
+	float: right;
+}
+
+pre {
+	text-align: center;
+}
+
+input[type="button"] {
+	background: black; 
+	font-size : 14px;
+}
+
+.button_box {
+	position: absolute;
+	left: 76%;
+	transform: translateX(-50%);
+}
+
+.button_box_right {
+	position: absolute;
+	left: 76%;
+	transform: translateX(-70%);
+}
+
+.comment {
+	border : 0px;
+	text-align: left;
+}
+
+.comment_td {
+	text-align: left;
+	border : 0px;
+}
+
+textarea {
+	font-size : 12px;
+	resize : none;
+	width : 98%;
+	height : 100px;
+}
+
+.notice_td:nth-child(1) {
+	width : 25%;
+}
+
+.notice_td:nth-child(2) {
+	width : 25%;
+}
+
+.notice_td:nth-child(3) {
+	width : 25%;
+}
+
+.notice_td:nth-child(4) {
+	width : 25%;
+}
+
+.detail_link, .detail_link:link, .detail_link:visited {
+	color: black;
+	text-decoration: none;
+}
+input[type="button"]{
+	margin: 5px;
+	float : right;
+}
+</style>
+
+<!-- Main -->
+<section id="main">
+	<div class="container">
+
+		<!-- Content -->
+		<article class="box post">
+			<section>
+			<table id="notice_list_table">
+				<tr>
+					<td class="notice_td">
+						<input type="button" onclick="fn_notice_list()" value="목록">
+					</td>
+				</tr>
+
+				<tr>
+					<td class="notice_th" colspan="4">{{obj.bnotice_title}}</td>
+				</tr>
+				<tr class="notice_td">
+					<td>조회수: {{obj.bnotice_hit}}</td>
+				</tr>
+				
+				<tr>
+					<td>{{obj.bnotice_content}}</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<div><input type="button" onclick="fn_notice_mod()" value="글수정"></div>
+					</td>
+				</tr>
+			</table>
+			</section>
+		</article>
+	</div>
+</section>
+
+<script>
+			
+function fn_notice_list() {
+	location.href = "b_notice"				
+}
+
+function fn_notice_add() {
+	location.href = "b_notice_add"				
+}
+
+function fn_notice_mod() {
+	location.href = "b_notice_mod"				
+}
+
+</script>
+
+</html>
+{% endblock %}

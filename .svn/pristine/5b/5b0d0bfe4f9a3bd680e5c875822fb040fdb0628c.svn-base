@@ -1,0 +1,116 @@
+{% extends 'layout_book_cel.html' %}
+<meta charset="UTF-8">
+
+{% block content %}
+
+<style>
+table{
+	border : 1px solid black;
+}
+</style>
+  
+<!-- Main -->
+<section id="main">
+	<div class="container">
+
+		<!-- Content -->
+			<article class="box post">
+				<a href="#" class="image featured">
+				</a>
+				<header>
+					<h2>예약취소</h2>
+					<h6>(로그인된 회원이 예약을 취소하는 창)</h6>
+				</header>
+				<table>
+					<tr>
+						<td>No.</td>
+						<td>차번호</td>
+						<td>이름</td>
+						<td>tel.</td>
+						<td>날짜</td>
+						<td>상태</td>
+					</tr>
+					<tr>
+						<td>1</td>
+						<td>72뱌4402</td>
+						<td>곽지훈</td>
+						<td>010-2422-4961</td>
+						<td>2021/03/08</td>
+						<td>사용완료</td>
+					</tr>
+					<tr>
+						<td>2</td>
+						<td>42파9082</td>
+						<td>곽지훈</td>
+						<td>010-2422-4961</td>
+						<td>2021/03/15</td>
+						<td>사용중</td>
+					</tr>
+					<tr>
+						<td>3</td>
+						<td>42파9082</td>
+						<td>곽지훈</td>
+						<td>010-2422-4961</td>
+						<td>2021/04/08</td>
+						<td><button onclick="fn_book_check()">예약됨</button></td>
+					</tr>
+					<tr>
+						<td>4</td>
+						<td>42파9082</td>
+						<td>김정원</td>
+						<td>010-5371-4919</td>
+						<td>2021/05/15</td>
+						<td><button onclick="fn_book_check()">예약됨</button></td>
+					</tr>
+				</table>
+					
+					<br>
+			</article>
+	</div>
+</section>
+
+<!-- The Modal -->
+<div class="modal" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">really?</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+           <div class="modal-body">
+			예약취소하시겠습니까?        
+			 <form class="user" method="post" enctype="multipart/form-data" name="register">
+                            <div class="form-group row">
+                                <div>
+                                    
+                                </div>
+                            </div>
+                            <a href="pysrc/templates/main" class="btn btn-primary btn-user btn-block" onclick="fn_clicked()" >
+                                예약취소하기
+                            </a>
+                        </form>
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+<!-- 모달 -->
+
+<script type="text/javascript">
+
+function fn_book_check(){
+	confirm("예약취소할까요?!")
+}
+
+</script>
+
+{% endblock %}

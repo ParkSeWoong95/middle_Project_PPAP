@@ -1,0 +1,160 @@
+{% extends 'layout_notice.html' %}
+<meta charset="UTF-8">
+{% block content %}
+<html>
+<style type="text/css">
+
+.notice_table{
+	margin-top : 0px;
+}
+.notice_th{
+	border-bottom : 1px solid;
+	text-align: center;
+	font-weight: bold;
+}
+.notice_td{
+	border-bottom : 1px solid;
+	text-align: center;
+}
+input[type="button"] {
+	background: black; 
+	font-size : 14px;
+}
+.button_box {
+	position: absolute;
+	left: 80%;
+	transform: translateX(-50%);
+}
+.button_box_right {
+	position: absolute;
+	left: 80%;
+	transform: translateX(-70%);
+}
+.comment {
+	border : 0px;
+	text-align: left;
+}
+.comment_td {
+	text-align: left;
+	border : 0px;
+}
+textarea {
+	font-size : 12px;
+	resize : none;
+	width : 95%;
+	height : 60em;
+}
+input[type="text"] {
+	width : 95%;
+	font-size : 12px;
+	height: 3.0em;
+}
+input[type="file"] {
+	margin-left : 1.5em;
+}
+.notice_td:nth-child(1) {
+	width : 10%;
+}
+.notice_td:nth-child(2) {
+	width : 85%;
+}
+input[type="radio"]{
+	margin: 10px;
+}
+
+</style>
+
+
+<!-- Main -->
+<section id="main">
+	<div class="container">
+		<!-- Content -->
+		<article class="box post">
+			<header>
+				<br><br>
+				<h2 style='text-align:center; font-size:50px;'>공지수정</h2>
+			</header>
+			<br>
+				<section>
+					<form name="frm" action="b_notice_modact" method="post" enctype = "multipart/form-data"> 
+						<input type="hidden" name="b_notice_seq" value="{{b_notice.bnotice_seq}}">
+							{% if b_notice.bnotice_filename %}
+								<input type="hidden" name="b_notice_filename" value="{{b_notice.bnotice_filename}}">
+								<input type="hidden" name="b_notice_filepath" value="{{b_notice.bnotice_filepath}}">
+							{% else %}
+								<input type="hidden" name="b_notice_filename" value="">
+								<input type="hidden" name="b_notice_filepath" value="">
+							{% endif %}
+						
+						<table class="notice_table">
+							<tr>
+								<td>조회수: {{b_notice.bnotice_hit}}</td>
+								<td>작성일: {{b_notice.in_date}}</td>
+							</tr>
+							<tr>
+								<td>표시여부</td>
+								<td>
+									{% if b_notice.display_yn == 'y' %}
+										<input type="radio" name="b_notice_diplay_yn" value="y" checked>표시
+										<input type="radio" name="b_notice_diplay_yn" value="n">비표시
+									{% else %}
+										<input type="radio" name="b_notice_diplay_yn" value="y" checked>표시
+										<input type="radio" name="b_notice_diplay_yn" value="n">비표시
+									{% endif %}
+								</td>
+							</tr>
+							<tr>
+								<td class="notice_td" style="vertical-align: middle;">제목</td>
+								<td class="notice_td">
+									<input type="text" name="b_notice_title" value="{{b_notice.bnotice_title}}">
+								</td>
+							</tr>
+							<tr>
+								<td class="notice_td" style="vertical-align: middle;">내용</td>
+								<td class="notice_td">
+									<textarea name="b_notice_content">{{b_notice.bnotice_content}}</textarea>
+								</td>
+							</tr>
+							<tr>
+								<td class="notice_td" >첨부파일</td>
+									<td class="notice_td" id="b_notice_file" style="text-align: left;">
+									{% if b_notice.bnotice_filename %}
+										<a href = "javascript:fn_fileDel()">{{b_notice.bnotice_filename}} X</a>
+										<img src="download_img?path={{b_notice.bnotice_filepath}}&file={{b_notice.bnotice_filename}}" width="200px">
+										<input type="file" class="invisible" name="file" >
+									{% else %}
+										<input type = "file" name = "file" />
+									{% endif %}
+								</td>
+							</tr>
+							<tr>
+								<td colspan="2">
+									<input style="float: right; margin: 5px;" type="button" onclick="fn_cancel()" value="취소">
+									<input style="float: right;" type="submit" value="수정">
+								</td>
+							</tr>
+						</table>
+					</form>
+				</section>
+		</article>
+	</div>
+</section>
+
+
+
+<script>
+function fn_cancel() { // 게시글 작성 완료 함수
+	location.href = "b_notice"
+}
+function fn_fileDel(){
+	var filename = '{{b_notice.bnotice_filename}}';
+	$("input[name='b_notice_filename']").val("")
+	$("input[name='b_notice_filepath']").val("")
+	
+	$('#b_notice_file').html('<input type="file" name="file">')
+}
+
+
+</script>
+</html>
+{% endblock %}

@@ -1,0 +1,66 @@
+{% extends 'layout_kiosk.html' %}
+<meta charset="UTF-8">
+
+{% block content %}
+
+<style>
+
+	#left_box{
+		width:50%; 
+		height:100%;
+		float:left; 
+		text-align : center;
+	}
+	
+	#right_box{
+		width:50%; 
+		height:100%;
+		float:left; 
+		text-align : center;
+	}
+		
+	.kio_btn {
+		width: 80%;
+		height: 60%;
+		font-size : 4.0em; 
+		margin-top : 10%;
+		background : blue;
+	}
+	
+	h2{
+		text-align: center;
+	}
+</style>
+
+<script type="text/javascript">
+	function fn_click(){
+		location.href = "kiosk_members"
+	}
+</script>
+
+<!-- Main -->
+<section id="main">
+	<div class="container">
+
+		<!-- Content -->
+		<article class="box post" id="box_post_one" style="width: 90%; height: 800px; margin: 0 0 0 5%; padding: 0 0 0 0;">
+			<section style="height: 20%;  padding-top: 5%;">
+				<h2 style="font-size: 4.0em;">결제하기</h2>
+			</section>
+
+			<!-- 메인섹션 -->
+			<div style="width: 100%; height: 75%;">
+				<div id="left_box">
+
+					<button class="kio_btn" onclick="fn_click()">회원</button>
+				</div>
+				<div id="right_box">
+					<button class="kio_btn">비회원</button>
+				</div>
+			</div>
+		</article>
+
+	</div>
+</section>
+
+{% endblock %}

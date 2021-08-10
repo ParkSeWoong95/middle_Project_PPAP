@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Test">
+	<select id="select_list_book">
+		select
+			book_seq, book_buydate, book_date, book_cel_yn, mem_carnum, parkinfo_seq, prod_code
+		from
+			book
+		where
+			book_date =to_char(:1)
+			
+	</select>
+	
+	<select id="select_list_book_nu">
+		select
+			book_seq, book_buydate, book_date, book_cel_yn, mem_carnum, parkinfo_seq, book_rnd, tid
+		from
+			book
+		where
+			mem_carnum =:1
+		and
+			book_rnd =:2
+			
+	</select>
+	
+	<select id="select_list">
+		select
+		    a.book_seq,
+		    a.book_buydate,
+		    a.book_date,
+		    a.book_cel_yn,
+		    a.mem_carnum,
+		    a.parkinfo_seq,
+		    a.prod_code,
+		    b.mem_name,
+		    b.mem_tel,
+		    case when a.book_cel_yn in('y','Y') then 'cancel'
+		        when TO_CHAR(SYSDATE, 'YYYYMMDD') <![CDATA[<]]> replace(a.book_date, '-', '') then 'book'
+		        when TO_CHAR(SYSDATE, 'YYYYMMDD') = replace(a.book_date, '-', '') then 'use'
+		        when TO_CHAR(SYSDATE, 'YYYYMMDD') <![CDATA[>]]> replace(a.book_date, '-', '') then 'finish'
+		    end book_state
+		from
+		    book a, members b
+		where
+		    a.mem_carnum = b.mem_carnum
+		and
+            replace(a.book_date, '-', '') like '%'||:1||'%'
+		order by
+		    3
+	</select>
+	
+	
+	<select id="select">
+		select 
+			book_seq, 
+			book_buydate, 
+			book_date, 
+			book_cel_yn, 
+			mem_carnum, 
+			parkinfo_seq, 
+			prod_code
+		from 
+			book
+		where
+			mem_carnum =:1
+		
+	</select>
+	
+	<update id="insert">
+		insert into 
+		book
+		(
+			book_seq, 
+			book_buydate, 
+			book_date, 
+			book_cel_yn, 
+			mem_carnum, 
+			parkinfo_seq, 
+			prod_code,
+			book_out_yn,
+			book_rnd,
+			tid
+		) 
+		values
+		(
+			(select nvl(max(to_number(book_seq))+1,1) from book), 
+			to_char(sysdate, 'YYYY-MM-DD'), 
+			to_char(:1), 
+			:2, 
+			:3, 
+			:4, 
+			:5,
+			'n',
+			:6,
+			:7
+		)
+	</update>
+	<update id="update">
+		update 
+			book 
+		set 
+			book_cel_yn='y'
+		where 
+			mem_carnum=:1
+		and
+			book_seq=:2
+	</update>
+	
+	<update id="delete">
+		delete
+		from
+			book 
+		where 
+			mem_carnum=:1
+		and
+			book_date=:2
+	</update>
+</mapper>

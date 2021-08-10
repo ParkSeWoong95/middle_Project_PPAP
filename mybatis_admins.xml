@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Test">
+	<select id="select">
+		select 
+			admin_id, 
+			admin_pw, 
+			admin_name
+		from 
+			admins
+		where 
+			admin_id =:1
+		and
+			admin_pw =:2
+	</select>
+	
+	<select id="select_tow">
+		select 
+			tow_seq, 
+			tow_date, 
+			tow_reason,
+			mem_carnum
+		from 
+			tow
+		where 
+			mem_carnum =:1
+	</select>
+	
+	<update id="insert_tow">
+		insert into 
+		tow
+		(
+			tow_seq, 
+			tow_date, 
+			tow_reason, 
+			mem_carnum
+		) 
+		values
+		(
+			tow_seq.nextval,
+			:1,
+			:2,
+			:3
+		)
+	</update>
+	
+	<update id="delete_tow">
+		delete 
+		from 
+			tow 
+		where 
+			tow_seq = :1
+	</update>
+	
+	<update id="update_book">
+		update 
+			book 
+		set 
+			book_date = :1
+		where 
+			mem_carnum= :2
+		and
+			book_seq = :3
+	</update>
+	
+	<update id="update_book_cel">
+		update 
+			book
+		set 
+			book_cel_yn = 'y'
+		where 
+			book_seq= :1
+	</update>
+	
+</mapper>

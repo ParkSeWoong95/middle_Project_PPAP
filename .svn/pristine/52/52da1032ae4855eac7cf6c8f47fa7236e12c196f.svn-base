@@ -1,0 +1,216 @@
+{% extends 'layout_ticket.html' %}
+<meta charset="UTF-8">
+
+{% block content %}
+<script type="text/javascript">
+var flag = true
+var flag_click = true;
+
+function fn_book(n){
+	var a = document.getElementById(n).getAttribute('src');
+	if(a == "images/LINE.png" ){
+		if (!flag_click) {
+			return;	
+		}
+		document.getElementById(n).src = "images/"+3+".png";
+		flag_click = false;
+	} else if (a == "images/3.png") {
+		document.getElementById(n).src = "images/"+1+".png";
+		flag_click = false;
+	} else if (a == "images/1.png") {
+		document.getElementById(n).src = "images/"+2+".png";
+		flag_click = false;
+	} else if (a == "images/2.png") {
+		document.getElementById(n).src = "images/LINE.png";
+		flag_click = true;
+	} else {
+		alert("자리입니다.")
+	}
+}
+
+function t_one(){	
+	var cnt = 0;
+	var parkifo_seq = 0;
+	var prod_code = "";
+	for(var i=21;i<41;i++){
+		a = document.getElementById(""+i).getAttribute('src');
+		if(a=="images/1.png"){
+			parkifo_seq = i;
+			prod_code = "10002";
+			cnt++;
+		} else if (a=="images/2.png"){
+			parkifo_seq = i;
+			prod_code = "10003";
+			cnt++;
+		} else if (a=="images/3.png"){
+			parkifo_seq = i;
+			prod_code = "10001";
+			cnt++;
+		}
+	}
+	if(cnt==1){
+		location.href="k_buy_api_ticket?parkifo_seq="+parkifo_seq+"&prod_code="+prod_code;
+	} else {
+		alert("자리를 선택해주세요.")
+	}
+}
+
+window.onload = function() {
+	showParkinfo();
+}
+
+function showParkinfo(){
+	var arr = [];
+	'{% for s in list %}'
+	arr.push("{{s.parkinfo_seq}}")
+	'{% endfor %}'
+	
+	for(var i=0;i<arr.length;i++){
+		var rnd = Math.floor(Math.random() * 9) + 4;
+		var a = document.getElementById(arr[i]).getAttribute('src');
+		document.getElementById(arr[i]).src = "images/"+rnd+".png";
+	}
+}
+
+
+
+</script>
+
+
+<style>
+	#parki {
+	display: inline-block;
+	width: 70%;
+	height: 70%;
+	padding-left: 100px;
+	}
+
+	#parki>table>tbody>tr>td {
+		border-spacing: 0px;
+		border-style: none;
+		padding: 0px;
+		margin: 0px;
+		height: 24px;
+		border-collapse: collapse;
+	}
+</style>
+  
+<!-- Main -->
+<section id="main">
+	<div class="container">
+		<!-- Content -->
+		<article class="box post">
+			<br> <br>
+			<h2 style='text-align: center; font-size: 70px;'>정기권 구매</h2>
+			<br> <br>
+
+			<div class='row'>
+				<div class='col-6'>
+					<div style="display: inline-block; width: 100px;" id="parki">
+
+						<table class='park' style="border: 3px black solid;">
+							<tr>
+								<td><img src="images/GIBON.png"></td>
+								<td><img src="images/GIBON.png"></td>
+								<td><img src="images/LINE.png" id='21'
+									onclick="fn_book(21)"></td>
+								<td><img src="images/LINE.png" id='22'
+									onclick="fn_book(22)"></td>
+								<td><img src="images/GIBON.png"></td>
+								<td><img src="images/2f.png"></td>
+							</tr>
+							<tr>
+								<td><img src="images/GIBON.png"></td>
+								<td><img src="images/GIBON.png"></td>
+								<td><img src="images/GIBON.png"></td>
+								<td><img src="images/GIBON.png"></td>
+								<td><img src="images/GIBON.png"></td>
+								<td><img src="images/GIBON.png"></td>
+							</tr>
+							<tr>
+								<td><img src="images/LINE.png" id='23'
+									onclick="fn_book(23)"></td>
+								<td><img src="images/GIBON.png"></td>
+								<td><img src="images/LINE.png" id='24'
+									onclick="fn_book(24)"></td>
+								<td><img src="images/LINE.png" id='25'
+									onclick="fn_book(25)"></td>
+								<td><img src="images/GIBON.png"></td>
+								<td><img src="images/LINE.png" id='26'
+									onclick="fn_book(26)"></td>
+							</tr>
+							<tr>
+								<td><img src="images/LINE.png" id='27'
+									onclick="fn_book(27)"></td>
+								<td><img src="images/GIBON.png"></td>
+								<td><img src="images/LINE.png" id='28'
+									onclick="fn_book(28)"></td>
+								<td><img src="images/LINE.png" id='29'
+									onclick="fn_book(29)"></td>
+								<td><img src="images/GIBON.png"></td>
+								<td><img src="images/LINE.png" id='30'
+									onclick="fn_book(30)"></td>
+							</tr>
+							<tr>
+								<td><img src="images/LINE.png" id='31'
+									onclick="fn_book(31)"></td>
+								<td><img src="images/GIBON.png"></td>
+								<td><img src="images/LINE.png" id='32'
+									onclick="fn_book(32)"></td>
+								<td><img src="images/LINE.png" id='33'
+									onclick="fn_book(33)"></td>
+								<td><img src="images/GIBON.png"></td>
+								<td><img src="images/LINE.png" id='34'
+									onclick="fn_book(34)"></td>
+							</tr>
+							<tr>
+								<td><img src="images/LINE.png" id='35'
+									onclick="fn_book(35)"></td>
+								<td><img src="images/GIBON.png"></td>
+								<td><img src="images/LINE.png" id='36'
+									onclick="fn_book(36)"></td>
+								<td><img src="images/LINE.png" id='37' onclick="fn_book(37)">
+								</td>
+								<td><img src="images/GIBON.png"></td>
+								<td><img src="images/LINE.png" id='38'
+									onclick="fn_book(38)"></td>
+							</tr>
+							<tr>
+								<td><img src="images/GIBON.png"></td>
+								<td><img src="images/GIBON.png"></td>
+								<td><img src="images/LINE.png" id='39' onclick="fn_book(39)">
+								</td>
+								<td><img src="images/LINE.png" id='40' onclick="fn_book(40)">
+								</td>
+								<td><img src="images/GIBON.png"></td>
+								<td><img src="images/GIBON.png"></td>
+							</tr>
+							<tr>
+								<td><img src="images/GIBON.png"></td>
+								<td><img src="images/GIBON.png"></td>
+								<td><img src="images/GIBON.png"></td>
+								<td><img src="images/GIBON.png"></td>
+								<td><img src="images/GIBON.png"></td>
+								<td><img src="images/GIBON.png"></td>
+							</tr>
+						</table>
+					</div>
+				</div>
+				<div class='col-6'>
+					<div style="float: right; margin-right: 200px; margin-top: 10px;">
+							<img src="../images/3.png"> <br> 1개월 90,000원 <br><br>
+							<img src="../images/1.png"> <br> 3개월 290,000원 <br><br>
+							<img src="../images/2.png"> <br> 12개월 1,000,000원 <br><br>
+							<input type="button" value="결제하기" onclick="t_one()">
+					</div>
+				</div>
+			</div>
+		</article>
+		<h4>* 정기권은 회원만 구매가능합니다.</h4>
+		<h4>* 정기권 구매시 구매당일부터 이용가능합니다.</h4>
+	</div>
+</section>
+
+
+
+{% endblock %}

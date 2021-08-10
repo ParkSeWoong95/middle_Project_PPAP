@@ -1,0 +1,265 @@
+{% extends 'layout_admin.html' %}
+<meta charset="UTF-8">
+{% block content %}
+
+<style>
+	table{
+		margin : -13px;
+	}
+</style>
+<!-- Main -->
+<section id="main">
+	<div class="container">
+		<!-- Content -->
+			<article class="box post">
+				<a href="#" class="image featured">
+					<img src="" alt="" />
+				</a>
+				<header>
+					<h2>회원관리</h2>
+				</header>
+					<div>
+						<table border="2">
+							<tr>
+								<td>차량번호</td>
+								<td>회원이름</td>
+								<td>이메일</td>
+								<td>tel.</td>
+								<td>비밀번호</td>
+								
+								<td>정기권여부</td>
+								<td>탈퇴여부</td>
+								<td>블랙여부</td>
+								<td>가입날짜</td>
+								
+								<td>탈퇴날짜</td>
+								<td>멤버여부</td>
+								<td>상태변경</td>
+							</tr>
+							
+							{% for s in list %}
+							<tr>
+								<td>{{s.mem_carnum}}</td>
+								<td>{{s.mem_name}}</td>
+								<td>{{s.mem_email}}</td>
+								<td>{{s.mem_tel}}</td>
+								<td>{{s.mem_pw}}</td>
+								
+								<td>{{s.mem_ticket_yn}}</td>
+								<td>{{s.mem_exit_yn}}</td>
+								<td>{{s.mem_black_yn}}</td>
+								<td>{{s.sign_date}}</td>
+								
+								<td>{{s.signout_date}}</td>
+								<td>{{s.mem_yn}}</td>
+								<td><button class="btn btn-primary" data-toggle="modal" data-target="#myModal" 
+									onclick="showModal('{{s.mem_carnum}}'
+														,'{{s.mem_name}}'
+														,'{{s.mem_email}}'
+														,'{{s.mem_tel}}'
+														,'{{s.mem_pw}}'
+														,'{{s.mem_ticket_yn}}'
+														,'{{s.mem_exit_yn}}'
+														,'{{s.mem_black_yn}}'
+														,'{{s.sign_date}}'
+														,'{{s.signout_date}}'
+														,'{{s.mem_yn}}')" >수정</button>
+								<input type="button" value="삭제" onclick="fn_del_user('{{s.mem_carnum}}')">
+								</td>
+							</tr>
+							{% endfor %}
+						</table>
+					</div>
+			</article>
+		</div>
+	</section>
+
+<!-- The Modal 1 -->
+<div class="modal" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">정보수정</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+
+      <div class="modal-body">
+			 <form class="user" method="post" enctype="multipart/form-data" name="register">
+	               <div class="form-group row">
+	                   <div class="col-sm-6 mb-3 mb-sm-0">
+	                       <input type="text" id="mem_carnum" class="form-control form-control-user" readonly>
+	                   </div>
+	                   <div class="col-sm-6 mb-3 mb-sm-0">
+	                       <input type="text" id="mem_name" class="form-control form-control-user" placeholder="이름">
+	                   </div>
+	               </div>
+	               <div class="form-group">
+	                   <input type="text" id="mem_email" class="form-control form-control-user" placeholder="이메일">
+	               </div>
+	               <div class="form-group">
+	                   <input type="text" id="mem_tel" class="form-control form-control-user" placeholder="tel.">
+	               </div>
+	               <div class="form-group">
+	                   <input type="text" id="mem_pw" class="form-control form-control-user" placeholder="비밀번호">
+	               </div>
+	               <div class="form-group row">
+	                   <div class="col-sm-6 mb-3 mb-sm-0">
+	                       <input type="text" id="mem_ticket_yn" class="form-control form-control-user" placeholder="정기권여부) n">
+	                   </div>
+	                   <div class="col-sm-6 mb-3 mb-sm-0">
+	                       <input type="text" id="mem_exit_yn" class="form-control form-control-user" placeholder="탈퇴여부) n">
+	                   </div>
+	                   <div class="col-sm-6">
+	                       <input type="text" id="mem_black_yn" class="form-control form-control-user" placeholder="블랙여부) n">
+	                   </div>
+	                   <div class="col-sm-6">
+	                       가입날짜<input type="date" id="sign_date" class="form-control form-control-user" placeholder="가입날짜">
+	                   </div>
+	                   <div class="col-sm-6">
+	                       <input type="text" id="signout_date" class="form-control form-control-user" placeholder="탈퇴여부) n">
+	                   </div>
+	                   <div class="col-sm-6">
+	                       <input type="text" id="mem_yn" class="form-control form-control-user" placeholder="멤버여부) y">
+	                   </div>
+	               </div>
+	               <hr>
+	               <a href="ad_user_mgr" class="btn btn-primary btn-user btn-block" onclick="fn_upd_user()">
+	                   수정하기
+	               </a>
+            </form>
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">닫기</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- 모달 끝 -->
+
+
+
+<script type="text/javascript">
+	function showModal(mem_carnum, mem_name, mem_email, mem_tel, mem_pw, mem_ticket_yn, mem_exit_yn, mem_black_yn, sign_date, signout_date, mem_yn){
+		$("#mem_carnum").val(mem_carnum);
+		$("#mem_name").val(mem_name);
+		$("#mem_email").val(mem_email);
+		$("#mem_tel").val(mem_tel);
+		$("#mem_pw").val(mem_pw);
+		
+		$("#mem_ticket_yn").val(mem_ticket_yn);
+		$("#mem_exit_yn").val(mem_exit_yn);
+		$("#mem_black_yn").val(mem_black_yn);
+		$("#sign_date").val(sign_date);
+		
+		$("#signout_date").val(signout_date);
+		$("#mem_yn").val(mem_yn);
+		
+		$("#myModal").modal();
+		
+	}
+
+	function setData(mem_carnum, mem_name, mem_email, mem_tel, mem_pw, mem_ticket_yn, mem_exit_yn, mem_black_yn, sign_date, signout_date, mem_yn){
+		$("#mem_carnum").val(mem_carnum);
+		$("#mem_name").val(mem_name);
+		$("#mem_email").val(mem_email);
+		$("#mem_tel").val(mem_tel);
+		$("#mem_pw").val(mem_pw);
+		
+		$("#mem_ticket_yn").val(mem_ticket_yn);
+		$("#mem_exit_yn").val(mem_exit_yn);
+		$("#mem_black_yn").val(mem_black_yn);
+		$("#sign_date").val(sign_date);
+		
+		$("#signout_date").val(signout_date);
+		$("#mem_yn").val(mem_yn);
+	}
+	
+	function fn_upd_user(){
+		var mem_carnum = $("#mem_carnum").val();
+		var mem_name = $("#mem_name").val();
+		var mem_email = $("#mem_email").val();
+		var mem_tel = $("#mem_tel").val();
+		var mem_pw = $("#mem_pw").val();
+		
+		var mem_ticket_yn = $("#mem_ticket_yn").val();
+		var mem_exit_yn = $("#mem_exit_yn").val();
+		var mem_black_yn = $("#mem_black_yn").val();
+		var sign_date = $("#sign_date").val();
+		
+		var signout_date = $("#signout_date").val();
+		var mem_yn = $("#mem_yn").val();
+		
+		var param = "";
+		param += "dummy=" + Math.random();
+		param += "&mem_carnum=" + mem_carnum
+		param += "&mem_name=" + mem_name
+		param += "&mem_email=" + mem_email
+		param += "&mem_tel=" + mem_tel
+		param += "&mem_pw=" + mem_pw
+		
+		param += "&mem_ticket_yn=" + mem_ticket_yn
+		param += "&mem_exit_yn=" + mem_exit_yn
+		param += "&mem_black_yn=" + mem_black_yn
+		param += "&sign_date=" + sign_date
+		
+		param += "&signout_date=" + signout_date
+		param += "&mem_yn=" + mem_yn
+		
+		$.ajax({
+			url : "ad_user_mgr_upd.ajax",
+			data : param,
+			dataType : "json",
+			type : "post",
+			async : false,
+			statusCode : {
+				404 : function() {
+					alert("네트워크가 불안정합니다. 다시 시도부탁드립니다.");
+				}
+			},
+			success : function(data) {
+				if(data.msg == "ok"){
+					location.reload();
+				} else{
+					alert("오류발생")
+				}
+				console.log(data.msg)
+			}
+		});
+	}
+
+	function fn_del_user(mem_carnum){
+		
+		var param = "";
+		param += "dummy=" + Math.random();
+		param += "&mem_carnum=" + mem_carnum
+		alert(param)
+		$.ajax({
+			url : "ad_user_mgr_del.ajax",
+			data : param,
+			dataType : "json",
+			type : "post",
+			async : false,
+			statusCode : {
+				404 : function() {
+					alert("네트워크가 불안정합니다. 다시 시도부탁드립니다.");
+				}
+			},
+			success : function(data) {
+				if(data.msg == "ok"){
+					location.reload();
+				} else{
+					alert("삭제 도중 문제가 생겼습니다")
+				}
+			}
+		});
+	}
+	
+</script>
+
+{% endblock %}

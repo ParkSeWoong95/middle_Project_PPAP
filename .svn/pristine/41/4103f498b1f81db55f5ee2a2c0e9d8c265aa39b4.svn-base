@@ -1,0 +1,288 @@
+{% extends 'layout_admin.html' %}
+<meta charset="UTF-8">
+{% block content %}
+
+<style>
+	table{
+		margin : -13px;
+	}
+	
+	.group_box {
+		display:flex;
+		width:100%;
+		height:30px;
+		margin-bottom : 10px;
+	}
+	
+	.left_box {
+		float : left;
+		width: 50%;
+		text-align: center;
+		font-size : 17px;
+	}
+	
+	.right_box {
+		float : left;
+		margin-left : 10px;
+		width: 50%;
+		text-align: center;
+	}
+	
+</style>
+<!-- Main -->
+<section id="main">
+	<div class="container">
+		<!-- Content -->
+			<article class="box post">
+				<header>
+					<h2>회원관리</h2>
+				</header>
+					<div>
+						<table border="2" style="text-align: center;">
+							<tr>
+								<td>차량번호</td>
+								<td>회원명</td>
+								<td>이메일</td>
+								<td>전화번호</td>
+								
+								<td>블랙여부</td>
+								<td>멤버여부</td>
+								<td>상세보기/수정</td>
+							</tr>
+							
+							{% for s in list %}
+							<tr>
+								<td>{{s.mem_carnum}}</td>
+								<td>{{s.mem_name}}</td>
+								<td>{{s.mem_email}}</td>
+								<td>{{s.mem_tel}}</td>
+								<td>
+								{% if s.mem_black_yn == 'y' or s.mem_black_yn == 'Y' %}
+								<span style="color:red;">블랙회원</span>
+								{% else %}
+								일반회원
+								{% endif %}
+								</td>
+								<td>
+								{% if s.mem_yn == 'y' or s.mem_yn == 'Y' %}
+								정회원
+								{% else %}
+								비회원
+								{% endif %}
+								</td>
+								
+								<td><button class="btn btn-primary" data-toggle="modal" data-target="#myModal" 
+									onclick="showModal('{{s.mem_carnum}}'
+														,'{{s.mem_name}}'
+														,'{{s.mem_email}}'
+														,'{{s.mem_tel}}'
+														,'{{s.mem_pw}}'
+														,'{{s.mem_ticket_yn}}'
+														,'{{s.mem_black_yn}}'
+														,'{{s.sign_date}}'
+														,'{{s.mem_yn}}')" >선택</button>
+								</td>
+							</tr>
+							{% endfor %}
+						</table>
+					</div>
+			</article>
+		</div>
+	</section>
+
+<!-- The Modal 1 -->
+<div class="modal" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">정보수정</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+
+      <div class="modal-body">
+			 <form class="user" method="post" enctype="multipart/form-data" name="register">
+			 	<div class="group_box">
+				 	<label class="left_box">차량번호</label>
+				 	<input class="right_box" type="text" id="mem_carnum" readonly style="background: #F5F5F5;">
+			 	</div>
+			 	<div class="group_box">
+				 	<label class="left_box">회원명</label>
+				 	<input class="right_box" type="text" id="mem_name">
+			 	</div>
+			 	<div class="group_box">
+				 	<label class="left_box">이메일</label>
+				 	<input class="right_box" type="text" id="mem_email">
+			 	</div>
+			 	<div class="group_box">
+				 	<label class="left_box">전화번호</label>
+				 	<input class="right_box" type="text" id="mem_tel">
+			 	</div>
+			 	<div class="group_box">
+				 	<label class="left_box">비밀번호</label>
+				 	<input class="right_box" type="password" id="mem_pw">
+			 	</div>
+			 	<div class="group_box">
+				 	<label class="left_box">가입날짜</label>
+				 	<input class="right_box" type="text" id="sign_date" readonly style="background: #F5F5F5;">
+			 	</div>
+			 	<div class="group_box">
+				 	<label class="left_box" style="width: 36%;">정기권사용여부</label>
+				 	<div class="right_box" style="width: 74%;">
+				 	사용중 <input class="right_radio" type="radio" name="mem_ticket_yn" value="y" onclick="return(false);">
+					미사용 <input class="right_radio" type="radio" name="mem_ticket_yn" value="n" onclick="return(false);">
+					</div>
+			 	</div>
+			 	<div class="group_box">
+				 	<label class="left_box" style="width: 36%;">블랙회원</label>
+				 	<div class="right_box" style="width: 74%;">
+					일반회원 <input class="right_radio" type="radio" name="mem_black_yn" value="n">
+				 	블랙회원 <input class="right_radio" type="radio" name="mem_black_yn" value="y">
+					</div>
+			 	</div>
+			 	<div class="group_box">
+				 	<label class="left_box" style="width: 36%;">회원/비회원</label>
+				 	<div class="right_box" style="width: 74%;">
+				 	정회원 <input class="right_radio" type="radio" name="mem_yn" value="y">
+					비회원 <input class="right_radio" type="radio" name="mem_yn" value="n">
+					</div>
+			 	</div>
+	               <hr>
+	               <a href="ad_user_mgr" class="btn btn-primary btn-user btn-block" onclick="fn_upd_user()">
+	                   정보수정
+	               </a>
+            </form>
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">닫기</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- 모달 끝 -->
+
+
+
+<script type="text/javascript">
+	function showModal(mem_carnum, mem_name, mem_email, mem_tel, mem_pw, mem_ticket_yn, mem_black_yn, sign_date, mem_yn){
+		$("#mem_carnum").val(mem_carnum);
+		$("#mem_name").val(mem_name);
+		$("#mem_email").val(mem_email);
+		$("#mem_tel").val(mem_tel);
+		$("#mem_pw").val(mem_pw);
+		$("#sign_date").val(sign_date);
+		
+		if (mem_ticket_yn == 'y' || mem_ticket_yn == 'Y') {
+			$("input:radio[name='mem_ticket_yn']:radio[value='y']").prop('checked', true); // 선택하기	
+		} else {
+			$("input:radio[name='mem_ticket_yn']:radio[value='n']").prop('checked', true); // 선택하기
+		}
+		
+		if (mem_black_yn == 'y' || mem_black_yn == 'Y') {
+			$("input:radio[name='mem_black_yn']:radio[value='y']").prop('checked', true); // 선택하기	
+		} else {
+			$("input:radio[name='mem_black_yn']:radio[value='n']").prop('checked', true); // 선택하기
+		}
+		
+		if (mem_yn == 'y' || mem_yn == 'Y') {
+			$("input:radio[name='mem_yn']:radio[value='y']").prop('checked', true); // 선택하기	
+		} else {
+			$("input:radio[name='mem_yn']:radio[value='n']").prop('checked', true); // 선택하기
+		}
+		
+		$("#myModal").modal();
+		
+	}
+
+	function fn_upd_user(){
+		
+		var mem_name = $("#mem_name").val();
+		var mem_email = $("#mem_email").val();
+		var mem_tel = $("#mem_tel").val();
+		var mem_pw = $("#mem_pw").val();
+		var sign_date = $("#sign_date").val();
+		var mem_carnum = $("#mem_carnum").val();
+		
+		var mem_ticket_yn = $(':radio[name="mem_ticket_yn"]:checked').val();
+		var mem_black_yn = $(':radio[name="mem_black_yn"]:checked').val();
+		var mem_yn = $(':radio[name="mem_yn"]:checked').val();
+		
+		if(mem_name.length <= 2 || mem_name.length >= 6  ){
+			alert("이름의 길이를 확인하세요.")
+			$("#mem_name").focus();
+			return;
+		}
+		
+		var regExp = /^\d{3}\d{4}\d{4}$/;
+		if(!regExp.test(mem_tel)) {
+			alert("올바른 전화번호 형식이 아닙니다. 다시 입력해주세요.")
+			$("#mem_tel").focus();
+			return;
+		}
+		
+		var emailRule = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;//이메일 정규식
+		if(!emailRule.test(mem_email)) {
+			alert("올바른 이메일의 형식이 아닙니다. 다시 입력해주세요.")
+			$("#mem_email").focus();
+			return;
+		}
+		
+		var pattern1 = /\d{2}[가-힣ㄱ-ㅎㅏ-ㅣ\x20]\d{4}/g; //12가1234
+		var pattern2 = /\d{3}[가-힣ㄱ-ㅎㅏ-ㅣ\x20]\d{4}/g; //123가1234
+		if(!pattern1.test(mem_carnum) && !pattern2.test(mem_carnum)){
+			alert("올바른 차량번호가 아닙니다. 다시 입력해주세요.")
+			$("#mem_carnum").focus();
+			return;
+		}
+		
+		var flag_ok = confirm(mem_carnum + " 회원의 정보를 수정하시겠습니까?");
+		
+		if(!flag_ok){
+			return;
+		}
+		
+		var param = "";
+		param += "dummy=" + Math.random();
+		param += "&mem_carnum=" + mem_carnum
+		param += "&mem_name=" + mem_name
+		param += "&mem_email=" + mem_email
+		param += "&mem_tel=" + mem_tel
+		param += "&mem_pw=" + mem_pw
+		
+		param += "&sign_date=" + sign_date
+		param += "&mem_ticket_yn=" + mem_ticket_yn
+		param += "&mem_black_yn=" + mem_black_yn
+		param += "&mem_yn=" + mem_yn
+		
+		$.ajax({
+			url : "ad_user_mgr_upd.ajax",
+			data : param,
+			dataType : "json",
+			type : "post",
+			async : false,
+			statusCode : {
+				404 : function() {
+					alert("네트워크가 불안정합니다. 다시 시도부탁드립니다.");
+				}
+			},
+			success : function(data) {
+				if(data.msg == "ok"){
+					alert("수정이 완료되었습니다.")
+					location.reload();
+				} else{
+					alert("오류발생")
+				}
+				console.log(data.msg)
+			}
+		});
+		
+	}
+
+</script>
+
+{% endblock %}

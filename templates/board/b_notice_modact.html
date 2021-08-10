@@ -1,0 +1,19 @@
+{% extends 'layout_notice.html' %}
+<meta charset="UTF-8">
+{% block content %}
+
+<script type="text/javascript">
+	var cnt = '{{cnt}}';
+	if(cnt == '1'){
+		console.log("정상적으로 수정되었습니다.");
+		location.href = "b_notice"
+	} else {
+		alert("수정도중 오류가 생겼습니다.");
+		history.back();
+	}
+
+	
+</script>
+
+{% endblock %}
+

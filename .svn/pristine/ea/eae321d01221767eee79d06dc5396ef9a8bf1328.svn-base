@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Test">
+	<select id="select_list">
+		select 
+			bnotice_seq, 
+			bnotice_title, 
+			bnotice_content, 
+			bnotice_filename, 
+			bnotice_filepath, 
+			bnotice_hit, 
+			in_date, 
+			in_user_id, 
+			up_date, 
+			(select mem_name from members m where m.mem_carnum = n.in_user_id) in_user_name
+ 		from 
+ 			bnotice n
+ 		where 
+ 			display_yn = 'y'
+ 		order by
+ 		 	bnotice_seq desc
+	</select>
+	
+<!-- 	<select id="select_list_admin">
+		select 
+			bnotice_seq, 
+			bnotice_title, 
+			bnotice_content, 
+			bnotice_filename, 
+			bnotice_filepath, 
+			bnotice_hit, 
+			in_date, 
+			in_user_id, 
+			up_date, 
+			(select mem_name from members m where m.mem_carnum = n.in_user_id) in_user_name
+ 		from 
+ 			bnotice n
+ 		where 
+ 		order by
+ 		 	b_seq desc
+	</select> -->
+	
+	<select id="select">
+		select 
+			bnotice_seq, 
+			bnotice_title, 
+			bnotice_content, 
+			bnotice_filename, 
+			bnotice_filepath, 
+			bnotice_hit, 
+			in_date, 
+			in_user_id,
+			up_date, 
+			display_yn,
+			(select mem_name from members m where m.mem_carnum = n.in_user_id) in_user_name
+ 		from 
+ 			bnotice n
+ 		where  
+ 			bnotice_seq = :1 
+	</select>	
+	
+	<update id="insert">
+		insert into bnotice 
+		(
+			bnotice_seq, 
+			bnotice_title, 
+			bnotice_content, 
+			bnotice_filename, 
+			bnotice_filepath, 
+			bnotice_hit, 
+			in_date, 
+			in_user_id, 
+			up_date,
+			display_yn 
+		) 
+		values
+		(	
+			notice_seq.nextval,
+			:1, 
+			:2, 
+			:3, 
+			:4, 
+			'0',
+			to_char(sysdate, 'YYYYMMDD.HH24MISS'), 
+			:5, 
+			to_char(sysdate, 'YYYYMMDD.HH24MISS'), 
+			:6
+		)
+	</update>
+	
+	<update id="update">
+		update 
+			bnotice 
+		set 
+			bnotice_title			=:1, 
+			bnotice_content			=:2, 
+			bnotice_filename		=:3, 
+			bnotice_filepath		=:4,
+			up_date					= to_char(sysdate, 'YYYYMMDD.HH24MISS')
+		where 
+			bnotice_seq=:5
+	</update>
+	
+	<update id="del_img">
+		update 
+			bnotice 
+		set 
+			attach_path			= '', 
+			attach_file			= '',
+			up_date				= to_char(sysdate, 'YYYYMMDD.HH24MISS'), 
+			up_user_id			=:1
+		where 
+			b_seq=:2
+	</update>
+	
+	<update id="hits">
+		update 
+			bnotice 
+		set 
+			bnotice_hit			=bnotice_hit+1
+		where 
+			bnotice_seq=:1
+	</update>
+	
+	<update id="delete">
+		delete from bnotice 
+		where 
+			bnotice_seq= :1
+	</update>
+</mapper>

@@ -1,0 +1,128 @@
+{% extends 'layout_user.html' %}
+<meta charset="UTF-8">
+
+{% block content %}
+
+<style>
+
+h3{
+	padding: 20px;
+}
+#box_post{
+	width: 100%;
+}
+select {
+	text-align-last: center;
+	text-align: center;
+	-ms-text-align-last: center;
+	-moz-text-align-last: center;
+}
+</style>
+
+<!-- Main -->
+<section id="main">
+	<div class="container">
+		<div>
+			<!-- Content -->
+			<article class="box post" id="box_post">
+				<h3>이용내역</h3>
+				<!-- <form>
+					<div id="his_ser">
+						<input type="date" id="what_date" onclick="fn_data"> 
+						
+					</div>	     
+				</form> -->
+			<div style="text-align: right; margin-bottom: 10px;">
+				<select name="select_yy" id="select_yy" style="display: inline-block; width:12%; text-align: center;">
+				    <option value="">== 년도선택 ==</option>
+				    <option value="2020">2020</option>
+				    <option value="2021">2021</option>
+				    <option value="2022">2022</option>
+				    <option value="2023">2023</option>
+				    <option value="2024">2024</option>
+				    <option value="2025">2025</option>
+				    <option value="2026">2026</option>
+				    <option value="2027">2027</option>
+				    <option value="2028">2028</option>
+				    <option value="2029">2029</option>
+				    <option value="2030">2030</option>
+				</select>
+				
+				<select name="select_mm" id="select_mm" style="display: inline-block; width:12%; text-align: center;">
+					<option value="">== 월선택 ==</option>
+				    <option value="01">01</option>
+				    <option value="02">02</option>
+				    <option value="03">03</option>
+				    <option value="04">04</option>
+				    <option value="05">05</option>
+				    <option value="06">06</option>
+				    <option value="07">07</option>
+				    <option value="08">08</option>
+				    <option value="09">09</option>
+				    <option value="10">10</option>
+				    <option value="11">11</option>
+				    <option value="12">12</option>
+				</select>
+				
+				<button class="btn btn-primary" onclick="fn_search()">검색</button>
+				<button class="btn btn-primary" onclick="fn_reset()">초기화</button>
+			</div>
+			<div>
+				
+				
+				<table border="1">
+					<thead>
+						<tr>
+							<th>아이디</th>
+							<th>요금제</th>
+							<th>차량번호</th>
+							<th>대여날짜</th>
+							<th>대여종료일</th>
+							<th>대여요금</th>
+						</tr>
+					</thead>
+					<tbody id="tbody_reply">
+						{% for t in list %}
+						<tr>
+							<td>{{t.mem_carnum}}</td>
+							<input type="hidden" name="ticket_seq" value="{{t.ticket_seq}}">
+							<td>{{t.prod_name}}</a></td>
+							<td>{{t.mem_carnum}}</a></td>
+							<td>{{t.ticket_sdate}}</td>
+							<td>{{t.ticket_edate}}</td>
+							<td>{{t.prod_price}}</td>
+						</tr>
+						{% endfor %}								
+					</tbody>
+				</table>
+			</article>
+		</div>	
+	</div>
+</section>
+							
+<script type="text/javascript">
+function fn_search() {
+	var select_yy = $("#select_yy option:selected").val();
+	var select_mm = $("#select_mm option:selected").val();
+	var select_date = select_yy + select_mm;
+	alert(select_date)
+	location.href = "u_history?date=" + select_date;
+}
+
+function fn_reset() {
+	location.href = "u_history";
+}
+
+
+
+
+/* 	$("#what_date").on("change",function(){
+		var mydate = $("#what_date").val();
+		
+		location.href="/u_history?dd="+mydate;
+	}); */
+	
+
+</script>
+
+{% endblock %}

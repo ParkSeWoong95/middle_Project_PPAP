@@ -1,0 +1,140 @@
+{% extends 'layout_notice.html' %}
+<meta charset="UTF-8">
+{% block content %}
+<html>
+<style type="text/css">
+
+.notice_table{
+	margin-top : 0px;
+	border-bottom : 1px solid;
+}
+
+.notice_th{
+	border-bottom : 1px solid;
+	text-align: center;
+	font-weight: bold;
+}
+
+.notice_td{
+	border-bottom : 1px solid;
+	text-align: center;
+}
+
+pre {
+	text-align: center;
+}
+
+input[type="button"] {
+	background: black; 
+	font-size : 14px;
+}
+
+.button_box {
+	position: absolute;
+	left: 80%;
+	transform: translateX(-50%);
+}
+
+.button_box_right {
+	position: absolute;
+	left: 80%;
+	transform: translateX(-70%);
+}
+
+.comment {
+	border : 0px;
+	text-align: left;
+}
+
+.comment_td {
+	text-align: left;
+	border : 0px;
+}
+
+textarea {
+	font-size : 12px;
+	resize : none;
+	width : 95%;
+	height : 60em;
+}
+
+input[type="text"] {
+	width : 95%;
+	font-size : 12px;
+	height: 3.0em;
+}
+
+input[type="file"] {
+	margin-left : 1.5em;
+}
+
+.notice_td:nth-child(1) {
+	width : 10%;
+}
+
+.notice_td:nth-child(2) {
+	width : 85%;
+}
+</style>
+
+<!-- Main -->
+
+<section id="main">
+	<div class="container">
+
+		<!-- Content -->
+		<article class="box post">
+			<header>
+				<br><br>
+				<h2 style='text-align:center; font-size:50px;'>게시글 작성</h2>
+			</header>
+			<br>
+			<section>
+			<form name="frm" action="b_sug_addact" method="post" enctype="multipart/form-data">
+			<table class="notice_table">
+				<tr>
+					<td class="notice_td" style="vertical-align: middle;">제목</td>
+					<td class="notice_td">
+						<input type="text" name="bsug_title">
+					</td>
+				</tr>
+				<tr>
+					<td class="notice_td" style="vertical-align: middle;">내용</td>
+					<td class="notice_td">
+						<textarea name="bsug_content"></textarea>
+					</td>
+				</tr>
+				<tr>
+					<td class="notice_td" style="vertical-align: middle;">사진첨부</td>
+					<td class="notice_td" style="text-align: left;">
+						<input type="file" name="file"  accept="image/*"> 
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2" style="padding-left: 58em;">
+						<input type="button" onclick="fn_add()" value="게시">
+						<input type="button" onclick="fn_cancel()" value="취소">
+					</td>
+				</tr>
+				
+			</table>
+			</form>
+			</section>
+		</article>
+	</div>
+</section>
+
+<script>
+
+function fn_add() { // 게시글 작성 완료 함수
+	document.frm.submit();
+}
+
+function fn_cancel() { // 게시글 작성 완료 함수
+	location.href = "b_sug"
+}
+
+</script>
+
+</html>
+{% endblock %}

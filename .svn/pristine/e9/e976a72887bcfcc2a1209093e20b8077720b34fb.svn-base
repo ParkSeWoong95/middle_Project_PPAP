@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="test">
+	<select id="select_list">
+		select 
+			bfree_seq,
+			bfree_title, 
+			bfree_content,
+			bfree_filename, 
+			bfree_filepath,
+			bfree_hit, 
+			bfree_rpseq, 
+			in_date, 
+			in_user_id, 
+			up_date, 
+			up_user_id, 
+			mem_carnum,
+			(select mem_name from members m where m.mem_carnum = b.mem_carnum) mem_name
+		from 
+			bfree b
+		where
+			bfree_title like '%'||:1||'%'
+		order by bfree_seq desc
+	</select>
+	
+	
+	<select id="select">
+		select 
+			bfree_seq,
+			bfree_title, 
+			bfree_content,
+			bfree_filename, 
+			bfree_filepath,
+			bfree_hit, 
+			bfree_rpseq, 
+			in_date, 
+			in_user_id, 
+			up_date, 
+			up_user_id, 
+			mem_carnum,
+			(select mem_name from members m where m.mem_carnum = b.mem_carnum) mem_name
+		from 
+			bfree b
+		where 
+			bfree_seq =:1
+	</select>
+	
+	<insert id="insert">
+		insert into bfree 
+		(
+			bfree_seq,
+			bfree_title, 
+			bfree_content,
+			bfree_filename, 
+			bfree_filepath,
+			bfree_hit, 
+			bfree_rpseq, 
+			in_date, 
+			in_user_id, 
+			up_date, 
+			up_user_id, 
+			mem_carnum
+		) 
+		values
+		(
+			(select nvl(max(to_number(bfree_seq))+1,1) from bfree),
+			:1, 
+			:2, 
+			:3, 
+			:4, 
+			'0',
+			(select nvl(max(to_number(bfree_rpseq))+1,1) from bfree),
+			to_char(sysdate, 'yyyy-mm-dd hh24:mi'), 
+			:5, 
+			to_char(sysdate, 'yyyymmdd.hh24miss'), 
+			:6,
+			:7
+		)
+	</insert>
+	
+	<update id="update">
+		update 
+			bfree 
+		set 
+			bfree_title			=:1, 
+			bfree_content		=:2, 
+			bfree_filename		=:3, 
+			bfree_filepath		=:4, 
+			up_date				=to_char(sysdate, 'yyyymmdd.hh24miss'), 
+			up_user_id			=:5 
+		where 
+			bfree_seq			=:6
+		and mem_carnum			=:7
+	</update>
+	
+	<update id="update_hitup">
+		update 
+			bfree 
+		set 
+			bfree_hit = bfree_hit+1
+		where 
+			bfree_seq			=:1
+	</update>
+	
+	<update id="delete_file">
+		update 
+			bfree 
+		set 
+			bfree_filename		='', 
+			bfree_filepath		=''
+		where 
+			bfree_seq			=:1
+		and mem_carnum			=:2
+	</update>
+	
+	<delete id="delete">
+		delete from bfree where bfree_seq =:1 and mem_carnum =:2
+	</delete>
+	
+</mapper>

@@ -1,0 +1,237 @@
+{% extends 'layout_admin.html' %}
+<meta charset="UTF-8">
+
+{% block content %}
+
+<style>
+	select {
+	   text-align-last: center;
+	   text-align: center;
+	   -ms-text-align-last: center;
+	   -moz-text-align-last: center;
+	}
+</style>
+
+<script type="text/javascript">
+function fn_search() {
+	var select_yy = $("#select_yy option:selected").val();
+	var select_mm = $("#select_mm option:selected").val();
+	
+	var select_date = select_yy + select_mm;
+	
+	location.href = "ad_tow_mgr?date=" + select_date;
+}
+
+function fn_reset() {
+	location.href = "ad_tow_mgr";
+}
+
+function fn_addtow() {
+	
+	var carnum = $("#carnum").val();
+	var carnum = carnum.trim(); 
+	var carnum = carnum.replace(/ /g,"");
+	
+	var tow_reason = $("#tow_reason").val();
+	var tow_date = $("#tow_date").val();
+	
+	var flag_ok = confirm(carnum+" 차량의 견인상태를 등록하시겠습니까?")
+	
+	if(!flag_ok) {
+		return;
+	}
+	
+	var param = "";
+	param += "dummy=" + Math.random();
+	param += "&carnum=" + carnum
+	param += "&tow_reason=" + tow_reason
+	param += "&tow_date=" + tow_date
+	
+	$.ajax({
+		url : "addtow.ajax",
+		data : param,
+		dataType : "json",
+		type : "post",
+		async : false,
+		statusCode : {
+			404 : function() {
+				alert("네트워크가 불안정합니다. 다시 시도부탁드립니다.");
+			}
+		},
+		success : function(data) {
+			if(data.msg == "1"){
+				alert("견인 차량으로 등록이 완료되었습니다.")
+			} else if (data.msg == "0") {
+				alert("추가 도중 문제가 발생했습니다..")
+			} else {
+				alert("회원으로 등록되지 않은 차량번호입니다.")
+			}
+			location.reload()
+		}
+	});
+}
+
+</script>
+
+<style>
+
+#first_box{
+	width:50%;
+	float:left; 
+	vertical-align: bottom; 
+	display: table-cell;
+}
+
+#second_box{
+	width:50%;
+	float:left;
+	text-align: right;
+	padding: 0.3em 0 0.3em 0;
+}
+
+</style>
+
+
+<!-- Main -->
+<section id="main">
+	<div class="container">
+
+		<!-- Content -->
+			<article class="box post">
+				<a href="#" class="image featured">
+					<img src="" alt="" />
+				</a>
+				<header style="display: flex; margin-bottom:10px;">
+					<div id="first_box">
+					<h2>견인차량 관리</h2>
+					</div>
+					
+					<div id="second_box">
+						<button class="btn btn-primary" data-toggle="modal" data-target="#myModal" style="margin-top : 10px;">추가</button>
+					</div>
+				</header>
+					<div style="text-align: right; margin-bottom: 10px;">
+						<select name="select_yy" id="select_yy" style="display: inline-block; width:12%; text-align: center;">
+						    <option value="">== 년도선택 ==</option>
+						    <option value="2020">2020</option>
+						    <option value="2021">2021</option>
+						    <option value="2022">2022</option>
+						    <option value="2023">2023</option>
+						    <option value="2024">2024</option>
+						    <option value="2025">2025</option>
+						    <option value="2026">2026</option>
+						    <option value="2027">2027</option>
+						    <option value="2028">2028</option>
+						    <option value="2029">2029</option>
+						    <option value="2030">2030</option>
+						</select>
+						
+						<select name="select_mm" id="select_mm" style="display: inline-block; width:12%; text-align: center;">
+							<option value="">== 월선택 ==</option>
+						    <option value="01">01</option>
+						    <option value="02">02</option>
+						    <option value="03">03</option>
+						    <option value="04">04</option>
+						    <option value="05">05</option>
+						    <option value="06">06</option>
+						    <option value="07">07</option>
+						    <option value="08">08</option>
+						    <option value="09">09</option>
+						    <option value="10">10</option>
+						    <option value="11">11</option>
+						    <option value="12">12</option>
+						</select>
+						
+						<button class="btn btn-primary" onclick="fn_search()">검색</button>
+						<button class="btn btn-primary" onclick="fn_reset()">초기화</button>
+					</div>
+					<div>
+						<table border="2">
+							<tr>
+								<td>No.</td>
+								<td>차량번호</td>
+								<td>고객명</td>
+								<td>견인날짜</td>
+								<td>견인사유</td>
+								<td>전화번호</td>
+								<td>가입날짜</td>
+								<td>Black</td>
+							</tr>
+							<!-- for문 사용 -->
+							{% for s in list %}
+							<tr>
+								<td>{{s.tow_seq}}</td>
+								<td>{{s.mem_carnum}}</td>
+								<td>{{s.mem_name}}</td>
+								<td>{{s.tow_date}}</td>
+								<td>{{s.tow_reason}}</td>
+								<td>{{s.mem_tel}}</td>
+								<td>{{s.sign_date}}</td>
+								<td>
+									{% if s.mem_black_yn == 'y' %}
+									O
+									{% else %}
+									X
+									{% endif %}
+								</td>
+							</tr>
+							{% endfor %}
+						</table>
+					</div>
+			</article>
+
+	</div>
+</section>
+
+<!-- 모달 -->
+<!-- The Modal -->
+<div class="modal" id="myModal">
+	<div class="modal-dialog">
+		<div class="modal-content">
+		<!-- Modal Header -->
+			<div class="modal-header">
+        		<h4 class="modal-title">견인차량 등록</h4>
+        		<button type="button" class="close" data-dismiss="modal">&times;</button>
+			</div>
+			
+      		<!-- Modal body -->
+          	<div class="modal-body">
+				<form class="user" method="post" enctype="multipart/form-data" name="register">
+					
+					<div class="form-group ">
+						<input type="text" class="form-control form-control-user" placeholder="차량번호" id="carnum">
+					</div>
+					
+					<div class="form-group ">
+						<input type="text" class="form-control form-control-user" placeholder="견인사유" id="tow_reason">
+					</div>
+					
+					<div class="form-group" style="margin : 0 0 5px 10px;">
+						견인날짜
+					</div>
+					
+					<div class="form-group ">
+						<input type="date" id="tow_date" class="form-control form-control-user" placeholder="가입날짜">
+					</div>
+					
+					<hr>
+                            
+					<div class="form-group row"></div>
+					<br/>
+					<a class="btn btn-primary btn-user btn-block" onclick="fn_addtow()">
+						확인
+					</a>
+				</form>
+			</div>
+			
+      		<!-- Modal footer -->
+    		<div class="modal-footer">
+        		<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      		</div>
+		</div>
+	</div>
+</div>
+<!-- 모달 -->
+
+
+{% endblock %}

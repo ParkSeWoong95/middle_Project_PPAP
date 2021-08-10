@@ -1,0 +1,291 @@
+{% extends 'layout_admin.html' %}
+<meta charset="UTF-8">
+
+{% block content %}
+
+<style>
+	select {
+	   text-align-last: center;
+	   text-align: center;
+	   -ms-text-align-last: center;
+	   -moz-text-align-last: center;
+	}
+</style>
+
+<script>
+$(document).on("click", ".btn-primary", function () {
+    var up_book_seq = $(this).data('bookseq');
+    var up_carnum = $(this).data('carnum');
+    
+    $(".modal-body #modal_bookseq").val(up_book_seq);
+    $(".modal-body #modal_carnum").val(up_carnum);
+});
+
+function getToday(){
+    var date = new Date();
+    var year = date.getFullYear();
+    var month = ("0" + (1 + date.getMonth())).slice(-2);
+    var day = ("0" + date.getDate()).slice(-2);
+
+    return year + month + day;
+}
+
+function fn_search() {
+	var select_yy = $("#select_yy option:selected").val();
+	var select_mm = $("#select_mm option:selected").val();
+	
+	var select_date = select_yy + select_mm;
+	
+	location.href = "ad_book_now?date=" + select_date;
+}
+
+function fn_reset() {
+	location.href = "ad_book_now";
+}
+
+
+function fn_book_update() {
+	var book_seq = $("#modal_bookseq").val();
+	var carnum = $("#modal_carnum").val();
+	var book_date = $("#modal_book_date").val();
+	
+	var int_today = parseInt(getToday());
+	var int_book_date = parseInt(book_date.replace("-",""))
+	
+	if (int_today >= int_book_date) {
+		alert("예약일은 오늘날짜 이후로만 변경 가능합니다.")
+		location.href = "ad_book_now";
+	}
+	
+	var flag_ok = confirm(carnum+" 차량의 예약일을 '"+book_date+"' 로 변경하시겠습니까?")
+	
+	if(!flag_ok) {
+		return;
+	}
+	
+	var param = "";
+	param += "dummy=" + Math.random();
+	param += "&book_seq=" + book_seq
+	param += "&carnum=" + carnum
+	param += "&book_date=" + book_date
+	
+	$.ajax({
+		url : "ad_upbook.ajax",
+		data : param,
+		dataType : "json",
+		type : "post",
+		async : false,
+		statusCode : {
+			404 : function() {
+				alert("네트워크가 불안정합니다. 다시 시도부탁드립니다.");
+			}
+		},
+		success : function(data) {
+			if(data.msg == "ok"){
+				alert(carnum + " 차량의 예약일이 변경되었습니다.")
+			} else {
+				alert("변경 도중 문제가 발생했습니다.")
+			}
+			location.reload()
+		}
+	});
+}
+
+function fn_book_cel(book_seq, carnum) {
+	
+	var flag_ok = confirm(carnum+" 차량의 예약을 취소하시겠습니까?")
+	
+	if(!flag_ok) {
+		return;
+	}
+	
+	var param = "";
+	param += "dummy=" + Math.random();
+	param += "&book_seq=" + book_seq
+	
+	$.ajax({
+		url : "ad_book_cel.ajax",
+		data : param,
+		dataType : "json",
+		type : "post",
+		async : false,
+		statusCode : {
+			404 : function() {
+				alert("네트워크가 불안정합니다. 다시 시도부탁드립니다.");
+			}
+		},
+		success : function(data) {
+			if(data.msg == "ok"){
+				alert("예약 취소가 정상적으로 완료되었습니다.")
+			} else {
+				alert("취소 도중 문제가 발생했습니다.")
+			}
+			location.reload()
+		}
+	});
+}
+
+</script>
+
+<!-- Main -->
+<section id="main">
+	<div class="container">
+
+		<!-- Content -->
+		<article class="box post">
+			<header>
+				<h2>예약현황</h2>
+			</header>
+			<div style="text-align: right; margin-bottom: 10px;">
+				<select name="select_yy" id="select_yy" style="display: inline-block; width:12%; text-align: center;">
+				    <option value="">== 년도선택 ==</option>
+				    <option value="2020">2020</option>
+				    <option value="2021">2021</option>
+				    <option value="2022">2022</option>
+				    <option value="2023">2023</option>
+				    <option value="2024">2024</option>
+				    <option value="2025">2025</option>
+				    <option value="2026">2026</option>
+				    <option value="2027">2027</option>
+				    <option value="2028">2028</option>
+				    <option value="2029">2029</option>
+				    <option value="2030">2030</option>
+				</select>
+				
+				<select name="select_mm" id="select_mm" style="display: inline-block; width:12%; text-align: center;">
+					<option value="">== 월선택 ==</option>
+				    <option value="01">01</option>
+				    <option value="02">02</option>
+				    <option value="03">03</option>
+				    <option value="04">04</option>
+				    <option value="05">05</option>
+				    <option value="06">06</option>
+				    <option value="07">07</option>
+				    <option value="08">08</option>
+				    <option value="09">09</option>
+				    <option value="10">10</option>
+				    <option value="11">11</option>
+				    <option value="12">12</option>
+				</select>
+				
+				<button class="btn btn-primary" onclick="fn_search()">검색</button>
+				<button class="btn btn-primary" onclick="fn_reset()">초기화</button>
+			</div>
+			<div>
+				<table border="3" style="text-align: center;">
+					<tr>
+						<td>예약번호</td>
+						<td>차량번호</td>
+						<td>고객명</td>
+						<td>전화번호</td>
+						<td>구매일</td>
+						<td>예약일</td>
+						<td>상태</td>
+						<td>자리</td>
+						<td>예약일변경</td>
+						<td>예약취소</td>
+					</tr>
+					
+					<!-- for문 사용 -->
+					{% for li in list %}
+					<tr>
+						<td>{{li.book_seq}}</td>
+						<td>{{li.mem_carnum}}</td>
+						<td>{{li.mem_name}}</td>
+						<td>{{li.mem_tel}}</td>
+						<td>{{li.book_buydate}}</td>
+						<td>{{li.book_date}}</td>
+						<td>
+						{% if li.book_state == 'cancel' %}
+						취소됨
+						{% elif li.book_state == 'book' %}
+						예약됨
+						{% elif li.book_state == 'use' %}
+						사용중
+						{% else %}
+						기간만료
+						{% endif %}
+						</td>
+						<td>{{li.parkinfo_seq}}</td>
+						<td>
+						{% if li.book_state == 'book' %}
+						<button class="btn btn-primary" data-toggle="modal" data-target="#myModal" data-carnum="{{li.mem_carnum}}" data-bookseq="{{li.book_seq}}">변경</button>
+						{% else %}
+						변경불가
+						{% endif %}
+						</td>  
+						<td>
+						{% if li.book_state == 'book' %}
+						<button class="btn btn-primary" onclick="fn_book_cel('{{li.book_seq}}', '{{li.mem_carnum}}')">취소</button>
+						{% else %}
+						취소불가
+						{% endif %}
+						</td>  
+					</tr>
+					{% endfor %}
+				</table>
+			</div>
+
+		</article>
+	</div>
+</section>
+
+<!-- 모달 -->
+<!-- The Modal -->
+<div class="modal" id="myModal">
+	<div class="modal-dialog">
+		<div class="modal-content">
+		<!-- Modal Header -->
+			<div class="modal-header">
+        		<h4 class="modal-title">예약일 변경</h4>
+        		<button type="button" class="close" data-dismiss="modal">&times;</button>
+			</div>
+			
+      		<!-- Modal body -->
+          	<div class="modal-body">
+				<form class="user" method="post" enctype="multipart/form-data" name="register">
+					
+					<div class="form-group" style="margin : 0 0 5px 10px;">
+						예약번호
+					</div>
+					
+					<div class="form-group ">
+						<input type="text" id="modal_bookseq" class="form-control form-control-user" value="" readonly>
+					</div>
+					
+					<div class="form-group" style="margin : 0 0 5px 10px;">
+						차량번호
+					</div>
+					
+					<div class="form-group ">
+						<input type="text" id="modal_carnum" class="form-control form-control-user" value="" readonly>
+					</div>
+					
+					<div class="form-group" style="margin : 0 0 5px 10px;">
+						변경하실 예약일을 선택해주세요.
+					</div>
+					
+					<div class="form-group ">
+						<input type="date" id="modal_book_date" class="form-control form-control-user">
+					</div>
+					
+					<hr>
+                            
+					<div class="form-group row"></div>
+					<br/>
+					<a class="btn btn-primary btn-user btn-block" onclick="fn_book_update()">
+						확인
+					</a>
+				</form>
+			</div>
+			
+      		<!-- Modal footer -->
+    		<div class="modal-footer">
+        		<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      		</div>
+		</div>
+	</div>
+</div>
+<!-- 모달 -->
+
+{% endblock %}

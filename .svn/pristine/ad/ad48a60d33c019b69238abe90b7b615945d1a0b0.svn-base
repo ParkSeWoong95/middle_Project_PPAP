@@ -1,0 +1,161 @@
+{% extends 'layout_book_cel.html' %}
+<meta charset="UTF-8">
+
+{% block content %}
+
+<style>
+table{
+	border : 2px solid black;
+	width : auto;
+}
+
+input[type="button"]{
+	background: black;
+	font-size: 16px;
+}
+
+tr{
+	width : auto;
+}
+</style>
+  
+<!-- Main -->
+<section id="main">
+	<div class="container">
+
+		<!-- Content -->
+			<article class="box post">
+				<a href="#" class="image featured">
+				</a>
+				<header>
+					<h5>비회원 예약취소</h5>
+				</header>
+				
+				<table border="1">
+					<tr>
+						<td>
+							두개 모두 입력해주세요!
+							<hr>
+							예약차량번호 <input id = "mem_carnum" type="text">
+							<br>
+							예약인증번호 <input id = "book_rnd" type="text">
+							<hr>
+							<input type="button" value="제출" onclick="fn_clicked()">
+						</td>
+					</tr>
+				</table>
+				<table>
+					<tbody id="tbody_reply"></tbody>
+				</table>
+					<br>
+			</article>
+	</div>
+</section>
+
+<!-- 모달 -->
+
+<script type="text/javascript">
+
+function fn_clicked(){
+	var book_rnd = document.getElementById('book_rnd').value;
+	var mem_carnum = document.getElementById('mem_carnum').value;
+	
+	var param = "";
+	param += "dummy=" + Math.random();
+	param += "&book_rnd=" + book_rnd
+	param += "&mem_carnum=" + mem_carnum
+	
+	$.ajax({
+		url : "nu_book_cel.ajax",
+		data : param,
+		dataType : "json",
+		type : "post",
+		async : false,
+		statusCode : {
+			404 : function() {
+				alert("네트워크가 불안정합니다. 다시 시도부탁드립니다.");
+			}
+		},
+		success : function(data) {
+			if(data.msg == "ok"){
+				$("#book_rnd").val("")
+				$("#mem_carnum").val("")
+				var obj = data.obj
+				var txt = "";
+				var list = obj[0]
+				
+				list["book_buydate"]
+				txt +=	"<tr>"+"\n";
+				txt +=		"<td>예약번호</td>\n";
+				txt +=		"<td>구매날짜</td>\n";
+				txt +=		"<td>예약날짜</td>\n";
+				txt +=		"<td>차량번호</td>\n";
+				txt +=		"<td>자리번호</td>\n";
+				txt +=		"<td>인증번호</td>\n";
+				txt +=		"<td>예약상태</td>\n";
+				txt +=	"</tr>"+"\n";
+				
+				txt +=	"<tr>"+"\n";
+				txt +=		"<td>"+list["book_seq"]+"</td>\n";
+				txt +=		"<td>"+list["book_buydate"]+"</td>\n";
+				txt +=		"<td>"+list["book_date"]+"</td>\n";
+				txt +=		"<td>"+list["mem_carnum"]+"</td>\n";
+				txt +=		"<td>"+list["parkinfo_seq"]+"</td>\n";
+				txt +=		"<td>"+list["book_rnd"]+"</td>\n";
+				txt +=		"<td>\n"
+				if(list["book_cel_yn"]=='n'){
+					txt +=	"<button onclick='fn_book_check("+list["book_seq"]+")'>예약취소</button>"
+				} else {
+					txt +=	"<button onclick='fn_book()'>취소불가</button>"
+				}
+				
+				txt +=		"</td>\n";
+				txt +=	"</tr>"+"\n";
+				txt +=	"<input type='text' id='tid' hidden ='' value ="+list["tid"]+">"+"\n";
+				
+				
+				$("#tbody_reply").html(txt);
+				console.log("성공")
+			} else{
+				alert("예약취소 실패했습니다.")
+				
+
+			}
+		}
+	});
+}
+function fn_book_check(n){
+	var book_seq = n;
+	
+	var param = "";
+	param += "dummy=" + Math.random();
+	param += "&book_seq=" + book_seq
+	
+	$.ajax({
+		url : "u_book_cel.ajax",
+		data : param,
+		dataType : "json",
+		type : "post",
+		async : false,
+		statusCode : {
+			404 : function() {
+				alert("네트워크가 불안정합니다. 다시 시도부탁드립니다.");
+			}
+		},
+		success : function(data) {
+			if(data.msg == "ok"){
+				alert("예약취소 완료했습니다.")
+				location.reload();
+			} else{
+				alert("예약취소 실패했습니다.")
+			}
+		}
+	});
+}
+
+function fn_book(){
+	alert("이미 취소 되었거나 기간이지나 취소 할 수 없습니다.")
+}
+</script>
+
+{% endblock %}

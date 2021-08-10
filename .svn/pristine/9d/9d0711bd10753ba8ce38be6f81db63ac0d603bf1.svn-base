@@ -1,0 +1,72 @@
+{% extends 'layout_intro.html' %}
+<meta charset="UTF-8">
+{% block content %}
+<html>
+<style>
+	#box_post{
+		width: 100%;
+		height: 600px;
+		margin-left:20px;
+		margin-right:20px;
+		background-color: #F7F7F7;
+	}
+	h3{
+		text-align:center; 
+		font-size:70px;
+	}
+		
+	#con {
+		width: 60%;
+		float: left;
+		text-align:center;	
+	}
+	
+	#img_sink{
+		width: 30%;
+		margin-right:7%;
+		margin-top:3%;
+		float: right;
+	}
+	header{
+		margin: 100px;
+	}	
+
+</style>
+<!-- Main -->
+	<section>
+		<!-- Content -->
+		<article  id='box_post'>
+			<header>
+				<section id="con">
+					<br>
+					<h3>회사 소개</h3>
+					<br>
+					<h1 id='h_title' style='text-align:center; '>“PPAP는 상상하는 주차장의 <br>모든 것을 구현하고 있습니다.”</h1>
+					<br>
+					<span style="font-size: 1.2em; font-weight: bold;">PPAP(Pang Pang Auto Parking)</span>는 20XX년 설립 이후,
+					주차장 사용고객에게 
+					편안한 주차공간을 제공하고<br> 
+					효익을 혁신적으로 제고하기 위해 
+					항상 고객의 입장에서 고민하고 연구해왔습니다.<br><br>
+						
+					<span style="font-size: 1.2em; font-weight: bold;">코로나</span>로 인해 침체된 4차산업혁명...
+					그 중심에 있는 <span style="font-size: 1.2em; font-weight: bold;">AI</span>를 활용한 주차장입니다.
+					<br>
+							
+					나약한 인간들을 대체할 <span style="font-size: 1.2em; font-weight: bold;">런닝머신</span>이 옵니다.
+					지금 이거 못 막습니다. 알아서 피하십시오.	<br>
+					새로운 도약을 위한 PPAP의 도전과 노력을 지켜봐 주십시오. <br>
+					감사하십시오.
+					<br>
+					<br>
+					<br>
+					<h1 style='text-align:center; font-size:40px;'>PPAP 대표이사 김정원</h1>
+				</section>
+				<div id="img_sink">
+					<img src="images/ppap.jpg">
+				</div>	
+			</header>
+		</article>
+	</section>
+</html>
+{% endblock %}

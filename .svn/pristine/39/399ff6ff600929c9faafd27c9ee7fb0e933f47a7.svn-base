@@ -1,0 +1,139 @@
+{% extends 'layout_book_cel.html' %}
+<meta charset="UTF-8">
+
+{% block content %}
+
+<style>
+table{
+	border : 1px solid black;
+}
+</style>
+  
+<!-- Main -->
+<section id="main">
+	<div class="container">
+
+		<!-- Content -->
+			<article class="box post">
+				<a href="#" class="image featured">
+				</a>
+				<header>
+					<h2>예약취소</h2>
+				</header>
+				<table>
+					<tr>
+						<td>No.</td>
+						<td>차번호</td>
+						<td>구매날짜</td>
+						<td>예약날짜</td>
+						<td>자리번호</td>
+						<td>상태</td>
+					</tr>
+					{% for a, b in enumerate(list) %}
+						<tr>
+							<td class="notice_th">{{a+1}}</td>
+							<td class="notice_th" id = "mem_carnum">{{b.mem_carnum}}</td>
+							<td class="notice_th">{{b.book_buydate}}</td>
+							<td class="notice_th" id = "book_date">{{b.book_date}}</td>
+							<td class="notice_th">{{b.parkinfo_seq}}</td>
+							<td class="notice_th">
+							{% if b.book_cel_yn == 'n' %}
+								<button onclick="fn_book_check('{{b.book_seq}}','{{b.mem_carnum}}','{{b.parkinfo_seq}}','{{b.tid}}','{{b.prod_price}}')">예약취소</button>
+							{% else %}
+								취소
+							{% endif %}
+							</td>
+						</tr>
+					{% endfor %}
+				</table>
+					
+					<br>
+			</article>
+	</div>
+</section>
+
+<!-- The Modal -->
+<div class="modal" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">really?</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+           <div class="modal-body">
+			예약취소하시겠습니까?        
+			 <form class="user" method="post" enctype="multipart/form-data" name="register">
+                            <div class="form-group row">
+                                <div>
+                                    
+                                </div>
+                            </div>
+                            <a href="pysrc/templates/main" class="btn btn-primary btn-user btn-block" onclick="fn_clicked()" >
+                                예약취소하기
+                            </a>
+                        </form>
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+<!-- 모달 -->
+
+<script type="text/javascript">
+
+function fn_book_check(book_seq, mem_carnum, parkinfo_seq, tid, prod_price){
+	if(!confirm("정말 예약취소하시겠습니까?")){
+		return
+	}
+	var book_seq = book_seq;
+	var mem_carnum = mem_carnum;
+	var parkinfo_seq = parkinfo_seq;
+	var tid = tid;
+	var prod_price = prod_price;
+	
+	var param = "";
+	param += "dummy=" + Math.random();
+	param += "&book_seq=" + book_seq
+	param += "&mem_carnum=" + mem_carnum
+	param += "&parkinfo_seq=" + parkinfo_seq
+	param += "&tid=" + tid
+	param += "&prod_price=" + prod_price
+	
+	$.ajax({
+		url : "k_buy_cancel_nu.ajax",
+		data : param,
+		dataType : "json",
+		type : "post",
+		async : false,
+		statusCode : {
+			404 : function() {
+				alert("네트워크가 불안정합니다. 다시 시도부탁드립니다.");
+			}
+		},
+		success : function(data) {
+			if(data.msg == "ok"){
+				alert("예약취소 완료했습니다.")
+				location.reload();
+			} else{
+				alert("예약취소 실패했습니다.")
+			}
+		}
+	});
+}
+
+function fn_book(){
+	alert("이미 취소 되었거나 기간이지나 취소 할 수 없습니다.")
+}
+
+</script>
+
+{% endblock %}

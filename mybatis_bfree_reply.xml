@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Test">
+	<select id="select">
+		select 
+			r_seq,
+			bfree_seq, 
+			cmt, 
+			in_date, 
+			in_user_id, 
+			up_date, 
+			up_user_id, 
+			(select mem_name from members m where m.mem_carnum = r.in_user_id) in_user_name,
+			good,
+			bad
+ 		from 
+ 			bfree_reply  r 
+ 		where 
+ 			bfree_seq = :1
+		order by r_seq desc
+	</select>
+	<update id="insert">
+		insert into bfree_reply
+		(
+			r_seq, 
+			bfree_seq, 
+			cmt, 
+			in_date, 
+			in_user_id, 
+			up_date, 
+			up_user_id ,
+			good,
+			bad
+		) 
+		values
+		(
+			(select nvl(max(to_number(r_seq))+1,1) from bfree_reply where bfree_seq = :1),
+			:2,
+			:3, 
+			to_char(sysdate, 'yyyy-mm-dd hh24:mi'), 
+			:4, 
+			to_char(sysdate, 'YYYYMMDD.HH24MISS'), 
+			:5,
+			0,
+			0
+		)
+	</update>
+	
+	<update id="update">
+		update 
+			bfree_reply 
+		set	
+			cmt			=:1,
+			up_date		=to_char(sysdate, 'YYYYMMDD.HH24MISS'),
+			up_user_id	=:2
+		where
+			r_seq=:3
+		and
+			bfree_seq=:4
+		and
+			in_user_id=:5
+	</update>
+	
+	<update id="good">
+		update 
+			bfree_reply 
+		set	
+			good		=good+1
+		where
+			r_seq=:1
+		and
+			bfree_seq=:2
+	</update>
+	
+	<update id="bad">
+		update 
+			bfree_reply 
+		set	
+			bad			=bad+1
+		where
+			r_seq=:1
+		and
+			bfree_seq=:2
+	</update>
+	
+	<update id="delete">
+		delete from bfree_reply where r_seq=:1 and bfree_seq=:2
+	</update>
+	
+	<update id="delete_all">
+		delete from bfree_reply where bfree_seq=:1
+	</update>
+	
+</mapper>

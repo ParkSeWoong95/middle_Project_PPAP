@@ -1,0 +1,178 @@
+{% extends 'layout_notice.html' %}
+<meta charset="UTF-8">
+{% block content %}
+<html>
+<style type="text/css">
+		
+.notice_table{
+	margin-top : 0px;
+	border-bottom : 1px solid;
+}
+
+.notice_th{
+	border-bottom : 1px solid;
+	text-align: center;
+	font-weight: bold;
+	font-size: 28px;
+}
+
+.notice_td{
+	border-bottom : 1px solid;
+	text-align: center;
+}
+
+pre {
+	text-align: center;
+	overflow: auto;
+	white-space: pre-wrap;
+	padding : 60px 0 10px 0;
+}
+
+input[type="button"] {
+	background: black; 
+	font-size : 14px;
+}
+
+.button_box {
+	position: absolute;
+	left: 76%;
+	transform: translateX(-50%);
+}
+
+.button_box_right {
+	position: absolute;
+	left: 76%;
+	transform: translateX(-70%);
+}
+
+.comment {
+	border : 0px;
+	text-align: left;
+}
+
+.comment_td {
+	text-align: left;
+	border : 0px;
+}
+
+textarea {
+	font-size : 12px;
+	resize : none;
+	width : 98%;
+	height : 100px;
+}
+
+.notice_td:nth-child(1) {
+	width : 25%;
+}
+
+.notice_td:nth-child(2) {
+	width : 25%;
+}
+
+.notice_td:nth-child(3) {
+	width : 25%;
+}
+
+.notice_td:nth-child(4) {
+	width : 25%;
+}
+
+.detail_link, .detail_link:link, .detail_link:visited {
+	color: black;
+	text-decoration: none;
+}
+</style>
+
+<!-- Main -->
+<section id="main">
+	<div class="container">
+		<!-- Content -->
+		<article class="box post">
+			<header>
+				<br><br>
+				<h2 style='text-align:center; font-size:50px;'><a class="detail_link" href="b_notice">공지사항</a></h2>
+				<div>
+					<div class="button_box">
+					</div>
+				</div>
+			</header>
+			<br>
+			<section>
+			<table class="notice_table">
+				<tr>
+					<td class="notice_td">
+							
+						<input type="button" onclick="fn_b_notice_list()" value="목록" style="float: left;">
+					</td>
+					<td class="notice_td" colspan="3">
+						<div class="button_box_right">
+						{% if session.user_check == 'admin' %}
+							<input type="button" value = "수정" onclick = "fn_b_notice_del()">
+							<input type="button" value = "삭제" onclick = "fn_b_notice_mod()">
+						{% endif %}
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td class="notice_th" colspan="4">{{obj.bnotice_title}}</td>
+				</tr>
+				<tr>
+					<td class="notice_td">No.{{obj.bnotice_seq}}</td>
+					<td class="notice_td">작성일 : {{obj.in_date}}</td>
+					<td class="notice_td">작성자 : {{obj.in_user_id}}</td>
+					<td class="notice_td">조회수 : {{obj.bnotice_hit}}</td>
+				</tr>
+				<tr>
+					<td colspan="4">
+						<pre>
+{{obj.bnotice_content}}
+{% if obj.bnotice_filepath %}
+<img src="download_img?path={{obj.bnotice_filepath}}&file={{obj.bnotice_filename}}" width="300px">
+{% endif %}
+						</pre>
+					</td>
+				</tr>
+				
+				<tr">
+					<th style="text-align: center;">
+					첨부파일
+					</th>
+					<td colspan="3" style="text-align: left;">
+					{% if obj.bnotice_filename %}
+					<a href = 'download_img?path={{obj.bnotice_filepath}}&file={{obj.bnotice_filename}}'>{{obj.bnotice_filename}}</a>
+					{% else %}
+					첨부파일없음	
+					{% endif %}
+					</td>
+								
+				</table>
+			</section>
+		</article>
+	</div>
+</section>
+
+<script>
+			
+function fn_b_notice_list() {
+	location.href = "b_notice"
+}
+
+function fn_b_notice_add() {
+	location.href = "b_notice_add"
+}
+
+function fn_b_notice_mod() {
+	location.href = "b_notice_mod?b_notice_seq={{obj.bnotice_seq}}"
+}
+function fn_b_notice_del() {
+	var flag_check = confirm("삭제하시겠습니까?");
+	if(flag_check){
+	location.href="b_notice_delact?b_notice_seq={{obj.bnotice_seq}}"
+	}
+}
+
+</script>
+
+</html>
+{% endblock %}

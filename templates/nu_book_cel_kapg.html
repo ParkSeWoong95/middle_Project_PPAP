@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>환불페이지</title>
+	<link rel="stylesheet" href="css/k_pay.css" />
+	
+	<script type="text/javascript">
+		$(document).ready(function(){
+			
+		});
+	
+		function k_buy(){
+			location.href="main"
+		}
+	
+	</script>
+</head>
+<body>
+<div id = box class="row mt-5">
+    <h1 id="cen" class="">결제확인</h1>
+    <div id="line"></div>
+    
+    <div>
+    	<br>
+    	
+	   	<h3>?월 ?일 예약이 취소되었습니다.</h3>
+	   	<br>
+	   	<br>
+	   	<br>
+	   	<br>
+	   	<br>
+	   	<br>
+	   	<br>
+	   	<p>&nbsp;&nbsp;&nbsp;- 상품 금액 -</p>
+	   	<h2>10,000원</h2>
+	   	<br>
+	   	<div id=line2></div>
+	   	<p>&nbsp;&nbsp;&nbsp;- 총 환불 금액 -</p>
+	   	<h2>10,000원</h2>
+	   	<div id="line"></div>
+	   	<br>
+   	</div>
+   	
+    <form method="post" class="col-12 text-center">
+    	<div id="btn_cs">
+       		<input type="button" class="kbtn" id="pay" value="환불확인" onclick="k_buy()">
+        </div>
+    </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,65 @@
+{% extends 'layout_user.html' %}
+<meta charset="UTF-8">
+
+{% block content %}
+
+<style>
+
+h3{
+	padding: 20px;
+}
+#box_post{
+	width: 100%;
+}
+
+</style>
+  
+<!-- Main -->
+<section id="main">
+	<div class="container">
+		<div>
+			<!-- Content -->
+			<article class="box post" id="box_post">
+				<h3>이용내역</h3>
+				<form>
+					<div id="his_ser">
+						<input type="date" id="what_date"> 
+					</div>	     
+				</form>
+				<table border="1">
+					<thead>
+						<tr>
+							<th>아이디</th>
+							<th>요금제</th>
+							<th>차량번호</th>
+							<th>대여날짜</th>
+							<th>대여종료일</th>
+							<th>대여요금</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for t in list %}
+						<tr>
+							<td>{{t.mem_carnum}}</td>
+							<input type="hidden" name="ticket_seq" value="{{t.ticket_seq}}">
+							<td>{{t.prod_name}}</a></td>
+							<td>{{t.mem_carnum}}</a></td>
+							<td>{{t.ticket_sdate}}</td>
+							<td>{{t.ticket_edate}}</td>
+							<td>{{t.prod_price}}</td>
+						</tr>
+						{% endfor %}
+								
+					</tbody>
+				</table>
+				<a href = "u_mypage.html">이전페이지</a>			
+			</article>
+		</div>	
+	</div>
+</section>
+
+<script type="text/javascript">
+	document.getElementById('what_date').valueAsDate = new Date();
+</script>
+
+{% endblock %}

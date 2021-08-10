@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>결재페이지</title>
+	<link rel="stylesheet" href="css/k_pay.css" />
+	<style>
+	@font-face{
+		font-family: 'kakaofont';
+		src: url(webfonts/KakaoBold.ttf) format('truetype');
+	}
+	#pay{
+		margin-left: 35%;
+	}
+	</style>
+	 <script src="./js/jquery-3.5.1.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#pay').on('click', function () {
+        		var partner_order_id = $("#partner_order_id").val();
+        		var partner_user_id = $("#partner_user_id").val();
+        		var item_name = $("#item_name").val();
+        		var total_amount = $("#total_amount").val();
+        		var parkinfo_seq = $("#parkinfo_seq").val();
+        		var date = $("#date").val();
+        		var rnd = $("#rnd").val();
+        		var mem_name = $("#mem_name").val();
+        		var mem_tel = $("#mem_tel").val();
+        		var mem_email = $("#mem_email").val();
+        		
+        		var param = "";
+                param += "dummy=" + Math.random();
+                param += "&partner_order_id=" + partner_order_id
+                param += "&partner_user_id=" + partner_user_id
+                param += "&item_name=" + item_name
+                param += "&total_amount=" + total_amount
+                param += "&parkinfo_seq=" + parkinfo_seq
+                param += "&date=" + date
+                param += "&rnd=" + rnd
+                param += "&mem_name=" + mem_name
+                param += "&mem_tel=" + mem_tel
+                param += "&mem_email=" + mem_email
+        		
+                $.ajax({
+                    url: "paymethod_book_nu.ajax",
+                    data: param,
+                    dataType: "json",
+                    type: "post",
+                    async: false,
+                    statusCode: {
+                        404: function () {
+                            alert("네트워크가 불안정합니다. 다시 시도부탁드립니다.");
+                        }
+                    },
+                    success: function (data) {
+                    	console.log(data)
+                        location.href=data["next_url"]
+                    }
+                });
+            });
+        }) 
+        
+    </script>
+</head>
+<body>
+<div id = box class="row mt-5">
+    <h1 id="cen" class="">결제확인</h1>
+    <div id="line"></div>
+	   <div>
+	   		<input type="hidden" id="partner_order_id" value="{{prod_code}}">
+	   		<input type="hidden" id="partner_user_id" value="{{mem_carnum}}">
+	   		<input type="hidden" id="item_name" value="{{prod_name}}">
+	   		<input type="hidden" id="total_amount" value="{{prod_price}}">
+	   		<input type="hidden" id="parkinfo_seq" value="{{parkinfo_seq}}">
+	   		<input type="hidden" id="date" value="{{book_date}}">
+	   		<input type="hidden" id="rnd" value="{{rnd}}">
+	   		<input type="hidden" id="mem_name" value="{{mem_name}}">
+	   		<input type="hidden" id="mem_tel" value="{{mem_tel}}">
+	   		<input type="hidden" id="mem_email" value="{{mem_email}}">
+	   		
+	    	<br>
+		   	<h3>{{prod_name}}</h3>
+		   	<br>
+		   	<br>
+		   	<br>
+		   	<p>&nbsp;&nbsp;&nbsp;- 결제회원 -</p>
+		   	<h2>{{mem_carnum}}</h2>
+		   	<br>
+		   	<br>
+		   	<p>&nbsp;&nbsp;&nbsp;- 상품 금액 -</p>
+		   	<h2>{{prod_price}}</h2>
+		   	<br>
+		   	<div id=line2></div>
+		   	<p>&nbsp;&nbsp;&nbsp;- 총 결제 금액 -</p>
+		   	<h2>{{prod_price}}</h2>
+		   	<div id="line"></div>
+		   	<br>
+	   	</div>
+	
+	    <div >
+	       	<input  type="button" class="kbtn" id="pay" value="결제하기" >
+		</div>
+</div>
+</body>
+</html>

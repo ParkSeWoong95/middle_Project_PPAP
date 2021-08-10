@@ -1,0 +1,118 @@
+{% extends 'layout_notice.html' %}
+<meta charset="UTF-8">
+{% block content %}
+<html>
+<style type="text/css">
+		
+		.notice_table{
+			margin-top : 0px;
+			border-bottom : 1px solid;
+		}
+		
+		.notice_th{
+			border-bottom : 1px solid;
+			text-align: center;
+			font-weight: bold;
+		}
+		
+		.notice_td{
+			border-bottom : 1px solid;
+			text-align: center;
+		}
+		
+		.notice_th:nth-child(1) {
+			width : 15%;
+		}
+		
+		.notice_th:nth-child(2) {
+			width : 40%;
+		}
+		
+		.notice_th:nth-child(3) {
+			width : 15%;
+		}
+		
+		.notice_th:nth-child(4) {
+			width : 12%;
+		}
+		
+		.notice_th:nth-child(5) {
+			width : 12%;
+		}
+		
+		.detail_link, .detail_link:link, .detail_link:visited {
+			color: black;
+			text-decoration: none;
+		}
+		
+		input[type="button"] {
+			background: black; 
+			font-size : 14px;
+		}
+		
+		.button_box {
+			position: absolute;
+			left: 76%;
+			transform: translateX(-50%);
+		}
+		
+</style>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		
+	});
+	
+	function fn_detail(bsug_seq){
+		location.href="b_sug_detail?bsug_seq="+bsug_seq;
+	}
+	
+	function fn_sug_add(){
+		location.href="b_sug_add";
+	}
+	
+</script>
+<!-- Main -->
+<section id="main">
+	<div class="container">
+
+		<!-- Content -->
+		<article class="box post">
+			<header>
+				<br><br>
+				<h2 style='text-align:center; font-size:50px;'><a class="detail_link" href="b_sug">건의사항</a></h2>
+				<br>
+				<div>
+					<div class="button_box">
+						<input type="button" onclick="fn_sug_add()" value="글쓰기">
+					</div>
+				</div>
+			</header>
+			<br>
+			<section>
+				<table class="notice_table">
+					<tr>
+						<td class="notice_th">No.</td>
+						<td class="notice_th">제목</td>
+						<td class="notice_th">등록일</td>
+						<td class="notice_th">작성자</td>
+						<td class="notice_th">조회수</td>
+					</tr>
+					{% for s in list %}
+					<tr>
+						<td class="notice_td">{{s.bsug_seq}}</td>
+						<td class="notice_td"><a href="javascript:fn_detail('{{s.bsug_seq}}')">{{s.bsug_title}}</a></td>
+						<td class="notice_td">{{s.up_date}}</td>
+						<td class="notice_td">{{s.in_user_id}}</td>
+						<td class="notice_td">{{s.bsug_hit}}</td>
+					</tr>
+					{% endfor %}
+				</table>
+			</section>
+		</article>
+	</div>
+</section>
+
+
+</html>
+{% endblock %}

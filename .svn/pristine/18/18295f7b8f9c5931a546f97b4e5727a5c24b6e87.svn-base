@@ -1,0 +1,650 @@
+{% extends 'layout_login.html' %}
+<meta charset="UTF-8">
+
+{% block content %}
+
+<style>
+	#main{
+		height: 600px;
+	}
+	#box_post_one{
+		margin-left: 25%;
+		padding-right: 10%;
+		float : left;
+		height: 500px;
+		margin-bottom: 0;
+	}
+	#box_post_two{
+		padding-right: 5%;
+		height: 500px;
+		float : right;
+	}
+	#btn_move{
+		margin-left: 20%;
+	}
+	.container{
+		width: 100%;
+	}
+	.block_con{
+		height: 100px;
+		margin-left: 30px;
+	}
+	.block_con input{
+		width: 100%; 
+		height: 60px;
+		margin: 3px;
+	}
+	.lo_btn1{
+		margin-left:40px;
+		margin-top:20px;
+		margin-bottom: 10px;
+		height: 70px;
+		width: 90%;
+	}
+	.lo_btn2{
+		margin-left:40px;
+		margin-top:40px;
+		margin-bottom: 10px;
+		height: 70px;
+		width: 90%;		
+	}
+	h2{
+		text-align: center;
+		margin-left: 60px;
+	}
+</style>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#mem_carnum").val("57수8826");
+		$("#mem_pw").val("kdsm08597");
+	});
+	
+	function fn_user_ver() {
+		$("#mem_carnum").val("57수8826");
+		$("#mem_pw").val("kdsm08597");
+	}
+	
+	function fn_admin_ver() {
+		$("#mem_carnum").val("admin");
+		$("#mem_pw").val("admin");
+	}
+	
+	function fn_login() {
+		var user_check = $(':radio[name="user_check"]:checked').val();
+
+		var mem_carnum = $("#mem_carnum").val();
+		var mem_pw = $("#mem_pw").val();
+		
+		if (mem_carnum == "") {
+			alert("차량번호를 입력해주세요.");
+			return;
+		} else if (mem_pw == "") {
+			alert("비밀번호를 입력해주세요.");
+			return;
+		}
+		
+		var param = "";
+		param += "dummy=" + Math.random();
+		param += "&mem_carnum=" + mem_carnum
+		param += "&mem_pw=" + mem_pw
+		param += "&user_check=" + user_check
+		
+		if (user_check == 'user') {
+			$.ajax({
+				url : "login.ajax",
+				data : param,
+				dataType : "json",
+				type : "post",
+				async : false,
+				statusCode : {
+					404 : function() {
+						alert("네트워크가 불안정합니다. 다시 시도부탁드립니다.");
+					}
+				},
+				success : function(data) {
+					if(data.msg == "exit") {
+						alert("탈퇴한 회원입니다.")
+						location.reload();
+					}
+					else if(data.msg == "ok"){
+						location.href = "main"
+					}else {
+						alert("차량번호 혹은 비밀번호가 맞지 않습니다")
+					}
+					console.log(data.msg)
+				}
+			});
+		}
+		
+		if (user_check == 'admin') {
+			$.ajax({
+				url : "admin_login.ajax",
+				data : param,
+				dataType : "json",
+				type : "post",
+				async : false,
+				statusCode : {
+					404 : function() {
+						alert("네트워크가 불안정합니다. 다시 시도부탁드립니다.");
+					}
+				},
+				success : function(data) {
+					if(data.msg == "ok"){
+						alert("관리자 계정으로 로그인 하셨습니다.")
+						location.href = "ad_user_mgr"
+					}else {
+						alert("차량번호 혹은 비밀번호가 맞지 않습니다")
+					}
+					console.log(data.msg)
+				}
+			});
+		}
+	}
+	
+	//아이디찾기	
+	function fn_find(){
+		var mem_name = $("#mem_name").val();
+		var mem_name = mem_name.trim(); 
+		var mem_name = mem_name.replace(/ /g,""); 
+		
+		var email = $("#email").val();
+		
+		var param = "";
+		param += "dummy=" + Math.random();
+		param += "&mem_name=" + mem_name
+		param += "&email=" + email
+		
+		$.ajax({
+			url : "find.ajax",
+			data : param,
+			dataType : "json",
+			type : "post",
+			async : false,
+			statusCode : {
+				404 : function() {
+					alert("네트워크가 불안정합니다. 다시 시도부탁드립니다.");
+				}
+			},
+			success : function(data) {
+				if(data.msg == "ok"){
+					alert("이메일을 발송했습니다. 이메일을 확인해주세요.")
+					location.href = "login"
+				} else{
+					alert("해당 정보로 가입된 회원이 없습니다.")
+				}
+			}
+		});
+	}
+	
+	//비밀번호 찾기
+	function fn_find_pw() {
+		var carnum = $("#carnum_pw").val();
+		var carnum = carnum.trim(); 
+		var carnum = carnum.replace(/ /g,"");
+		
+		var mem_name = $("#mem_name_pw").val();
+		var mem_name = mem_name.trim(); 
+		var mem_name = mem_name.replace(/ /g,""); 
+		
+		var email = $("#email_pw").val();
+		
+		var param = "";
+		param += "dummy=" + Math.random();
+		param += "&carnum=" + carnum
+		param += "&mem_name=" + mem_name
+		param += "&email=" + email
+		
+		$.ajax({
+			url : "find_pw.ajax",
+			data : param,
+			dataType : "json",
+			type : "post",
+			async : false,
+			statusCode : {
+				404 : function() {
+					alert("네트워크가 불안정합니다. 다시 시도부탁드립니다.");
+				}
+			},
+			success : function(data) {
+				if(data.msg == "ok"){
+					alert("이메일로 임시비밀번호를 발급해드렸습니다. 이메일을 확인해주세요.")
+					location.href = "login"
+				} else{
+					alert("해당 정보로 가입된 회원이 없습니다.")
+				}
+			}
+		});
+	}
+	
+	//중복확인여부 변수
+	var flag_dupl = true;
+	var flag_mail_check = false;
+	
+	//회원가입
+	function fn_register(){
+		var mem_name = $("#mem_name_re").val();
+		var mem_name = mem_name.trim(); 
+		var mem_name = mem_name.replace(/ /g,""); 
+		
+		var email = $("#email_re").val();
+		var carnum = $("#carnum_re").val();
+		var carnum = carnum.trim(); 
+		var carnum = carnum.replace(/ /g,""); 
+		
+		var mem_tel = $("#mem_tel_re").val();
+		var mem_tel = mem_tel.replace(/\-/g,""); 
+		
+		var pwd = $("#pwd_re").val();
+		var pwd_check = $("#pwd_check_re").val();
+		
+		if(mem_name == ""){
+			alert("이름을 입력하세요.")
+			$("#mem_name_re").focus();
+			return;
+		}
+		
+		if(email == ""){
+			alert("이메일을 입력하세요.")
+			$("#email_re").focus();
+			return;
+		}
+		
+		if(!flag_mail_check) {
+			alert("이메일 인증을 진행해주세요.")
+			$("#email_re").focus();
+			return;
+		}
+		
+		if(mem_tel == ""){
+			alert("전화번호를 입력하세요.")
+			$("#mem_tel_re").focus();
+			return;
+		}
+		
+		if(carnum == ""){
+			alert("차량번호를 입력하세요.")
+			$("#carnum_re").focus();
+			return;
+		}
+		
+		if(flag_dupl){
+			alert("중복체크를 해주세요.")
+			$("#carnum_re").focus();
+			return;
+		}
+		
+		if(pwd == ""){
+			alert("비밀번호를 입력하세요.")
+			$("#pwd_re").focus();
+			return;
+		}
+		
+		if(pwd_check == ""){
+			alert("비밀번호 확인을 입력하세요.")
+			$("#pwd_check_re").focus();
+			return;
+		}
+		
+		if(mem_name.length <= 2 || mem_name.length >= 6  ){
+			alert("이름의 길이를 확인하세요.")
+			$("#mem_name_re").focus();
+			return;
+		}
+		
+		var regExp = /^\d{3}\d{4}\d{4}$/;
+		if(!regExp.test(mem_tel)) {
+			alert("올바른 전화번호 형식이 아닙니다. 다시 입력해주세요.")
+			$("#mem_tel_re").focus();
+            return;
+		}
+		
+		var emailRule = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;//이메일 정규식
+		if(!emailRule.test(email)) {
+			alert("올바른 이메일의 형식이 아닙니다. 다시 입력해주세요.")
+			$("#email_re").focus();
+	        return;
+		}
+		
+		if (pwd != pwd_check) {
+			alert("비밀번호 확인이 정상적으로 이루어지지 않았습니다. 다시 입력해주세요.")
+			$("#pwd_re").focus();
+			return;
+		}
+		
+		var param = "";
+		param += "dummy=" + Math.random();
+		param += "&mem_name=" + mem_name
+		param += "&email=" + email
+		param += "&carnum=" + carnum
+		param += "&mem_tel=" + mem_tel
+		param += "&pwd=" + pwd
+		
+		$.ajax({
+			url : "join.ajax",
+			data : param,
+			dataType : "json",
+			type : "post",
+			async : false,
+			statusCode : {
+				404 : function() {
+					alert("네트워크가 불안정합니다. 다시 시도부탁드립니다.");
+				}
+			},
+			success : function(data) {
+				if(data.msg == "ok"){
+					alert("회원가입이 완료되었습니다.")
+					location.href = "login"
+				} else{
+					alert("회원가입 도중 문제가 생겼습니다.")
+				}
+			}
+		});
+	}
+	
+	
+	
+	//중복확인
+	function fn_dupl() {
+		var carnum = $("#carnum_re").val();
+		var carnum = carnum.trim(); 
+		var carnum = carnum.replace(/ /g,"");
+		
+		if(carnum == ""){
+			alert("차량번호를 입력하세요.")
+			$("#carnum_re").focus();
+			return;
+		}
+		
+		var pattern1 = /\d{2}[가-힣ㄱ-ㅎㅏ-ㅣ\x20]\d{4}/g; //12가1234
+		var pattern2 = /\d{3}[가-힣ㄱ-ㅎㅏ-ㅣ\x20]\d{4}/g; //123가1234
+		if(!pattern1.test(carnum) && !pattern2.test(carnum)){
+			alert("올바른 차량번호가 아닙니다. 다시 입력해주세요.")
+			$("#carnum_re").focus();
+			return;
+		}
+		
+		var param = "";
+		param += "dummy=" + Math.random();
+		param += "&carnum=" + carnum;
+
+		$.ajax({
+			url : "dupl.ajax",
+			data : param,
+			dataType : "json",
+			type : "post",
+			async : false,
+			statusCode : {
+				404 : function() {
+					alert("네트워크가 불안정합니다. 다시 시도부탁드립니다.");
+				}
+			},
+			success : function(data) {
+				if(data.msg == "ok"){
+					flag_dupl = false;
+					alert("사용할 수 있는 차량번호입니다.")
+				} else{
+					alert("이미 등록된 차량번호입니다.")
+				}
+			}
+		});
+	}
+	
+	var rnd_check = "";
+	
+	function fn_mail_check() {
+		var email = $("#email_re").val();
+		
+		if(email == ""){
+			alert("이메일을 입력하세요.")
+			$("#email_re").focus();
+			return;
+		}
+		
+		var param = "";
+		param += "dummy=" + Math.random();
+		param += "&email=" + email;
+
+		$.ajax({
+			url : "mail_check.ajax",
+			data : param,
+			dataType : "json",
+			type : "post",
+			async : false,
+			statusCode : {
+				404 : function() {
+					alert("네트워크가 불안정합니다. 다시 시도부탁드립니다.");
+				}
+			},
+			success : function(data) {
+				rnd_check = data.rnd_check;
+				
+				if(data.msg == "ok"){
+					alert("인증키가 발송되었습니다. 메일을 확인해주세요.")
+				}
+			}
+		});
+	}
+	
+	function fn_check_yn() {
+		var email_check = $("#email_check_re").val();
+		
+		if(rnd_check == email_check) {
+			alert("이메일인증이 완료되었습니다.")
+			flag_mail_check = true;
+			return;
+		} else {
+			alert("인증키가 정확히 확인되지 않았습니다. 다시 시도해주세요.")
+		}
+	}
+	
+	
+</script>
+<!-- Main -->
+<section id="main">
+	<div class="container">
+	<!-- Content -->
+		<article class="box post" id="box_post_one">
+			<a href="#" class="image featured"></a>
+			<header>
+				<h2>로그인</h2>
+			</header>
+			<table>
+				<tr>
+					<td>
+					
+						<div class="block_con">
+							<input type="text" id="mem_carnum" placeholder="차량번호 또는 관리자아이디"> 
+							<input type="password" id="mem_pw" placeholder="비밀번호">
+						</div>						
+						<br><br>
+						<div style="text-align: center; margin-left : 10%;">
+							일반회원 <input type="radio" name="user_check" value="user" checked onclick="fn_user_ver()">
+							관리자 <input type="radio" name="user_check" value="admin" onclick="fn_admin_ver()">
+						</div>
+						<input class="lo_btn1" type="button"  value="로그인" onclick="fn_login()">	
+											
+						<div id="btn_move" style="margin : 0; text-align: center; margin-left : 10%;">
+							<button class="btn btn-primary" data-toggle="modal" data-target="#myModal3">회원가입</button>
+							<button class="btn btn-primary" data-toggle="modal" data-target="#myModal1">차량번호 찾기</button>
+							<button class="btn btn-primary" data-toggle="modal" data-target="#myModal2">PW 찾기</button>
+						</div>
+					</td>
+				</tr>
+				
+			</table>
+		</article>
+	</div>
+</section>
+
+<!-- 모달1 -->
+<!-- The Modal -->
+<div class="modal" id="myModal1">
+	<div class="modal-dialog">
+		<div class="modal-content">
+		
+      	<!-- Modal Header -->
+     		<div class="modal-header">
+       			 <h4 class="modal-title">차량번호 찾기</h4>
+        		<button type="button" class="close" data-dismiss="modal">&times;</button>
+      		</div>
+      		
+     	 <!-- Modal body -->
+			<div class="modal-body">  
+				<form class="user" method="post" enctype="multipart/form-data" name="register">
+					<div class="form-group row">
+						<div class="col-sm-6">
+							<input type="text" class="form-control form-control-user" placeholder="이름" id="mem_name">
+						</div>
+						
+						<div class="col-sm-6 mb-3 mb-sm-0">
+							<input type="text" class="form-control form-control-user" placeholder="이메일" id="email">
+						</div>
+                    </div>
+                     
+					<hr>
+                            
+					<div class="form-group row"></div>
+					<br/>
+					
+					<a class="btn btn-primary btn-user btn-block" onclick="fn_find()">
+						확인
+					</a>
+				</form>
+     		 </div>
+     		 
+      		<!-- Modal footer -->
+     		<div class="modal-footer">
+       			<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+     		</div>
+		</div>
+	</div>
+</div>
+<!-- 모달 -->
+
+<!-- 모달2 -->
+<!-- The Modal -->
+<div class="modal" id="myModal2">
+	<div class="modal-dialog">
+		<div class="modal-content">
+		<!-- Modal Header -->
+			<div class="modal-header">
+        		<h4 class="modal-title">비밀번호 찾기</h4>
+        		<button type="button" class="close" data-dismiss="modal">&times;</button>
+			</div>
+			
+      		<!-- Modal body -->
+          	<div class="modal-body">
+				<form class="user" method="post" enctype="multipart/form-data" name="register">
+					<div class="form-group row">
+						<div class="col-sm-6">
+							<input type="text" class="form-control form-control-user" placeholder="차량번호" id="carnum_pw">
+						</div>
+						
+                        <div class="col-sm-6 mb-3 mb-sm-0">
+                        	<input type="text" class="form-control form-control-user" placeholder="이름" id="mem_name_pw">
+                        </div>
+					</div>
+					
+					<div class="form-group ">
+						<input type="text" class="form-control form-control-user" placeholder="이메일" id="email_pw">
+					</div>
+					<hr>
+                            
+					<div class="form-group row"></div>
+					<br/>
+					<a href="login" class="btn btn-primary btn-user btn-block" onclick="fn_find_pw()">
+						확인
+					</a>
+				</form>
+			</div>
+			
+      		<!-- Modal footer -->
+    		<div class="modal-footer">
+        		<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      		</div>
+		</div>
+	</div>
+</div>
+<!-- 모달 -->
+
+
+<!-- 모달3 -->
+<!-- The Modal -->
+<div class="modal" id="myModal3">
+	<div class="modal-dialog">
+		<div class="modal-content">
+		
+     		<!-- Modal Header -->
+      		<div class="modal-header">
+        		<h4 class="modal-title">회원가입</h4>
+        		<button type="button" class="close" data-dismiss="modal">&times;</button>
+      		</div>
+
+     		<!-- Modal body -->
+          	 <div class="modal-body">
+			 	<form class="user" method="post" enctype="multipart/form-data" name="register">
+					<div class="form-group">
+						<input type="email" class="form-control form-control-user" placeholder="이름" id="mem_name_re">
+					</div>
+					
+					<div style="display: flex; margin-bottom: 1rem;">
+						<div style="width: 80%; padding-right: 10px; ">
+							<input type="text" class="form-control form-control-user" placeholder="차량번호(아이디) - ex)12가1234/123가1234" id="carnum_re">
+						</div>
+						
+						<div style="width: 20%;">
+							<input type="button" class="form-control form-control-user" value="중복확인" onclick="fn_dupl()" style="width: 80%; font-size: 15px; background: black; float:right;">
+						</div>
+					</div>
+					
+					<div style="display: flex; margin-bottom: 1rem;">
+						<div style="width: 75%; padding-right: 10px; ">
+							<input type="email" class="form-control form-control-user" placeholder="이메일" id="email_re">
+						</div>
+						
+						<div style="width: 25%;">
+							<input type="button" class="form-control form-control-user" value="인증키전송" onclick="fn_mail_check()" style="width: 80%; font-size: 15px; background: black; float:right;">
+						</div>
+					</div>
+					
+					<div style="display: flex; margin-bottom: 1rem;">
+						<div style="width: 75%; padding-right: 10px; ">
+							<input type="email" class="form-control form-control-user" placeholder="인증키" id="email_check_re">
+						</div>
+						
+						<div style="width: 25%;">
+							<input type="button" class="form-control form-control-user" value="인증키확인" onclick="fn_check_yn()" style="width: 80%; font-size: 15px; background: black; float:right;">
+						</div>
+					</div>
+					
+					
+					<div class="form-group">
+						<input type="text" class="form-control form-control-user" placeholder="전화번호 ('-'빼고 입력)" id="mem_tel_re">
+					</div>
+					
+					<div class="form-group">
+						<input type="password" class="form-control form-control-user" placeholder="비밀번호" id="pwd_re">
+					</div>
+					
+					<div class="form-group">
+						<input type="password" class="form-control form-control-user" placeholder="비밀번호 확인" id="pwd_check_re">
+					</div>
+					
+					<hr>
+					<a class="btn btn-primary btn-user btn-block" onclick="fn_register()">
+						확인
+					</a>
+				</form>
+			</div>
+
+     		<!-- Modal footer -->
+      		<div class="modal-footer">
+        		<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      		</div>
+      		
+		</div>
+	</div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Test">
+	<select id="select_list">
+		select 
+			nticket_seq, 
+			nticket_indate, 
+			nticket_outdate, 
+			mem_carnum, 
+			parkinfo_seq,
+			prod_code
+		from 
+			nticket
+	</select>
+	
+	
+	<select id="select">
+		select 
+			nticket_seq, 
+			nticket_indate, 
+			nticket_outdate, 
+			mem_carnum, 
+			parkinfo_seq,
+			prod_code
+		from 
+			nticket
+		where
+			mem_carnum =:1
+		
+	</select>
+	
+	<update id="insert">
+		insert into 
+		nticket
+		(
+			nticket_seq, 
+			nticket_indate, 
+			nticket_outdate, 
+			mem_carnum, 
+			parkinfo_seq,
+			prod_code
+		) 
+		values
+		(
+			(select nvl(max(to_number(nticket_seq))+1,1) from nticket), 
+			to_char(sysdate, 'YYYYMMDD.HH24MISS'), 
+			'ing', 
+			:1, 
+			:2,
+			:3
+		)
+	</update>
+	
+	<update id="update">
+		update 
+			nticket
+		set
+			nticket_outdate = to_char(sysdate, 'YYYYMMDD.HH24MISS')
+		where
+			mem_carnum=:1
+	</update>
+</mapper>

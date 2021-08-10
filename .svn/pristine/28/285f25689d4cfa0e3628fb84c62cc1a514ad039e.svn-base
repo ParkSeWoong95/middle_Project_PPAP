@@ -1,0 +1,85 @@
+{% extends 'layout_admin.html' %}
+<meta charset="UTF-8">
+
+{% block content %}
+
+<style type="text/css">
+	@charset "utf-8";
+	/* Vertical Bar Graph */
+	.vGraph{ padding:20px 0; align:center;}
+	.vGraph ul{ margin:0; padding:0; height:200px; border:1px solid #ddd; border-top:0; border-right:0; font-size:11px; font-family:Tahoma, Geneva, sans-serif; list-style:none;}
+	.vGraph ul:after{ content:""; display:block; clear:both;}
+	.vGraph li{ float:left; display:inline; width:8%; height:100%; margin:0 3%; position:relative; text-align:center; white-space:nowrap;}
+	.vGraph .gTerm{ position:relative; display:inline-block; width:100%; height:20px; line-height:20px; margin:0 -100% -20px 0; padding:200px 0 0 0; vertical-align:bottom; color:#767676; font-weight:bold;}
+	.vGraph .gBar{ position:relative; display:inline-block; width:100%; margin:-1px 0 0 0; border:1px solid #ccc; border-bottom:0; background:#e9e9e9; vertical-align:bottom;}
+	.vGraph .gBar span{ position:absolute; width:100%; top:-20px; left:0; color:#767676;}
+</style>
+  
+<!-- Main -->
+<section id="main">
+	<div class="container">
+
+		<!-- Content -->
+			<article class="box post">
+				<a href="#" class="image featured">
+					<img src="" alt="" />
+				</a>
+				<header>
+					<h2>매출현황</h2>
+				</header>
+				<p>
+					<table>
+							<tr>
+								<td>총 회원 수</td>
+								<td>23</td>
+							</tr>
+							<tr>
+								<td>회원 총 사용시간</td>
+								<td>31284h</td>
+							</tr>
+							<tr>
+								<td>비회원 총 사용시간</td>
+								<td>4992h</td>
+							</tr>
+							<tr>
+								<td>총 매출</td>
+								<td>251,492,921</td>
+							</tr>
+						</table>
+						<table>
+							<h1>회원사용빈도</h1>
+								<div class="vGraph">
+								 <ul>
+								  <li><span class="gTerm">5일</span><span class="gBar" style="height:0%"><span></span>0명</span></li>
+								  <li><span class="gTerm">10일</span><span class="gBar" style="height:30%"><span></span>2명</span></li>
+								  <li><span class="gTerm">15일</span><span class="gBar" style="height:60%"><span></span>5명</span></li>
+								  <li><span class="gTerm">20일</span><span class="gBar" style="height:20%"><span></span>1명</span></li>
+								  <li><span class="gTerm">25</span><span class="gBar" style="height:50%"><span></span>4명</span></li>
+								  <li><span class="gTerm">30일</span><span class="gBar" style="height:90%"><span></span>6명</span></li>
+								 </ul>
+								</div>
+						</table>
+						<table>
+							<h1>비회원사용빈도</h1>
+								<div class="vGraph">
+								 <ul>
+								  <li><span class="gTerm">5일</span><span class="gBar" style="height:10%"><span></span>1명</span></li>
+								  <li><span class="gTerm">10일</span><span class="gBar" style="height:40%"><span></span>4명</span></li>
+								  <li><span class="gTerm">15일</span><span class="gBar" style="height:60%"><span></span>6명</span></li>
+								  <li><span class="gTerm">20일</span><span class="gBar" style="height:20%"><span></span>2명</span></li>
+								  <li><span class="gTerm">25</span><span class="gBar" style="height:80%"><span></span>8명</span></li>
+								  <li><span class="gTerm">30일</span><span class="gBar" style="height:50%"><span></span>5명</span></li>
+								 </ul>
+								</div>
+						</table>
+				</p>
+				</section>
+			</article>
+	</div>
+</section>
+
+<script type="text/javascript">
+
+</script>
+
+{% endblock %}

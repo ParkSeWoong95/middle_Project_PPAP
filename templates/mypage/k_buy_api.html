@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>결재페이지</title>
+	<link rel="stylesheet" href="css/k_pay.css" />
+	<style>
+	@font-face{
+		font-family: 'kakaofont';
+		src: url(webfonts/KakaoBold.ttf) format('truetype');
+	}
+	
+	</style>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			
+		});
+	
+		function k_buy(){
+		}
+		
+		function k_can(){
+			history.back();
+		}
+	
+	</script>
+</head>
+<body>
+<div id = box class="row mt-5">
+    <h1 id="cen" class="">결재확인</h1>
+    <div id="line"></div>
+    
+    <div>
+    	<br>
+    	
+	   	<h3>주차장 1달 이용권</h3>
+	   	<br>
+	   	<br>
+	   	<br>
+	   	<br>
+	   	<br>
+	   	<br>
+	   	<br>
+	   	<p>&nbsp;&nbsp;&nbsp;- 상품 금액 -</p>
+	   	<h2>10,000원</h2>
+	   	<br>
+	   	<div id=line2></div>
+	   	<p>&nbsp;&nbsp;&nbsp;- 총 결재 금액 -</p>
+	   	<h2>10,000원</h2>
+	   	<div id="line"></div>
+	   	<br>
+   	</div>
+   	
+    <form method="post" class="col-12 text-center">
+    	<div id="btn_cs">
+       		<input type="button" class="kbtn" id="pay" value="결제하기" onclick="k_buy()">
+       		<input type="button" class="kbtn" id="pay" value="취소" onclick="k_can()">
+        </div>
+    </form>
+</div>
+</body>
+</html>

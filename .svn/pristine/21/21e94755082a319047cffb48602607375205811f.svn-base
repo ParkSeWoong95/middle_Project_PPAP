@@ -1,0 +1,117 @@
+{% extends 'layout_notice.html' %}
+<meta charset="UTF-8">
+{% block content %}
+<html>
+<style type="text/css">
+
+.notice_table{
+	margin-top : 0px;
+	border-bottom : 1px solid;
+}
+
+.notice_th{
+	border-bottom : 1px solid;
+	text-align: center;
+	font-weight: bold;
+}
+
+.notice_td{
+	border-bottom : 1px solid;
+	text-align: center;
+}
+
+.notice_th:nth-child(1) {
+	width : 15%;
+}
+
+.notice_th:nth-child(2) {
+	width : 40%;
+}
+
+.notice_th:nth-child(3) {
+	width : 15%;
+}
+
+.notice_th:nth-child(4) {
+	width : 12%;
+}
+
+.notice_th:nth-child(5) {
+	width : 12%;
+}
+
+.detail_link, .detail_link:link, .detail_link:visited {
+	color: black;
+	text-decoration: none;
+}
+
+input[type="button"] {
+	background: black; 
+	font-size : 14px;
+}
+
+.button_box {
+	position: absolute;
+	left: 76%;
+	transform: translateX(-50%);
+}
+
+
+</style>
+<!-- Main -->
+<section id="main">
+	<div class="container">
+
+		<!-- Content -->
+		<article class="box post">
+			<header>
+				<br><br>
+				<h2 style='text-align:center; font-size:50px;'><a class="detail_link" href="b_free">자유게시판</a></h2>
+				<br>
+				<div>
+					<div class="button_box">
+						<input type="button" onclick="fn_free_add()" value="글쓰기">
+					</div>
+				</div>
+			</header>
+			<br>
+			<section>
+			<table class="notice_table">
+			<input type="text" id="search" value =  "{{search}}" onKeypress="javascript:if(event.keyCode==13) {fn_search()}"/>
+			&nbsp;&nbsp;&nbsp; <input type="button" onclick="fn_search()" value = "찾기">
+				<tr>
+					<td class="notice_th">No.</td>
+					<td class="notice_th">제목</td>
+					<td class="notice_th">등록일</td>
+					<td class="notice_th">작성자</td>
+					<td class="notice_th">조회수</td>
+				</tr>
+			{% for b in list %}
+				<tr>
+					<td class="notice_th">{{b.bfree_seq}}</td>
+					<td class="notice_th"><a href="b_free_detail?bfree_seq={{b.bfree_seq}}">{{b.bfree_title}}</td>
+					<td class="notice_th">{{b.in_date}}</td>
+					<td class="notice_th">{{b.mem_carnum}}</td>
+					<td class="notice_th">{{b.bfree_hit}}</td>
+				</tr>
+			{% endfor %}
+			</table>
+			</section>
+		</article>
+	</div>
+</section>
+
+<script>
+function fn_free_add() {
+	location.href = "b_free_add"				
+}
+function fn_search(){
+	var search = $('#search').val();
+	
+	$('#search').focus()
+	location.href = 'b_free?search='+search;
+}
+</script>
+
+</html>
+{% endblock %}

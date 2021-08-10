@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Test">
+	<select id="select_list">
+		select 
+			bnotice_seq, 
+			bnotice_title, 
+			bnotice_content, 
+			bnotice_filename, 
+			bnotice_filepath, 
+			bnotice_hit, 
+			in_date, 
+			in_user_id, 
+			up_date, 
+			(select mem_name from members m where m.mem_carnum = n.in_user_id) in_user_name
+ 		from 
+ 			bnotice n
+ 		where 
+ 			'admin' =:1 or display_yn = 'y'
+ 		order by
+ 		 	bnotice_seq desc
+	</select>
+	
+	<select id="search_list">
+		select 
+			bnotice_seq, 
+			bnotice_title, 
+			bnotice_content, 
+			bnotice_filename, 
+			bnotice_filepath, 
+			bnotice_hit, 
+			in_date, 
+			in_user_id,
+			up_date, 
+			display_yn,
+			(select mem_name from members m where m.mem_carnum = n.in_user_id) in_user_name
+ 		from 
+ 			bnotice n
+		where
+			bnotice_title like '%'||:1||'%'
+			and display_yn = 'y'
+		order by bnotice_seq desc
+	</select>	
+	
+	<update id="insert">
+		insert into bnotice 
+		(
+			bnotice_seq, 
+			bnotice_title, 
+			bnotice_content, 
+			bnotice_filename, 
+			bnotice_filepath, 
+			bnotice_hit, 
+			in_date, 
+			in_user_id, 
+			up_date,
+			display_yn 
+		) 
+		values
+		(	
+			(select nvl(max(to_number(bnotice_seq))+1,1) from bnotice),
+			:1, 
+			:2, 
+			:3, 
+			:4, 
+			'0',
+			to_char(sysdate, 'yyyy-mm-dd hh24:mi'), 
+			:5, 
+			to_char(sysdate, 'YYYYMMDD.HH24MISS'), 
+			:6
+		)
+	</update>
+	
+	<update id="update">
+		update 
+			bnotice 
+		set 
+			display_yn				=:1,
+			bnotice_title			=:2, 
+			bnotice_content			=:3, 
+			bnotice_filepath		=:4,
+			bnotice_filename		=:5, 
+			up_date					= to_char(sysdate, 'YYYYMMDD.HH24MISS')
+		where 
+			bnotice_seq				=:6
+	</update>
+	
+	<update id="del_img">
+		update 
+			bnotice 
+		set 
+			attach_path			= '', 
+			attach_file			= '',
+			up_date				= to_char(sysdate, 'YYYYMMDD.HH24MISS'), 
+			up_user_id			=:1
+		where 
+			b_seq=:2
+	</update>
+	
+	<update id="hit_add">
+		update 
+			bnotice 
+		set 
+			bnotice_hit			=bnotice_hit+1
+		where 
+			bnotice_seq=:1
+	</update>
+	
+	<update id="delete">
+		delete from bnotice 
+		where 
+			bnotice_seq= :1
+	</update>
+</mapper>

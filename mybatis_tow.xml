@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Test">
+	<select id="select_list">
+		select 
+			a.tow_seq,
+			a.mem_carnum, 
+			b.mem_name, 
+			a.tow_date,
+			a.tow_reason,
+			b.mem_tel, 
+			b.sign_date, 
+			b.mem_black_yn
+		from 
+			tow a, members b
+		where
+			a.mem_carnum = b.mem_carnum
+		and
+            replace(a.tow_date, '-', '') like '%'||:1||'%'
+		order by 4
+	</select>
+	
+	
+	<select id="select">
+		select 
+			tow_seq, 
+			mem_carnum,
+			tow_date, 
+			tow_reason 
+		from 
+			tow
+		where
+			mem_carnum =:1
+		
+	</select>
+	
+	<update id="insert">
+		insert into 
+		tow
+		(
+			tow_seq, 
+			tow_date, 
+			tow_reason, 
+			mem_carnum 
+		) 
+		values
+		(
+			(select nvl(max(to_number(ticket_seq))+1,1) from ticket), 
+			to_char(sysdate, 'YYYY-MM-DD), 
+			:1, 
+			:2
+		)
+	</update>
+</mapper>

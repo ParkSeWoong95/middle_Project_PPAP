@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>주차시스템의 미래, PPAP</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="css/main.css" />
+<link rel="stylesheet" href="css/jquery-ui.css" />
+<script src="js/jquery-3.5.1.js"></script>
+<script src="js/jquery-ui.js"></script>
+
+<link rel="stylesheet" href="bootstrap/4.6.0/css/bootstrap.min.css">
+<script src="jquery/jquery-3.6.0.min.js"></script>
+<script src="popper.js/2.9.2/umd/popper.min.js"></script>
+<script src="bootstrap/4.6.0/js/bootstrap.min.js"></script>
+
+<script>
+function fn_logout(){
+	var flag_ok = confirm("로그아웃 하시겠습니까?");
+	if(flag_ok){
+		location.href = "logout"
+	}
+}
+</script>
+
+</head>
+
+<body class="no-sidebar is-preload">
+<div id="page-wrapper">
+
+	<!--로그인회원만-->
+		<nav id="nav">
+		<ul>
+			<li class="opener current" style="user-select: none; cursor: pointer; white-space: nowrap; opacity: 1;">
+				<a href="u_mypage">MyPage</a>
+				<ul>
+					<li><a href="u_mypage">내 정보 확인</a></li>
+					<li><a href="u_info_mod">내 정보 변경</a></li>
+					<li><a href="u_history">내 이용 내역</a></li>
+				</ul>
+			</li>
+			{% if session.mem_carnum %}
+			<li><a href="javascript:fn_logout()">로그아웃</a></li>
+			{% else %}
+			<li><a href="login">로그인</a></li>
+			{% endif %}
+		</ul>
+		</nav>
+
+	<!-- Header -->
+		<section id="header">
+
+			<!-- Logo -->
+				<h1><a href="main">P P A P</a></h1>
+
+			<!-- Nav -->
+				<nav id="nav">
+					<ul>
+						<li><a href="main">HOME</a></li>
+						
+						<li class="opener" style="user-select: none; cursor: pointer; white-space: nowrap; opacity: 1;">
+							<a href="intro">소개</a>
+							<ul>
+								<li><a href="intro">회사소개</a></li>
+								<li><a href="intro_road">오시는길</a></li>
+							</ul>
+						</li>
+						
+						<li class="opener" style="user-select: none; cursor: pointer; white-space: nowrap; opacity: 1;">
+						<a href="b_notice">게시판</a>
+							<ul>
+								<li><a href="b_notice">공지사항</a></li>
+								<li><a href="b_free">자유게시판</a></li>
+								<li><a href="b_sug">건의사항</a></li>
+								<li><a href="b_tow">견인내역 조회</a></li>
+							</ul>
+						</li>
+						
+						<!-- 정기권 추가해야함.  -->
+						<li class="opener" style="user-select: none; cursor: pointer; white-space: nowrap; opacity: 1;">
+							<a href="ticket">정기권</a>
+							<ul>
+								<li><a href="ticket">정기권 관리</a></li>
+								<li><a href="ticket_buy">정기권 구매</a></li>
+							</ul>
+						</li>
+						
+						<li class="opener" style="user-select: none; cursor: pointer; white-space: nowrap; opacity: 1;">
+							<a href="u_book">예약하기</a>
+							<ul>
+								<li><a href="u_book">회원예약</a></li>
+								<li><a href="nu_book">비회원예약</a></li>
+							</ul>
+						</li>
+						
+						<li class="opener" style="user-select: none; cursor: pointer; white-space: nowrap; opacity: 1;">
+							<a href="u_book_cel">예약취소</a>
+							<ul>
+								<li><a href="u_book_cel">회원예약취소</a></li>
+								<li><a href="nu_book_cel">비회원예약취소</a></li>
+							</ul>
+						</li>
+						
+						
+						<!--관리자 메뉴-->
+						{% if session.mem_carnum == 'admin' %}
+						<li class="opener" style="user-select: none; cursor: pointer; white-space: nowrap; opacity: 1;">
+							<a href="ad_user_mgr">관리자메뉴</a>
+							<ul>
+								<li><a href="ad_user_mgr">회원관리</a>
+								</li>
+								<li><a href="ad_price_mod">금액변경</a></li>
+								<li><a href="ad_book_now">예약관리</a></li>
+								<li><a href="ad_sales">매출관리</a></li>
+								<li><a href="ad_tow_mgr">견인차량관리</a></li>
+							</ul>
+						</li>
+						{% endif %}
+						
+					</ul>
+				</nav>
+
+		</section>
+		
+		{% block content %}{% endblock %}
+		
+		<br/>
+		<br/>
+		<!-- Footer -->
+		<section id="footer" style="padding: 0px;">
+			<div class="container">
+				<div class="row">
+					<div class="col-12" style="padding: 0px;">
+
+						<!-- Copyright -->
+							<div id="copyright">
+								<ul class="links">
+									<li>&copy; all right reserved by aimaker.kr</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+								</ul>
+							</div>
+
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- ---------------------------- -->
+</div>
+<!-- Scripts -->
+	<script src="js/jquery.min.js"></script>
+	<script src="js/jquery.dropotron.min.js"></script>
+	<script src="js/browser.min.js"></script>
+	<script src="js/breakpoints.min.js"></script>
+	<script src="js/util.js"></script>
+	<script src="js/main.js"></script>
+	<script src="js/jquery-3.5.1.js"></script>
+</body>
+</html>

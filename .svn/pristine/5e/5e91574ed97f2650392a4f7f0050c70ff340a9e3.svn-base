@@ -1,0 +1,225 @@
+{% extends 'layout_notice.html' %}
+<meta charset="UTF-8">
+{% block content %}
+<html>
+<style type="text/css">
+		
+.notice_table{
+	margin-top : 0px;
+	border-bottom : 1px solid;
+}
+
+.notice_th{
+	border-bottom : 1px solid;
+	text-align: center;
+	font-weight: bold;
+	font-size: 28px;
+}
+
+.notice_td{
+	border-bottom : 1px solid;
+	text-align: center;
+}
+
+pre {
+	text-align: center;
+}
+
+input[type="button"] {
+	background: black; 
+	font-size : 14px;
+}
+
+.button_box {
+	position: absolute;
+	left: 76%;
+	transform: translateX(-50%);
+}
+
+.button_box_right {
+	position: absolute;
+	left: 76%;
+	transform: translateX(-70%);
+}
+
+.comment {
+	border : 0px;
+	text-align: left;
+}
+
+.comment_td {
+	text-align: left;
+	border : 0px;
+}
+
+textarea {
+	font-size : 12px;
+	resize : none;
+	width : 98%;
+	height : 100px;
+}
+
+.notice_td:nth-child(1) {
+	width : 25%;
+}
+
+.notice_td:nth-child(2) {
+	width : 25%;
+}
+
+.notice_td:nth-child(3) {
+	width : 25%;
+}
+
+.notice_td:nth-child(4) {
+	width : 25%;
+}
+
+.detail_link, .detail_link:link, .detail_link:visited {
+	color: black;
+	text-decoration: none;
+}
+input[type="button"]{
+	margin: 5px;
+	float : right;
+}
+
+</style>
+
+<!-- Main -->
+<section id="main">
+	<div class="container">
+
+		<!-- Content -->
+		<article class="box post">
+			<header>
+				<br><br>
+				<h2 style='text-align:center; font-size:50px;'><a class="detail_link" href="b_notice">공지사항</a></h2>
+				<br>
+			</header>
+			<br>
+			<section>
+			<table class="notice_table">
+				<tr>
+					<td class="notice_td">
+						<input type="button" onclick="fn_notice_list()" value="목록" style="float: left;">
+					</td>
+					<td class="notice_td" colspan="3">
+					</td>
+				</tr>
+				<tr>
+					<td>{{obj.BNOTICE_TITLE}}</td>
+					<td class="notice_th" colspan="4"></td>
+				</tr>
+				<tr>
+					<td colspan="4" rowspan="10">
+						ㅎㅇ
+					</td>
+				</tr>
+			</table>
+							
+			<table class="notice_table">
+				<tr>
+					<td colspan="2">
+						<div style="width:100%;height:100px;">
+							<div style="width:95%;height:100%;float:left;"><textarea></textarea></div>
+							<div style="width:5%; height: 100px; vertical-align: bottom; display: table-cell"> 
+								<div>
+									<input type="button" onclick="" value="등록">
+									<input type="button" onclick="fn_notice_mod()" value="수정">
+									<input type="button" onclick="" value="삭제">
+								</div>
+							</div>
+						</div>
+					</td>
+				</tr>
+				<!-- 댓글 한세트 시작-->
+				<tr>
+					<td class="comment_td">user1</td>
+					<td class="comment_td" style="text-align: right;">2020.01.01 01:01:01</td>
+				</tr>
+				<tr>
+					<td class="comment_td" colspan="2" style="border-bottom: 1px solid"><pre class="comment">안녕하세요</pre></td>
+				</tr>
+				<!-- 댓글 한세트 끝-->
+				<tr>
+					<td class="comment_td">user1</td>
+					<td class="comment_td" style="text-align: right;">2020.01.01 01:01:01</td>
+				</tr>
+				<tr>
+					<td class="comment_td" colspan="2" style="border-bottom: 1px solid"><pre class="comment">안녕하세요</pre></td>
+				</tr>
+				
+				<tr>
+					<td class="comment_td">user1</td>
+					<td class="comment_td" style="text-align: right;">2020.01.01 01:01:01</td>
+				</tr>
+				<tr>
+					<td class="comment_td" colspan="2" style="border-bottom: 1px solid"><pre class="comment">안녕하세요</pre></td>
+				</tr>
+				
+				<tr>
+					<td class="comment_td">user1</td>
+					<td class="comment_td" style="text-align: right;">2020.01.01 01:01:01</td>
+				</tr>
+				<tr>
+					<td class="comment_td" colspan="2" style="border-bottom: 1px solid"><pre class="comment">안녕하세요</pre></td>
+				</tr>
+				
+				<tr>
+					<td class="comment_td">user1</td>
+					<td class="comment_td" style="text-align: right;">2020.01.01 01:01:01</td>
+				</tr>
+				<tr>
+					<td class="comment_td" colspan="2" style="border-bottom: 1px solid"><pre class="comment">안녕하세요</pre></td>
+				</tr>
+				
+				<tr>
+					<td class="comment_td">user1</td>
+					<td class="comment_td" style="text-align: right;">2020.01.01 01:01:01</td>
+				</tr>
+				<tr>
+					<td class="comment_td" colspan="2" style="border-bottom: 1px solid"><pre class="comment">안녕하세요</pre></td>
+				</tr>
+				
+				<tr>
+					<td class="comment_td">user1</td>
+					<td class="comment_td" style="text-align: right;">2020.01.01 01:01:01</td>
+				</tr>
+				<tr>
+					<td class="comment_td" colspan="2" style="border-bottom: 1px solid"><pre class="comment">안녕하세요</pre></td>
+				</tr>
+				
+				<tr>
+					<td class="comment_td">user1</td>
+					<td class="comment_td" style="text-align: right;">2020.01.01 01:01:01</td>
+				</tr>
+				<tr>
+					<td class="comment_td" colspan="2" style="border-bottom: 1px solid"><pre class="comment">안녕하세요</pre></td>
+				</tr>
+				
+				
+			</table>
+			</section>
+		</article>
+	</div>
+</section>
+
+<script>
+			
+function fn_notice_list() {
+	location.href = "b_notice"				
+}
+
+function fn_notice_add() {
+	location.href = "b_notice_add"				
+}
+
+function fn_notice_mod() {
+	location.href = "b_notice_mod"				
+}
+
+</script>
+
+</html>
+{% endblock %}

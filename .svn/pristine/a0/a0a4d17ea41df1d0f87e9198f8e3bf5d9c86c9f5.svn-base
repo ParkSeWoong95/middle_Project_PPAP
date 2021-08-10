@@ -1,0 +1,884 @@
+2021-04-13 20:51:35,799 - MyLog - DEBUG - 
+select prod_code,
+       prod_dcode,
+       prod_name,
+       prod_price
+from prod
+order by prod_price ASC
+2021-04-13 20:55:51,683 - MyLog - DEBUG - 
+select prod_code,
+       prod_dcode,
+       prod_name,
+       prod_price
+from prod
+order by prod_price ASC
+2021-04-13 20:56:07,736 - MyLog - DEBUG - 
+select prod_code,
+       prod_dcode,
+       prod_name,
+       prod_price
+from prod
+order by prod_price ASC
+2021-04-13 21:05:53,284 - MyLog - DEBUG - 
+select prod_code,
+       prod_dcode,
+       prod_name,
+       prod_price
+from prod
+order by prod_price ASC
+2021-04-13 21:06:05,660 - MyLog - DEBUG - 
+insert into prod (PROD_CODE, PROD_DCODE, PROD_NAME, PROD_PRICE)
+values (:1, :2, :3, :4)
+2021-04-13 21:06:40,788 - MyLog - DEBUG - 
+select prod_code,
+       prod_dcode,
+       prod_name,
+       prod_price
+from prod
+order by prod_price ASC
+2021-04-13 21:06:49,400 - MyLog - DEBUG - 
+delete
+from prod
+where prod_code =:1
+2021-04-13 21:06:49,619 - MyLog - DEBUG - 
+select prod_code,
+       prod_dcode,
+       prod_name,
+       prod_price
+from prod
+order by prod_price ASC
+2021-04-13 21:06:52,111 - MyLog - DEBUG - 
+delete
+from prod
+where prod_code =:1
+2021-04-13 21:06:52,339 - MyLog - DEBUG - 
+select prod_code,
+       prod_dcode,
+       prod_name,
+       prod_price
+from prod
+order by prod_price ASC
+2021-04-13 21:08:29,142 - MyLog - DEBUG - 
+select prod_code,
+       prod_dcode,
+       prod_name,
+       prod_price
+from prod
+order by prod_price ASC
+2021-04-13 21:12:01,732 - MyLog - DEBUG - 
+select prod_code,
+       prod_dcode,
+       prod_name,
+       prod_price
+from prod
+order by prod_price ASC
+2021-04-13 21:12:10,352 - MyLog - DEBUG - 
+insert into prod (PROD_CODE, PROD_DCODE, PROD_NAME, PROD_PRICE)
+values (:1, :2, :3, :4)
+2021-04-13 21:12:44,901 - MyLog - DEBUG - 
+insert into prod (PROD_CODE, PROD_DCODE, PROD_NAME, PROD_PRICE)
+values (:1, :2, :3, :4)
+2021-04-13 21:12:48,247 - MyLog - DEBUG - 
+select prod_code,
+       prod_dcode,
+       prod_name,
+       prod_price
+from prod
+order by prod_price ASC
+2021-04-13 21:13:09,864 - MyLog - DEBUG - 
+delete
+from prod
+where prod_code =:1
+2021-04-13 21:13:10,080 - MyLog - DEBUG - 
+select prod_code,
+       prod_dcode,
+       prod_name,
+       prod_price
+from prod
+order by prod_price ASC
+2021-04-13 21:14:51,765 - MyLog - DEBUG - 
+select prod_code,
+       prod_dcode,
+       prod_name,
+       prod_price
+from prod
+order by prod_price ASC
+2021-04-13 21:15:51,663 - MyLog - DEBUG - 
+select prod_code,
+       prod_dcode,
+       prod_name,
+       prod_price
+from prod
+order by prod_price ASC
+2021-04-13 21:16:00,243 - MyLog - DEBUG - 
+insert into prod (PROD_CODE, PROD_DCODE, PROD_NAME, PROD_PRICE)
+values (:1, :2, :3, :4)
+2021-04-13 21:16:49,053 - MyLog - DEBUG - 
+select prod_code,
+       prod_dcode,
+       prod_name,
+       prod_price
+from prod
+order by prod_price ASC
+2021-04-13 21:16:58,423 - MyLog - DEBUG - 
+insert into prod (PROD_CODE, PROD_DCODE, PROD_NAME, PROD_PRICE)
+values (:1, :2, :3, :4)
+2021-04-13 21:17:06,215 - MyLog - DEBUG - 
+delete
+from prod
+where prod_code =:1
+2021-04-13 21:17:06,788 - MyLog - DEBUG - 
+select prod_code,
+       prod_dcode,
+       prod_name,
+       prod_price
+from prod
+order by prod_price ASC
+2021-04-13 21:17:13,803 - MyLog - DEBUG - 
+insert into prod (PROD_CODE, PROD_DCODE, PROD_NAME, PROD_PRICE)
+values (:1, :2, :3, :4)
+2021-04-13 21:18:27,206 - MyLog - DEBUG - 
+select prod_code,
+       prod_dcode,
+       prod_name,
+       prod_price
+from prod
+order by prod_price ASC
+2021-04-13 21:18:30,972 - MyLog - DEBUG - 
+delete
+from prod
+where prod_code =:1
+2021-04-13 21:18:31,247 - MyLog - DEBUG - 
+select prod_code,
+       prod_dcode,
+       prod_name,
+       prod_price
+from prod
+order by prod_price ASC
+2021-04-13 21:18:37,669 - MyLog - DEBUG - 
+insert into prod (PROD_CODE, PROD_DCODE, PROD_NAME, PROD_PRICE)
+values (:1, :2, :3, :4)
+2021-04-13 21:24:08,169 - MyLog - DEBUG - 
+insert into prod (PROD_CODE, PROD_DCODE, PROD_NAME, PROD_PRICE)
+values (:1, :2, :3, :4)
+2021-04-13 21:24:12,226 - MyLog - DEBUG - 
+select prod_code,
+       prod_dcode,
+       prod_name,
+       prod_price
+from prod
+order by prod_price ASC
+2021-04-13 21:24:35,319 - MyLog - DEBUG - 
+update prod
+set prod_price =:1
+where prod_code =:2
+2021-04-13 21:24:35,472 - MyLog - DEBUG - 
+select prod_code,
+       prod_dcode,
+       prod_name,
+       prod_price
+from prod
+order by prod_price ASC
+2021-04-13 21:24:39,991 - MyLog - DEBUG - 
+update prod
+set prod_price =:1
+where prod_code =:2
+2021-04-13 21:24:40,156 - MyLog - DEBUG - 
+select prod_code,
+       prod_dcode,
+       prod_name,
+       prod_price
+from prod
+order by prod_price ASC
+2021-04-13 21:26:46,670 - MyLog - DEBUG - 
+select prod_code,
+       prod_dcode,
+       prod_name,
+       prod_price
+from prod
+order by prod_price ASC
+2021-04-13 21:26:48,391 - MyLog - DEBUG - 
+delete
+from prod
+where prod_code =:1
+2021-04-13 21:26:48,713 - MyLog - DEBUG - 
+select prod_code,
+       prod_dcode,
+       prod_name,
+       prod_price
+from prod
+order by prod_price ASC
+2021-04-13 21:26:57,936 - MyLog - DEBUG - 
+insert into prod (PROD_CODE, PROD_DCODE, PROD_NAME, PROD_PRICE)
+values (:1, :2, :3, :4)
+2021-04-13 21:27:10,174 - MyLog - DEBUG - 
+select prod_code,
+       prod_dcode,
+       prod_name,
+       prod_price
+from prod
+order by prod_price ASC
+2021-04-13 21:28:10,197 - MyLog - DEBUG - 
+select prod_code,
+       prod_dcode,
+       prod_name,
+       prod_price
+from prod
+order by prod_price ASC
+2021-04-13 21:28:11,460 - MyLog - DEBUG - 
+delete
+from prod
+where prod_code =:1
+2021-04-13 21:28:11,680 - MyLog - DEBUG - 
+select prod_code,
+       prod_dcode,
+       prod_name,
+       prod_price
+from prod
+order by prod_price ASC
+2021-04-13 21:28:12,851 - MyLog - DEBUG - 
+select prod_code,
+       prod_dcode,
+       prod_name,
+       prod_price
+from prod
+order by prod_price ASC
+2021-04-13 21:28:20,442 - MyLog - DEBUG - 
+insert into prod (PROD_CODE, PROD_DCODE, PROD_NAME, PROD_PRICE)
+values (:1, :2, :3, :4)
+2021-04-13 21:28:46,889 - MyLog - DEBUG - 
+select prod_code,
+       prod_dcode,
+       prod_name,
+       prod_price
+from prod
+order by prod_price ASC
+2021-04-13 21:28:48,765 - MyLog - DEBUG - 
+delete
+from prod
+where prod_code =:1
+2021-04-13 21:28:48,956 - MyLog - DEBUG - 
+select prod_code,
+       prod_dcode,
+       prod_name,
+       prod_price
+from prod
+order by prod_price ASC
+2021-04-13 21:29:05,486 - MyLog - DEBUG - 
+insert into prod (PROD_CODE, PROD_DCODE, PROD_NAME, PROD_PRICE)
+values (:1, :2, :3, :4)
+2021-04-13 21:29:18,896 - MyLog - DEBUG - 
+insert into prod (PROD_CODE, PROD_DCODE, PROD_NAME, PROD_PRICE)
+values (:1, :2, :3, :4)
+2021-04-13 21:29:25,699 - MyLog - DEBUG - 
+select prod_code,
+       prod_dcode,
+       prod_name,
+       prod_price
+from prod
+order by prod_price ASC
+2021-04-13 21:29:34,036 - MyLog - DEBUG - 
+select prod_code,
+       prod_dcode,
+       prod_name,
+       prod_price
+from prod
+order by prod_price ASC
+2021-04-13 21:29:36,172 - MyLog - DEBUG - 
+delete
+from prod
+where prod_code =:1
+2021-04-13 21:29:36,335 - MyLog - DEBUG - 
+select prod_code,
+       prod_dcode,
+       prod_name,
+       prod_price
+from prod
+order by prod_price ASC
+2021-04-13 21:29:43,205 - MyLog - DEBUG - 
+insert into prod (PROD_CODE, PROD_DCODE, PROD_NAME, PROD_PRICE)
+values (:1, :2, :3, :4)
+2021-04-13 21:30:09,768 - MyLog - DEBUG - 
+select prod_code,
+       prod_dcode,
+       prod_name,
+       prod_price
+from prod
+order by prod_price ASC
+2021-04-13 21:30:10,110 - MyLog - DEBUG - 
+select prod_code,
+       prod_dcode,
+       prod_name,
+       prod_price
+from prod
+order by prod_price ASC
+2021-04-13 21:30:12,368 - MyLog - DEBUG - 
+delete
+from prod
+where prod_code =:1
+2021-04-13 21:30:12,760 - MyLog - DEBUG - 
+select prod_code,
+       prod_dcode,
+       prod_name,
+       prod_price
+from prod
+order by prod_price ASC
+2021-04-13 21:32:03,297 - MyLog - DEBUG - 
+select prod_code,
+       prod_dcode,
+       prod_name,
+       prod_price
+from prod
+order by prod_price ASC
+2021-04-13 21:32:04,185 - MyLog - DEBUG - 
+select prod_code,
+       prod_dcode,
+       prod_name,
+       prod_price
+from prod
+order by prod_price ASC
+2021-04-13 21:32:32,022 - MyLog - DEBUG - 
+select prod_code,
+       prod_dcode,
+       prod_name,
+       prod_price
+from prod
+order by prod_price ASC
+2021-04-13 21:32:42,784 - MyLog - DEBUG - 
+insert into prod (PROD_CODE, PROD_DCODE, PROD_NAME, PROD_PRICE)
+values (:1, :2, :3, :4)
+2021-04-13 21:32:45,838 - MyLog - DEBUG - 
+select prod_code,
+       prod_dcode,
+       prod_name,
+       prod_price
+from prod
+order by prod_price ASC
+2021-04-13 21:32:47,868 - MyLog - DEBUG - 
+delete
+from prod
+where prod_code =:1
+2021-04-13 21:32:48,041 - MyLog - DEBUG - 
+select prod_code,
+       prod_dcode,
+       prod_name,
+       prod_price
+from prod
+order by prod_price ASC
+2021-04-13 21:33:00,134 - MyLog - DEBUG - 
+select prod_code,
+       prod_dcode,
+       prod_name,
+       prod_price
+from prod
+order by prod_price ASC
+2021-04-13 21:33:00,976 - MyLog - DEBUG - 
+select prod_code,
+       prod_dcode,
+       prod_name,
+       prod_price
+from prod
+order by prod_price ASC
+2021-04-13 21:33:01,030 - MyLog - DEBUG - 
+select prod_code,
+       prod_dcode,
+       prod_name,
+       prod_price
+from prod
+order by prod_price ASC
+2021-04-13 21:33:04,671 - MyLog - DEBUG - 
+select prod_code,
+       prod_dcode,
+       prod_name,
+       prod_price
+from prod
+order by prod_price ASC
+2021-04-13 21:33:04,769 - MyLog - DEBUG - 
+select prod_code,
+       prod_dcode,
+       prod_name,
+       prod_price
+from prod
+order by prod_price ASC
+2021-04-13 21:33:09,385 - MyLog - DEBUG - 
+insert into prod (PROD_CODE, PROD_DCODE, PROD_NAME, PROD_PRICE)
+values (:1, :2, :3, :4)
+2021-04-13 21:34:01,274 - MyLog - DEBUG - 
+select prod_code,
+       prod_dcode,
+       prod_name,
+       prod_price
+from prod
+order by prod_price ASC
+2021-04-13 21:34:03,156 - MyLog - DEBUG - 
+delete
+from prod
+where prod_code =:1
+2021-04-13 21:34:03,354 - MyLog - DEBUG - 
+select prod_code,
+       prod_dcode,
+       prod_name,
+       prod_price
+from prod
+order by prod_price ASC
+2021-04-13 21:34:12,499 - MyLog - DEBUG - 
+insert into prod (PROD_CODE, PROD_DCODE, PROD_NAME, PROD_PRICE)
+values (:1, :2, :3, :4)
+2021-04-14 09:19:12,985 - MyLog - DEBUG - 
+select mem_carnum,
+       mem_name,
+       mem_email,
+       mem_tel,
+       mem_pw,
+       mem_ticket_yn,
+       mem_exit_yn,
+       mem_tow_yn,
+       mem_black_yn,
+       sign_date,
+       signout_date,
+       mem_yn
+from members
+where mem_carnum=:1
+  and mem_pw=:2
+2021-04-14 09:19:15,281 - MyLog - DEBUG - 
+select admin_id,
+       admin_pw,
+       admin_name
+from admins
+where admin_id =:1
+  and admin_pw =:2
+2021-04-14 09:19:16,686 - MyLog - DEBUG - 
+select mem_carnum,
+       mem_name,
+       mem_email,
+       mem_tel,
+       mem_pw,
+       mem_ticket_yn,
+       mem_exit_yn,
+       mem_tow_yn,
+       mem_black_yn,
+       sign_date,
+       signout_date,
+       mem_yn
+from members
+order by sign_date
+2021-04-14 09:19:28,401 - MyLog - DEBUG - 
+select a.tow_seq,
+       a.mem_carnum,
+       b.mem_name,
+       a.tow_date,
+       a.tow_reason,
+       b.mem_tel,
+       b.sign_date,
+       b.mem_black_yn
+from tow a,
+     members b
+where a.mem_carnum = b.mem_carnum
+order by 4
+2021-04-14 09:19:34,996 - MyLog - DEBUG - 
+select a.book_seq,
+       a.book_buydate,
+       a.book_date,
+       a.book_cel_yn,
+       a.mem_carnum,
+       a.parkinfo_seq,
+       a.prod_code,
+       b.mem_name,
+       b.mem_tel,
+       case
+           when a.book_cel_yn in('y',
+                                 'Y') then 'cancel'
+           when TO_CHAR(SYSDATE, 'YYYYMMDD') < replace(a.book_date, '-', '') then 'book'
+           when TO_CHAR(SYSDATE, 'YYYYMMDD') = replace(a.book_date, '-', '') then 'use'
+           when TO_CHAR(SYSDATE, 'YYYYMMDD') > replace(a.book_date, '-', '') then 'finish'
+       end book_state
+from book a,
+     members b
+where a.mem_carnum = b.mem_carnum
+order by 1
+2021-04-14 09:27:09,766 - MyLog - DEBUG - 
+select mem_carnum,
+       mem_name,
+       mem_email,
+       mem_tel,
+       mem_pw,
+       mem_ticket_yn,
+       mem_exit_yn,
+       mem_tow_yn,
+       mem_black_yn,
+       sign_date,
+       signout_date,
+       mem_yn
+from members
+where mem_carnum=:1
+  and mem_pw=:2
+2021-04-14 09:27:12,049 - MyLog - DEBUG - 
+select admin_id,
+       admin_pw,
+       admin_name
+from admins
+where admin_id =:1
+  and admin_pw =:2
+2021-04-14 09:27:14,758 - MyLog - DEBUG - 
+select mem_carnum,
+       mem_name,
+       mem_email,
+       mem_tel,
+       mem_pw,
+       mem_ticket_yn,
+       mem_exit_yn,
+       mem_tow_yn,
+       mem_black_yn,
+       sign_date,
+       signout_date,
+       mem_yn
+from members
+order by sign_date
+2021-04-14 09:27:25,352 - MyLog - DEBUG - 
+select a.book_seq,
+       a.book_buydate,
+       a.book_date,
+       a.book_cel_yn,
+       a.mem_carnum,
+       a.parkinfo_seq,
+       a.prod_code,
+       b.mem_name,
+       b.mem_tel,
+       case
+           when a.book_cel_yn in('y',
+                                 'Y') then 'cancel'
+           when TO_CHAR(SYSDATE, 'YYYYMMDD') < replace(a.book_date, '-', '') then 'book'
+           when TO_CHAR(SYSDATE, 'YYYYMMDD') = replace(a.book_date, '-', '') then 'use'
+           when TO_CHAR(SYSDATE, 'YYYYMMDD') > replace(a.book_date, '-', '') then 'finish'
+       end book_state
+from book a,
+     members b
+where a.mem_carnum = b.mem_carnum
+order by 1
+2021-04-14 09:28:57,351 - MyLog - DEBUG - 
+select a.book_seq,
+       a.book_buydate,
+       a.book_date,
+       a.book_cel_yn,
+       a.mem_carnum,
+       a.parkinfo_seq,
+       a.prod_code,
+       b.mem_name,
+       b.mem_tel,
+       case
+           when a.book_cel_yn in('y',
+                                 'Y') then 'cancel'
+           when TO_CHAR(SYSDATE, 'YYYYMMDD') < replace(a.book_date, '-', '') then 'book'
+           when TO_CHAR(SYSDATE, 'YYYYMMDD') = replace(a.book_date, '-', '') then 'use'
+           when TO_CHAR(SYSDATE, 'YYYYMMDD') > replace(a.book_date, '-', '') then 'finish'
+       end book_state
+from book a,
+     members b
+where a.mem_carnum = b.mem_carnum
+order by 1
+2021-04-14 09:41:06,424 - MyLog - DEBUG - 
+select a.book_seq,
+       a.book_buydate,
+       a.book_date,
+       a.book_cel_yn,
+       a.mem_carnum,
+       a.parkinfo_seq,
+       a.prod_code,
+       b.mem_name,
+       b.mem_tel,
+       case
+           when a.book_cel_yn in('y',
+                                 'Y') then 'cancel'
+           when TO_CHAR(SYSDATE, 'YYYYMMDD') < replace(a.book_date, '-', '') then 'book'
+           when TO_CHAR(SYSDATE, 'YYYYMMDD') = replace(a.book_date, '-', '') then 'use'
+           when TO_CHAR(SYSDATE, 'YYYYMMDD') > replace(a.book_date, '-', '') then 'finish'
+       end book_state
+from book a,
+     members b
+where a.mem_carnum = b.mem_carnum
+order by 1
+2021-04-14 09:41:07,372 - MyLog - DEBUG - 
+select a.book_seq,
+       a.book_buydate,
+       a.book_date,
+       a.book_cel_yn,
+       a.mem_carnum,
+       a.parkinfo_seq,
+       a.prod_code,
+       b.mem_name,
+       b.mem_tel,
+       case
+           when a.book_cel_yn in('y',
+                                 'Y') then 'cancel'
+           when TO_CHAR(SYSDATE, 'YYYYMMDD') < replace(a.book_date, '-', '') then 'book'
+           when TO_CHAR(SYSDATE, 'YYYYMMDD') = replace(a.book_date, '-', '') then 'use'
+           when TO_CHAR(SYSDATE, 'YYYYMMDD') > replace(a.book_date, '-', '') then 'finish'
+       end book_state
+from book a,
+     members b
+where a.mem_carnum = b.mem_carnum
+order by 1
+2021-04-14 09:41:25,572 - MyLog - DEBUG - 
+select a.book_seq,
+       a.book_buydate,
+       a.book_date,
+       a.book_cel_yn,
+       a.mem_carnum,
+       a.parkinfo_seq,
+       a.prod_code,
+       b.mem_name,
+       b.mem_tel,
+       case
+           when a.book_cel_yn in('y',
+                                 'Y') then 'cancel'
+           when TO_CHAR(SYSDATE, 'YYYYMMDD') < replace(a.book_date, '-', '') then 'book'
+           when TO_CHAR(SYSDATE, 'YYYYMMDD') = replace(a.book_date, '-', '') then 'use'
+           when TO_CHAR(SYSDATE, 'YYYYMMDD') > replace(a.book_date, '-', '') then 'finish'
+       end book_state
+from book a,
+     members b
+where a.mem_carnum = b.mem_carnum
+order by 1
+2021-04-14 09:41:37,401 - MyLog - DEBUG - 
+update book
+set book_date = :1
+where mem_carnum= :2
+2021-04-14 09:41:41,004 - MyLog - DEBUG - 
+select a.book_seq,
+       a.book_buydate,
+       a.book_date,
+       a.book_cel_yn,
+       a.mem_carnum,
+       a.parkinfo_seq,
+       a.prod_code,
+       b.mem_name,
+       b.mem_tel,
+       case
+           when a.book_cel_yn in('y',
+                                 'Y') then 'cancel'
+           when TO_CHAR(SYSDATE, 'YYYYMMDD') < replace(a.book_date, '-', '') then 'book'
+           when TO_CHAR(SYSDATE, 'YYYYMMDD') = replace(a.book_date, '-', '') then 'use'
+           when TO_CHAR(SYSDATE, 'YYYYMMDD') > replace(a.book_date, '-', '') then 'finish'
+       end book_state
+from book a,
+     members b
+where a.mem_carnum = b.mem_carnum
+order by 1
+2021-04-14 09:53:01,701 - MyLog - DEBUG - 
+select mem_carnum,
+       mem_name,
+       mem_email,
+       mem_tel,
+       mem_pw,
+       mem_ticket_yn,
+       mem_exit_yn,
+       mem_tow_yn,
+       mem_black_yn,
+       sign_date,
+       signout_date,
+       mem_yn
+from members
+where mem_carnum=:1
+  and mem_pw=:2
+2021-04-14 09:53:02,333 - MyLog - DEBUG - 
+select admin_id,
+       admin_pw,
+       admin_name
+from admins
+where admin_id =:1
+  and admin_pw =:2
+2021-04-14 09:53:03,214 - MyLog - DEBUG - 
+select mem_carnum,
+       mem_name,
+       mem_email,
+       mem_tel,
+       mem_pw,
+       mem_ticket_yn,
+       mem_exit_yn,
+       mem_tow_yn,
+       mem_black_yn,
+       sign_date,
+       signout_date,
+       mem_yn
+from members
+order by sign_date
+2021-04-14 09:53:07,421 - MyLog - DEBUG - 
+select a.book_seq,
+       a.book_buydate,
+       a.book_date,
+       a.book_cel_yn,
+       a.mem_carnum,
+       a.parkinfo_seq,
+       a.prod_code,
+       b.mem_name,
+       b.mem_tel,
+       case
+           when a.book_cel_yn in('y',
+                                 'Y') then 'cancel'
+           when TO_CHAR(SYSDATE, 'YYYYMMDD') < replace(a.book_date, '-', '') then 'book'
+           when TO_CHAR(SYSDATE, 'YYYYMMDD') = replace(a.book_date, '-', '') then 'use'
+           when TO_CHAR(SYSDATE, 'YYYYMMDD') > replace(a.book_date, '-', '') then 'finish'
+       end book_state
+from book a,
+     members b
+where a.mem_carnum = b.mem_carnum
+order by 1
+2021-04-14 09:59:44,223 - MyLog - DEBUG - 
+select a.book_seq,
+       a.book_buydate,
+       a.book_date,
+       a.book_cel_yn,
+       a.mem_carnum,
+       a.parkinfo_seq,
+       a.prod_code,
+       b.mem_name,
+       b.mem_tel,
+       case
+           when a.book_cel_yn in('y',
+                                 'Y') then 'cancel'
+           when TO_CHAR(SYSDATE, 'YYYYMMDD') < replace(a.book_date, '-', '') then 'book'
+           when TO_CHAR(SYSDATE, 'YYYYMMDD') = replace(a.book_date, '-', '') then 'use'
+           when TO_CHAR(SYSDATE, 'YYYYMMDD') > replace(a.book_date, '-', '') then 'finish'
+       end book_state
+from book a,
+     members b
+where a.mem_carnum = b.mem_carnum
+order by 1
+2021-04-14 10:01:08,022 - MyLog - DEBUG - 
+select a.book_seq,
+       a.book_buydate,
+       a.book_date,
+       a.book_cel_yn,
+       a.mem_carnum,
+       a.parkinfo_seq,
+       a.prod_code,
+       b.mem_name,
+       b.mem_tel,
+       case
+           when a.book_cel_yn in('y',
+                                 'Y') then 'cancel'
+           when TO_CHAR(SYSDATE, 'YYYYMMDD') < replace(a.book_date, '-', '') then 'book'
+           when TO_CHAR(SYSDATE, 'YYYYMMDD') = replace(a.book_date, '-', '') then 'use'
+           when TO_CHAR(SYSDATE, 'YYYYMMDD') > replace(a.book_date, '-', '') then 'finish'
+       end book_state
+from book a,
+     members b
+where a.mem_carnum = b.mem_carnum
+order by 1
+2021-04-14 10:01:13,381 - MyLog - DEBUG - 
+update book
+set book_cel_yn = 'y'
+where mem_carnum= :1
+2021-04-14 10:01:16,562 - MyLog - DEBUG - 
+select a.book_seq,
+       a.book_buydate,
+       a.book_date,
+       a.book_cel_yn,
+       a.mem_carnum,
+       a.parkinfo_seq,
+       a.prod_code,
+       b.mem_name,
+       b.mem_tel,
+       case
+           when a.book_cel_yn in('y',
+                                 'Y') then 'cancel'
+           when TO_CHAR(SYSDATE, 'YYYYMMDD') < replace(a.book_date, '-', '') then 'book'
+           when TO_CHAR(SYSDATE, 'YYYYMMDD') = replace(a.book_date, '-', '') then 'use'
+           when TO_CHAR(SYSDATE, 'YYYYMMDD') > replace(a.book_date, '-', '') then 'finish'
+       end book_state
+from book a,
+     members b
+where a.mem_carnum = b.mem_carnum
+order by 1
+2021-04-14 10:02:12,640 - MyLog - DEBUG - 
+select a.book_seq,
+       a.book_buydate,
+       a.book_date,
+       a.book_cel_yn,
+       a.mem_carnum,
+       a.parkinfo_seq,
+       a.prod_code,
+       b.mem_name,
+       b.mem_tel,
+       case
+           when a.book_cel_yn in('y',
+                                 'Y') then 'cancel'
+           when TO_CHAR(SYSDATE, 'YYYYMMDD') < replace(a.book_date, '-', '') then 'book'
+           when TO_CHAR(SYSDATE, 'YYYYMMDD') = replace(a.book_date, '-', '') then 'use'
+           when TO_CHAR(SYSDATE, 'YYYYMMDD') > replace(a.book_date, '-', '') then 'finish'
+       end book_state
+from book a,
+     members b
+where a.mem_carnum = b.mem_carnum
+order by 1
+2021-04-14 10:02:28,323 - MyLog - DEBUG - 
+update book
+set book_date = :1
+where mem_carnum= :2
+2021-04-14 10:02:34,450 - MyLog - DEBUG - 
+select a.book_seq,
+       a.book_buydate,
+       a.book_date,
+       a.book_cel_yn,
+       a.mem_carnum,
+       a.parkinfo_seq,
+       a.prod_code,
+       b.mem_name,
+       b.mem_tel,
+       case
+           when a.book_cel_yn in('y',
+                                 'Y') then 'cancel'
+           when TO_CHAR(SYSDATE, 'YYYYMMDD') < replace(a.book_date, '-', '') then 'book'
+           when TO_CHAR(SYSDATE, 'YYYYMMDD') = replace(a.book_date, '-', '') then 'use'
+           when TO_CHAR(SYSDATE, 'YYYYMMDD') > replace(a.book_date, '-', '') then 'finish'
+       end book_state
+from book a,
+     members b
+where a.mem_carnum = b.mem_carnum
+order by 1
+2021-04-14 10:02:44,515 - MyLog - DEBUG - 
+update book
+set book_cel_yn = 'y'
+where mem_carnum= :1
+2021-04-14 10:02:47,389 - MyLog - DEBUG - 
+select a.book_seq,
+       a.book_buydate,
+       a.book_date,
+       a.book_cel_yn,
+       a.mem_carnum,
+       a.parkinfo_seq,
+       a.prod_code,
+       b.mem_name,
+       b.mem_tel,
+       case
+           when a.book_cel_yn in('y',
+                                 'Y') then 'cancel'
+           when TO_CHAR(SYSDATE, 'YYYYMMDD') < replace(a.book_date, '-', '') then 'book'
+           when TO_CHAR(SYSDATE, 'YYYYMMDD') = replace(a.book_date, '-', '') then 'use'
+           when TO_CHAR(SYSDATE, 'YYYYMMDD') > replace(a.book_date, '-', '') then 'finish'
+       end book_state
+from book a,
+     members b
+where a.mem_carnum = b.mem_carnum
+order by 1
+2021-04-14 10:24:54,521 - MyLog - DEBUG - 
+select a.book_seq,
+       a.book_buydate,
+       a.book_date,
+       a.book_cel_yn,
+       a.mem_carnum,
+       a.parkinfo_seq,
+       a.prod_code,
+       b.mem_name,
+       b.mem_tel,
+       case
+           when a.book_cel_yn in('y',
+                                 'Y') then 'cancel'
+           when TO_CHAR(SYSDATE, 'YYYYMMDD') < replace(a.book_date, '-', '') then 'book'
+           when TO_CHAR(SYSDATE, 'YYYYMMDD') = replace(a.book_date, '-', '') then 'use'
+           when TO_CHAR(SYSDATE, 'YYYYMMDD') > replace(a.book_date, '-', '') then 'finish'
+       end book_state
+from book a,
+     members b
+where a.mem_carnum = b.mem_carnum
+order by 1
